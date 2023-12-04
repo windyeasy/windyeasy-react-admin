@@ -14,6 +14,7 @@ import MenuItemLabel from '@/components/layout-menu/menu-item-label'
 
 type MenuItem = Required<MenuProps>['items'][number]
 
+// 生成ant菜单项
 export function getItem(
   label: React.ReactNode,
   key: React.Key,
@@ -28,6 +29,7 @@ export function getItem(
   } as MenuItem
 }
 
+// 获取菜单图标
 function getMenuIcon(iconname?: string | null) {
   switch (iconname) {
     case 'el-icon-monitor':
@@ -43,6 +45,7 @@ function getMenuIcon(iconname?: string | null) {
   }
 }
 
+// 处理菜单列表
 export function handleMenuList(menuList: MenuItemRes[]) {
   const menuItems: MenuProps['items'] = []
   for (const item of menuList) {

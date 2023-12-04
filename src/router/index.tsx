@@ -5,7 +5,6 @@ import type { RouteObject } from 'react-router-dom'
 const Login = lazy(() => import('@/pages/login'))
 const Main = lazy(() => import('@/pages/main'))
 const NotFound = lazy(() => import('@/pages/not-found'))
-const User = lazy(() => import('@/pages/main/system/user'))
 const routes: RouteObject[] = [
   {
     path: '/',
@@ -15,10 +14,6 @@ const routes: RouteObject[] = [
     path: '/main',
     element: <Main />,
     children: [
-      {
-        path: '/main/system/user',
-        element: <User />
-      },
       {
         path: '/main/*',
         element: <NotFound />
