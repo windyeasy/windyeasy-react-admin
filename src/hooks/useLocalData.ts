@@ -1,5 +1,9 @@
-import { ACOUNT_TOKEN, USER_INFO } from '@/pages/login/service/constants'
-import { changeIsLoginAction, changeUserInfoAction } from '@/pages/login/store'
+import { ACOUNT_TOKEN, MENU_LIST, USER_INFO } from '@/pages/login/service/constants'
+import {
+  changeIsLoginAction,
+  changeMenuListAction,
+  changeUserInfoAction
+} from '@/pages/login/store'
 import { COLLAPSED } from '@/pages/main/service/constants'
 import { changeIsCollapsedAction } from '@/pages/main/store'
 import { localCache } from '@/utils/cache'
@@ -15,8 +19,10 @@ export const useLoadLocalData = () => {
     const userInfo = localCache.getCache(USER_INFO)
     const token = localCache.getCache(ACOUNT_TOKEN)
     const isCollapsed = localCache.getCache(COLLAPSED)
-    if (token && userInfo) {
+    const menuList = localCache.getCache(MENU_LIST)
+    if (token && userInfo && menuList) {
       dispatch(changeUserInfoAction(userInfo))
+      dispatch(changeMenuListAction(menuList))
       dispatch(changeIsLoginAction(true))
     }
     // 刷新时保存状态
