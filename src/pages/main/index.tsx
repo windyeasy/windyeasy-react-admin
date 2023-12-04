@@ -9,6 +9,7 @@ import { useAppSelector } from '@/store'
 import { shallowEqual } from 'react-redux'
 import LayoutMenu from '@/components/layout-menu'
 import mapIcons from '@/global/icons'
+import { Outlet } from 'react-router-dom'
 interface IProps {
   children?: ReactNode
 }
@@ -31,7 +32,9 @@ const Main: FC<IProps> = () => {
           <Header>
             <LayoutHeaderCrumb />
           </Header>
-          <Content>{mapIcons['AppstoreOutlined']}</Content>
+          <Content>
+            <Outlet />
+          </Content>
         </Layout>
       </Layout>
     </MainWrapper>

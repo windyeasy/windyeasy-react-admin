@@ -13,7 +13,8 @@ const routes: RouteObject[] = [
   },
   {
     path: '/main',
-    element: <Main />
+    element: <Main />,
+    children: []
   },
   {
     path: '/login',
