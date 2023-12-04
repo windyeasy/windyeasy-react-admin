@@ -1,6 +1,8 @@
+import React from 'react'
 import { MenuItemRes } from '@/pages/login/service/type'
 import { checkArrayNotEmpty } from './checkValue'
 import type { MenuProps } from 'antd'
+import MenuItemLabel from '@/components/layout-menu/menu-item-label'
 
 type MenuItem = Required<MenuProps>['items'][number]
 
@@ -31,10 +33,14 @@ export function handleMenuList(menuList: MenuItemRes[]) {
       if (checkArrayNotEmpty(childrenArray)) {
         menuItems.push(getItem(item.name, String(item.id), '', childrenArray))
       } else {
-        menuItems.push(getItem(item.name, String(item.id), ''))
+        menuItems.push(
+          getItem(<MenuItemLabel url={item.url} title={item.name} />, String(item.id), '')
+        )
       }
     } else {
-      menuItems.push(getItem(item.name, String(item.id), ''))
+      menuItems.push(
+        getItem(<MenuItemLabel url={item.url} title={item.name} />, String(item.id), '')
+      )
     }
   }
   return menuItems

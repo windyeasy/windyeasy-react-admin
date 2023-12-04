@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 interface IProps {
   children?: ReactNode
   url?: string | null
+  title: string
 }
 
 const MenuItemLabel: FC<IProps> = (props) => {
@@ -13,7 +14,7 @@ const MenuItemLabel: FC<IProps> = (props) => {
   url = url ?? ''
   return (
     <ItemLabelWrapper>
-      <Link to={url}>{props.children}</Link>
+      <Link to={url}>{props.title}</Link>
     </ItemLabelWrapper>
   )
 }

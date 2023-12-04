@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { Suspense, memo } from 'react'
 import type { FC, ReactNode } from 'react'
 import { MainWrapper } from './style'
 import { Layout } from 'antd'
@@ -8,7 +8,6 @@ import LayoutHeaderCrumb from '@/components/layout-header-crumb'
 import { useAppSelector } from '@/store'
 import { shallowEqual } from 'react-redux'
 import LayoutMenu from '@/components/layout-menu'
-import mapIcons from '@/global/icons'
 import { Outlet } from 'react-router-dom'
 interface IProps {
   children?: ReactNode
@@ -21,7 +20,6 @@ const Main: FC<IProps> = () => {
     }),
     shallowEqual
   )
-  console.log(mapIcons)
   return (
     <MainWrapper>
       <Layout>
@@ -33,7 +31,9 @@ const Main: FC<IProps> = () => {
             <LayoutHeaderCrumb />
           </Header>
           <Content>
-            <Outlet />
+            <Suspense fallback="">
+              <Outlet />
+            </Suspense>
           </Content>
         </Layout>
       </Layout>
