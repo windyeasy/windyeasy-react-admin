@@ -11,6 +11,7 @@ export interface MenuItemRes {
   permission?: string
   sort: null | number
   type: number
+  icon?: string | null
   url: string | null
   children: MenuItemRes[] | null
 }

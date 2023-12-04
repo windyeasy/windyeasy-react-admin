@@ -2,19 +2,19 @@ import React from 'react'
 import type { ReactNode } from 'react'
 import {
   AppstoreOutlined,
-  CalendarOutlined,
-  LineChartOutlined,
-  LinkedinFilled
+  DesktopOutlined,
+  MessageOutlined,
+  SettingOutlined
 } from '@ant-design/icons'
 
 interface MapIconsType {
   [index: string]: ReactNode
 }
 const mapIcons: MapIconsType = {
-  AppstoreOutlined: <AppstoreOutlined />,
-  CalendarOutlined: <CalendarOutlined />,
-  LineChartOutlined: <LineChartOutlined />,
-  LinkedinFilled: <LinkedinFilled />
+  SettingOutlined: <SettingOutlined />,
+  DesktopOutlined: <DesktopOutlined />,
+  MessageOutlined: <MessageOutlined />,
+  AppstoreOutlined: <AppstoreOutlined />
 }
 
 export default mapIcons
