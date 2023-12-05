@@ -71,3 +71,122 @@ export function genRoutes(menuList: MenuItemRes[], path: string) {
   }
   return newRoutes
 }
+
+/**
+ * 匹配菜单激活信息
+ */
+/***
+ * 用一个数组记录寻找的当前层，当最底层时清空数组
+ */
+export function matchActiveMenuInfo(menuList: MenuItemRes[], path: string) {
+  /*
+   * 1. 通过路由地址得到，复亲id，及当前id
+   *
+   * */
+  // let matchArray: any[] = []
+  const openKeys: string[] = []
+  const selectedKeys: string[] = []
+  function _matchMenuInfo(menuList: MenuItemRes[], path: string) {
+    for (const menu of menuList) {
+      if (menu.url === path) {
+        selectedKeys.push(String(menu.id))
+        if (menu.parentId) {
+          openKeys.push(String(menu.parentId))
+        }
+        // console.log(matchArray)
+        return selectedKeys
+      }
+      if (checkArrayNotEmpty(menu.children) && menu.children) {
+        _matchMenuInfo(menu.children, path)
+      }
+    }
+  }
+  _matchMenuInfo(menuList, path)
+  return {
+    openKeys,
+    selectedKeys
+  }
+}
+
+// const munuList = [
+//   {
+//     parentId: null,
+//     url: '123',
+//     id: 1,
+//     children: [
+//       {
+//         parentId: 1,
+//         url: '123/123',
+//         id: 11,
+//         children: [
+//           {
+//             parentId: 11,
+//             url: '123/123/123',
+//             id: 111
+//           },
+//           {
+//             parentId: 11,
+//             url: '123/123/124',
+//             id: 112
+//           }
+//         ]
+//       }
+//     ]
+//   },
+//   {
+//     parentId: null,
+//     url: '124',
+//     id: 2,
+//     children: [
+//       {
+//         parentId: 2,
+//         url: '124/123',
+//         id: 21,
+//         children: [
+//           {
+//             parentId: 21,
+//             url: '124/123/123',
+//             id: 211
+//           },
+//           {
+//             parentId: 21,
+//             url: '124/123/124',
+//             id: 212
+//           }
+//         ]
+//       }
+//     ]
+//   },
+//   {
+//     parentId: null,
+//     url: '125',
+//     id: 3,
+//     children: [
+//       {
+//         parentId: 3,
+//         url: '125/123',
+//         id: 31,
+//         children: [
+//           {
+//             parentId: 31,
+//             url: '125/123/123',
+//             id: 311
+//           },
+//           {
+//             parentId: 31,
+//             url: '125/123/124',
+//             id: 312
+//           }
+//         ]
+//       }
+//     ]
+//   }
+// ]
+/**
+ * 通过parentId匹配上层的父亲
+ */
+// export function matchMenuParentIdsById(menuList: MenuItemRes[], id: string) {
+//   /**
+//    * 倒过来匹配
+//    */
+// }
