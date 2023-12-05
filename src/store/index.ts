@@ -1,3 +1,4 @@
+import menuReducer from '@/components/layout-menu/store'
 import loginReducer from '@/pages/login/store'
 import mianReducer from '@/pages/main/store'
 import { configureStore } from '@reduxjs/toolkit'
@@ -7,7 +8,8 @@ import type { TypedUseSelectorHook } from 'react-redux'
 const store = configureStore({
   reducer: {
     login: loginReducer,
-    main: mianReducer
+    main: mianReducer,
+    menu: menuReducer
   }
 })
 

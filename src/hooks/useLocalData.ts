@@ -1,3 +1,5 @@
+import { CACHE_OPEN_KEYS, CACHE_SELECTED_KEYS } from '@/components/layout-menu/service/constants'
+import { changeOpenKeysAction, changeSelectedKeysAction } from '@/components/layout-menu/store'
 import { ACOUNT_TOKEN, MENU_LIST, USER_INFO } from '@/pages/login/service/constants'
 import {
   changeIsLoginAction,
@@ -25,9 +27,18 @@ export const useLoadLocalData = () => {
       dispatch(changeMenuListAction(menuList))
       dispatch(changeIsLoginAction(true))
     }
-    // 刷新时保存状态
+    // 刷新时保存菜单展开状态
     if (isCollapsed) {
       dispatch(changeIsCollapsedAction(true))
+    }
+    // 刷新时保存菜单展开和选中状态
+    const openKeys = localCache.getCache(CACHE_OPEN_KEYS)
+    const selectedKeys = localCache.getCache(CACHE_SELECTED_KEYS)
+    if (openKeys) {
+      dispatch(changeOpenKeysAction(openKeys))
+    }
+    if (selectedKeys) {
+      dispatch(changeSelectedKeysAction(selectedKeys))
     }
   }, [dispatch])
 }
