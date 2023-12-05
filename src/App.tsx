@@ -5,6 +5,7 @@ import { useAppSelector } from '@/store'
 import { shallowEqual } from 'react-redux'
 import { useLoadLocalData } from './hooks/useLocalData'
 import { useRoutingDynamic } from './hooks/useRoutingDynamic'
+import { firstMenu } from './utils/map-menu'
 
 function App() {
   const location = useLocation()
@@ -23,6 +24,10 @@ function App() {
     }
     if (path === '/login' && isLogin) {
       return <Navigate to="/main" />
+    }
+    if (path === '/main' && isLogin) {
+      const path = firstMenu ? firstMenu.url ?? '' : ''
+      return <Navigate to={path} />
     }
   }
   // 使用获取本地数据hook
