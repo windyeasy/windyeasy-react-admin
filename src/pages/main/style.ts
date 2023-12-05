@@ -18,4 +18,7 @@ export const MainWrapper = styled.div`
     /* background-color: #545c64; */
     background-color: #fff;
   }
+  .ant-layout-content {
+    padding: 15px;
+  }
 `

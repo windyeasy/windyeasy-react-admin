@@ -6,4 +6,7 @@ export const CrumbLeftWrapper = styled.div`
     font-size: 20px;
     cursor: pointer;
   }
+  .breadcrumbs {
+    margin-left: 15px;
+  }
 `

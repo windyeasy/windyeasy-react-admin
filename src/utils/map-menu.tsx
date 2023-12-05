@@ -3,6 +3,9 @@ import { MenuItemRes } from '@/pages/login/service/type'
 import { Navigate, type RouteObject } from 'react-router-dom'
 import { checkArrayNotEmpty } from './checkValue'
 import routes from '@/router'
+import { localCache } from './cache'
+import { FLAT_MENU_LIST } from '@/pages/login/service/constants'
+import { ItemType } from 'antd/es/breadcrumb/Breadcrumb'
 
 // 加载子路由
 export function loadChildrenRoutes() {
@@ -27,6 +30,10 @@ export function mapMenusToRoutes(menus: MenuItemRes[]) {
   return fetchMenusToRoutes(menus, localRoutes)
 }
 
+/**
+ * 记录当登录成功后，去到main页面，然后的重定向导航页面信息
+ */
+export let firstMenu: MenuItemRes | null = null
 // 得到菜单到路由数据
 function fetchMenusToRoutes(
   menus: MenuItemRes[],
@@ -37,11 +44,13 @@ function fetchMenusToRoutes(
     // 找到匹配的路由就加入，路由列表
     const route = localRoutes.find((item) => menu.url === item.path)
     if (route) {
+      if (!firstMenu) firstMenu = menu
       routes.push(route)
     }
     if (checkArrayNotEmpty(menu.children) && menu.children) {
       // 判断子路由的重定向路由是否已经添加，是否有需要添加从定向的地址
       if (!routes.find((item) => item.path === menu.url) && menu.url) {
+        //
         const url = menu.url ?? ''
         // 得到第一条路由作重定向路由
         const redirectRoute = localRoutes.find((item) => item.path?.startsWith(url))
@@ -75,15 +84,7 @@ export function genRoutes(menuList: MenuItemRes[], path: string) {
 /**
  * 匹配菜单激活信息
  */
-/***
- * 用一个数组记录寻找的当前层，当最底层时清空数组
- */
 export function matchActiveMenuInfo(menuList: MenuItemRes[], path: string) {
-  /*
-   * 1. 通过路由地址得到，复亲id，及当前id
-   *
-   * */
-  // let matchArray: any[] = []
   const openKeys: string[] = []
   const selectedKeys: string[] = []
   function _matchMenuInfo(menuList: MenuItemRes[], path: string) {
@@ -91,9 +92,11 @@ export function matchActiveMenuInfo(menuList: MenuItemRes[], path: string) {
       if (menu.url === path) {
         selectedKeys.push(String(menu.id))
         if (menu.parentId) {
-          openKeys.push(String(menu.parentId))
+          // 通过父id查询所有展开id
+          const keys = getParentsMenuByParentId(menu.parentId).map((item) => item.id + '')
+          openKeys.push(...keys)
         }
-        // console.log(matchArray)
+
         return selectedKeys
       }
       if (checkArrayNotEmpty(menu.children) && menu.children) {
@@ -108,85 +111,70 @@ export function matchActiveMenuInfo(menuList: MenuItemRes[], path: string) {
   }
 }
 
-// const munuList = [
-//   {
-//     parentId: null,
-//     url: '123',
-//     id: 1,
-//     children: [
-//       {
-//         parentId: 1,
-//         url: '123/123',
-//         id: 11,
-//         children: [
-//           {
-//             parentId: 11,
-//             url: '123/123/123',
-//             id: 111
-//           },
-//           {
-//             parentId: 11,
-//             url: '123/123/124',
-//             id: 112
-//           }
-//         ]
-//       }
-//     ]
-//   },
-//   {
-//     parentId: null,
-//     url: '124',
-//     id: 2,
-//     children: [
-//       {
-//         parentId: 2,
-//         url: '124/123',
-//         id: 21,
-//         children: [
-//           {
-//             parentId: 21,
-//             url: '124/123/123',
-//             id: 211
-//           },
-//           {
-//             parentId: 21,
-//             url: '124/123/124',
-//             id: 212
-//           }
-//         ]
-//       }
-//     ]
-//   },
-//   {
-//     parentId: null,
-//     url: '125',
-//     id: 3,
-//     children: [
-//       {
-//         parentId: 3,
-//         url: '125/123',
-//         id: 31,
-//         children: [
-//           {
-//             parentId: 31,
-//             url: '125/123/123',
-//             id: 311
-//           },
-//           {
-//             parentId: 31,
-//             url: '125/123/124',
-//             id: 312
-//           }
-//         ]
-//       }
-//     ]
-//   }
-// ]
-/**
- * 通过parentId匹配上层的父亲
+/*
+ *生成扁平化菜单, 使用扁平化菜单通过parentId查询所有的父级元素更容易
+ *没有全部映射，只映射一部分我需要的数据
  */
-// export function matchMenuParentIdsById(menuList: MenuItemRes[], id: string) {
-//   /**
-//    * 倒过来匹配
-//    */
-// }
+export function fetchFlatMenuList(menuList: MenuItemRes[]) {
+  const list: MenuItemRes[] = []
+  for (const menu of menuList) {
+    list.push({
+      id: menu.id,
+      name: menu.name,
+      parentId: menu.parentId,
+      icon: menu.icon,
+      url: menu.url
+    })
+    if (checkArrayNotEmpty(menu.children) && menu.children) {
+      fetchFlatMenuList(menu.children)
+    }
+  }
+  return list
+}
+
+/**
+ * 通过parentId获取，所有父级元素
+ */
+export function getParentsMenuByParentId(parentId: string | number) {
+  const parents: MenuItemRes[] = []
+  /**
+   * 扁平化处理后放在，localStore里面节省性能开销
+   */
+  const flatMenuList: MenuItemRes[] = localCache.getCache(FLAT_MENU_LIST)
+
+  for (const menu of flatMenuList) {
+    if (menu.id === parentId) {
+      parents.push(menu)
+      if (menu.parentId) {
+        parents.push(...getParentsMenuByParentId(menu.parentId))
+      }
+    }
+  }
+  return parents
+}
+
+// 通过路由获取面包屑
+export function fetchCrumbItemsByPath(menuList: MenuItemRes[], path: string) {
+  const items: ItemType[] = []
+  for (const menu of menuList) {
+    if (menu.url === path) {
+      // 添加前面的菜单
+      let parants: ItemType[] = []
+      if (menu.parentId) {
+        parants = getParentsMenuByParentId(menu.parentId).map((item) => ({
+          title: item.name,
+          href: '#' + item.url
+        })) as ItemType[]
+        items.push(...parants)
+      }
+      items.push({
+        title: menu.name,
+        href: '#' + menu.url
+      })
+      return items
+    } else if (checkArrayNotEmpty(menu.children) && menu.children) {
+      items.push(...fetchCrumbItemsByPath(menu.children, path))
+    }
+  }
+  return items
+}

@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { ACOUNT_TOKEN, MENU_LIST, USER_INFO } from '../service/constants'
+import { ACOUNT_TOKEN, FLAT_MENU_LIST, MENU_LIST, USER_INFO } from '../service/constants'
 import { getMenuByRoleID, getUserInfoByID } from '../service'
 import { localCache } from '@/utils/cache'
+import { fetchFlatMenuList } from '@/utils/map-menu'
 
 // 存储登录信息
 export const handleLoginAction = createAsyncThunk('handleLogin', (result: any, { dispatch }) => {
@@ -15,7 +16,11 @@ export const handleLoginAction = createAsyncThunk('handleLogin', (result: any, {
     // 据角色id获取菜单
     const roleId = res.data.role.id
     const result = await getMenuByRoleID(roleId)
+    // 存储菜单列表
     localCache.setCache(MENU_LIST, result.data)
+    // 存储扁平化菜单到，localStore里面，不用每一次重复处理节约性能
+    const flatMenuList = fetchFlatMenuList(result.data)
+    localCache.setCache(FLAT_MENU_LIST, flatMenuList)
     dispatch(changeMenuListAction(result.data))
     // 更改为登录状态
     dispatch(changeIsLoginAction(true))

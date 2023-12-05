@@ -9,9 +9,9 @@ export interface MenuItemRes {
   name: string
   parentId?: IdType | null
   permission?: string
-  sort: null | number
-  type: number
+  sort?: null | number
+  type?: number
   icon?: string | null
   url: string | null
-  children: MenuItemRes[] | null
+  children?: MenuItemRes[] | null
 }

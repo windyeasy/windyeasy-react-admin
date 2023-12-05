@@ -21,7 +21,6 @@ const LoginPanel: FC<IProps> = () => {
 
   const handleSubmit: OnSubmitType = (values) => {
     acountLogin(values).then((res) => {
-      console.log(res)
       if (res.code === 0) {
         // 存储token
         dispatch(handleLoginAction(res.data))

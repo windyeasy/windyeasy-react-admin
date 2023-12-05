@@ -7,6 +7,8 @@ import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
 import { changeIsCollapsedAction } from '@/pages/main/store'
 import { localCache } from '@/utils/cache'
 import { COLLAPSED } from '@/pages/main/service/constants'
+import { Breadcrumb } from 'antd'
+import { useCrumbItems } from '@/hooks/useCrumbItems'
 
 interface IProps {
   children?: ReactNode
@@ -24,15 +26,18 @@ const CrumbLeft: FC<IProps> = () => {
     const newIsCollapsed = !isCollapsed
     dispatch(changeIsCollapsedAction(newIsCollapsed))
     // 存储切换状态
-    console.log(newIsCollapsed)
+
     localCache.setCache(COLLAPSED, newIsCollapsed)
   }
+  const crumbItems = useCrumbItems()
   return (
     <CrumbLeftWrapper>
       <div className="collapsed" onClick={handleCollapsedClick}>
         {isCollapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
       </div>
-      <div className="breadcrumbs"></div>
+      <div className="breadcrumbs">
+        <Breadcrumb items={crumbItems} />
+      </div>
     </CrumbLeftWrapper>
   )
 }
