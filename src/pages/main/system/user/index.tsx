@@ -1,3 +1,4 @@
+import { Card } from 'antd'
 import React, { memo } from 'react'
 import type { FC, ReactNode } from 'react'
 
@@ -6,7 +7,15 @@ interface IProps {
 }
 
 const User: FC<IProps> = () => {
-  return <div>用户管理</div>
+  return (
+    <div>
+      <Card>
+        <p>Card content</p>
+        <p>Card content</p>
+        <p>Card content</p>
+      </Card>
+    </div>
+  )
 }
 
 export default memo(User)
