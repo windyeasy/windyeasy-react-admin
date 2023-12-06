@@ -1,6 +1,6 @@
-import { Card } from 'antd'
 import React, { memo } from 'react'
 import type { FC, ReactNode } from 'react'
+import UserSearch from './c-cpns/user-search'
 
 interface IProps {
   children?: ReactNode
@@ -8,13 +8,9 @@ interface IProps {
 
 const User: FC<IProps> = () => {
   return (
-    <div>
-      <Card>
-        <p>Card content</p>
-        <p>Card content</p>
-        <p>Card content</p>
-      </Card>
-    </div>
+    <>
+      <UserSearch />
+    </>
   )
 }
 

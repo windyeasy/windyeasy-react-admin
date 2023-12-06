@@ -37,7 +37,7 @@ const PanelAcount: FC<IProps> = (props) => {
           <Input prefix={<UserOutlined />} placeholder="请输入用户名" />
         </FormItem>
         <FormItem name="password" rules={[{ required: true, message: '请输入用户密码!' }]}>
-          <Input prefix={<LockOutlined />} type="password" placeholder="请输入密码" />
+          <Input.Password prefix={<LockOutlined />} type="password" placeholder="请输入密码" />
         </FormItem>
         <FormItem className="fogot-password">
           <a onClick={handleForgotPassword}>忘记密码</a>
