@@ -1,6 +1,7 @@
 import { useAppSelector } from '@/store'
 import { handleMenuList } from '@/utils/handle-menu-list'
 import { MenuProps } from 'antd'
+import { useEffect, useState } from 'react'
 import { shallowEqual } from 'react-redux'
 
 export function useMenuItems() {
@@ -10,10 +11,16 @@ export function useMenuItems() {
     }),
     shallowEqual
   )
-  let menuItems: MenuProps['items'] = []
-  // 处理菜单列表
-  if (menuList.length) {
-    menuItems = handleMenuList(menuList)
-  }
-  return menuItems
+  const [menuItems, setItems] = useState<MenuProps['items']>([])
+  const [rootMenuKeys, setRootMenuKeys] = useState<string[]>([])
+  useEffect(() => {
+    // 处理菜单列表
+    if (menuList.length) {
+      setItems(handleMenuList(menuList))
+      const rootKeys = menuList.map((item) => String(item.id))
+      setRootMenuKeys(rootKeys)
+    }
+  }, [menuList])
+
+  return { menuItems, rootMenuKeys }
 }

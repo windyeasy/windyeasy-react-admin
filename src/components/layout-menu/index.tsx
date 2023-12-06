@@ -1,20 +1,24 @@
 import React, { memo } from 'react'
 import type { FC, ReactNode } from 'react'
 import { MenuWrapper } from './style'
-import { Menu, MenuProps } from 'antd'
+import { Menu } from 'antd'
 import { useMenuItems } from '@/hooks/useMenuItems'
 import { useAppDispatch, useAppSelector } from '@/store'
 import { shallowEqual } from 'react-redux'
-import { changeOpenKeysAction, changeSelectedKeysAction } from './store'
+import { changeOpenKeysAction } from './store'
 import { useRouteChangeActiveMenu } from '@/hooks/useRouteChangeActiveMenu'
 
 interface IProps {
   children?: ReactNode
 }
 const LayoutMenu: FC<IProps> = () => {
-  const menuItems = useMenuItems()
+  const { menuItems, rootMenuKeys } = useMenuItems()
   const dispatch = useAppDispatch()
   useRouteChangeActiveMenu()
+  /**
+   * selectedKeys在切换路由时处理，
+   * 当点击最底层菜单会切换路由，就能得到selectedKeys
+   */
   const { openKeys, selectedKeys } = useAppSelector(
     (state) => ({
       openKeys: state.menu.openKeys,
@@ -23,24 +27,22 @@ const LayoutMenu: FC<IProps> = () => {
     shallowEqual
   )
   // 处理展开
-  function handleOpenChange(openKeys: string[]) {
-    const newOpenKeys = openKeys.slice(-1)
-
-    dispatch(changeOpenKeysAction(newOpenKeys))
+  function handleOpenChange(keys: string[]) {
+    const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1)
+    if (latestOpenKey && rootMenuKeys.indexOf(latestOpenKey!) === -1) {
+      dispatch(changeOpenKeysAction(keys))
+    } else {
+      const newKeys = latestOpenKey ? [latestOpenKey] : []
+      dispatch(changeOpenKeysAction(newKeys))
+    }
   }
-  // 处理选中
-  const handleMenuClick: MenuProps['onClick'] = (item) => {
-    const keys = [item.key]
 
-    dispatch(changeSelectedKeysAction(keys))
-  }
   return (
     <MenuWrapper>
       <Menu
         mode="inline"
         openKeys={openKeys}
         selectedKeys={selectedKeys}
-        onClick={handleMenuClick}
         onOpenChange={handleOpenChange}
         style={{ height: '100%' }}
         items={menuItems}
