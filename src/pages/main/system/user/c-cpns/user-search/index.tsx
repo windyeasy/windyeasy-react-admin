@@ -5,16 +5,22 @@ import { Button, Card, Col, Form, Input, Row, Select } from 'antd'
 
 import { DatePicker } from 'antd'
 import { UserSeachWrapper } from './style'
+import { useAppDispatch } from '@/store'
+import { fetchUserListAction } from '@/store/main/system'
+
 const { RangePicker } = DatePicker
 interface IProps {
   children?: ReactNode
-  queryClick: (queryInfo: any) => void
 }
 
-const UserSeach: FC<IProps> = ({ queryClick }) => {
+const UserSeach: FC<IProps> = () => {
   const [form] = Form.useForm()
+  const dispatch = useAppDispatch()
   const searchSubmit = (values: any) => {
-    queryClick(values)
+    values['createAt'] = values['creatAt']
+      ? values['creatAt'].map((item: any) => item!.toDate())
+      : ''
+    dispatch(fetchUserListAction(values))
   }
   const initialValues = {
     name: '',
@@ -25,7 +31,7 @@ const UserSeach: FC<IProps> = ({ queryClick }) => {
   // 重置
   const onReset = () => {
     form.resetFields()
-    queryClick(form.getFieldsValue())
+    searchSubmit(form.getFieldsValue())
   }
   return (
     <UserSeachWrapper>

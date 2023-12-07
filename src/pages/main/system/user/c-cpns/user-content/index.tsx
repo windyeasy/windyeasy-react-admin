@@ -4,13 +4,21 @@ import { UserContentWrapper } from './style'
 import Card from 'antd/es/card/Card'
 import { Button, Pagination, Row, Table } from 'antd'
 import { colums } from './config'
+import { useAppSelector } from '@/store'
+import { shallowEqual } from 'react-redux'
 
 interface IProps {
   children?: ReactNode
-  tableData?: any[]
 }
 
-const UserContent: FC<IProps> = ({ tableData = [] }) => {
+const UserContent: FC<IProps> = () => {
+  const { userList, pageTotal } = useAppSelector(
+    (state) => ({
+      userList: state.system.userList,
+      pageTotal: state.system.pageTotal
+    }),
+    shallowEqual
+  )
   return (
     <UserContentWrapper>
       <Card>
@@ -22,14 +30,14 @@ const UserContent: FC<IProps> = ({ tableData = [] }) => {
         </Row>
         <div className="content">
           <Table
-            dataSource={tableData}
+            dataSource={userList}
             columns={colums}
             rowKey={(record: any) => String(record.id)}
             pagination={false}
           />
         </div>
         <div className="pagination">
-          <Pagination size="small" total={50} showSizeChanger showQuickJumper />
+          <Pagination total={pageTotal} showSizeChanger showQuickJumper />
         </div>
       </Card>
     </UserContentWrapper>
