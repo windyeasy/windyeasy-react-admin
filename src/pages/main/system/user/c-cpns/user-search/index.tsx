@@ -8,21 +8,35 @@ import { UserSeachWrapper } from './style'
 const { RangePicker } = DatePicker
 interface IProps {
   children?: ReactNode
+  queryClick: (queryInfo: any) => void
 }
 
-const UserSeach: FC<IProps> = () => {
+const UserSeach: FC<IProps> = ({ queryClick }) => {
   const [form] = Form.useForm()
   const searchSubmit = (values: any) => {
-    console.log(values)
+    queryClick(values)
+  }
+  const initialValues = {
+    name: '',
+    realname: '',
+    cellphone: '',
+    createAt: ''
   }
   // 重置
   const onReset = () => {
     form.resetFields()
+    queryClick(form.getFieldsValue())
   }
   return (
     <UserSeachWrapper>
       <Card>
-        <Form form={form} onFinish={searchSubmit} labelCol={{ span: 8 }} wrapperCol={{ span: 14 }}>
+        <Form
+          form={form}
+          initialValues={initialValues}
+          onFinish={searchSubmit}
+          labelCol={{ span: 8 }}
+          wrapperCol={{ span: 14 }}
+        >
           <Row>
             <Col span={8}>
               <Form.Item label="用户名" name="name">

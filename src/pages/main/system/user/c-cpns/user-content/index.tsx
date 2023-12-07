@@ -1,24 +1,16 @@
-import React, { memo, useEffect, useState } from 'react'
+import React, { memo } from 'react'
 import type { FC, ReactNode } from 'react'
 import { UserContentWrapper } from './style'
 import Card from 'antd/es/card/Card'
 import { Button, Pagination, Row, Table } from 'antd'
-import { postUserList } from '@/services/main/system/system'
 import { colums } from './config'
 
 interface IProps {
   children?: ReactNode
+  tableData?: any[]
 }
 
-const UserContent: FC<IProps> = () => {
-  const [userList, setUserList] = useState<any[]>([])
-  useEffect(() => {
-    postUserList().then((res) => {
-      if (res.data.list) {
-        setUserList(res.data.list)
-      }
-    })
-  }, [])
+const UserContent: FC<IProps> = ({ tableData = [] }) => {
   return (
     <UserContentWrapper>
       <Card>
@@ -30,7 +22,7 @@ const UserContent: FC<IProps> = () => {
         </Row>
         <div className="content">
           <Table
-            dataSource={userList}
+            dataSource={tableData}
             columns={colums}
             rowKey={(record: any) => String(record.id)}
             pagination={false}
