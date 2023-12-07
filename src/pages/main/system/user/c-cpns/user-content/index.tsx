@@ -7,7 +7,12 @@ import type { PaginationProps } from 'antd'
 import { colums } from './config'
 import { useAppDispatch, useAppSelector } from '@/store'
 import { shallowEqual } from 'react-redux'
-import { changeCurrentPageAction, changePageSizeAction, fetchUserListAction } from '../../store'
+import {
+  changeCurrentPageAction,
+  changeIsModalOpenAction,
+  changePageSizeAction,
+  fetchUserListAction
+} from '../../store'
 
 interface IProps {
   children?: ReactNode
@@ -29,13 +34,18 @@ const UserContent: FC<IProps> = () => {
     dispatch(changeCurrentPageAction(page))
     dispatch(fetchUserListAction())
   }
+  const newUserClick = () => {
+    dispatch(changeIsModalOpenAction(true))
+  }
   return (
     <UserContentWrapper>
       <Card>
         <Row justify="space-between" className="header">
           <h3 className="title">用户列表</h3>
           <div className="header-btns">
-            <Button type="primary">新建用户</Button>
+            <Button type="primary" onClick={newUserClick}>
+              新建用户
+            </Button>
           </div>
         </Row>
         <div className="content">

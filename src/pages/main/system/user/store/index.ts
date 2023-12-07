@@ -9,13 +9,15 @@ interface IUserState {
   currentPage: number
   pageSize: number
   searInfo: any
+  isModalOpen: boolean
 }
 const initialState: IUserState = {
   userList: [],
   pageTotal: 0,
   currentPage: 1,
   pageSize: PAGE_SIZE,
-  searInfo: {}
+  searInfo: {},
+  isModalOpen: false
 }
 
 // 默认查询用户列表
@@ -54,6 +56,9 @@ const userSlice = createSlice({
     },
     changeSearInfoAction(state, { payload }) {
       state.searInfo = payload
+    },
+    changeIsModalOpenAction(state, { payload }) {
+      state.isModalOpen = payload
     }
   }
 })
@@ -64,6 +69,7 @@ export const {
   changePageTotalAction,
   changePageSizeAction,
   changeCurrentPageAction,
-  changeSearInfoAction
+  changeSearInfoAction,
+  changeIsModalOpenAction
 } = userSlice.actions
 export default userReducer
