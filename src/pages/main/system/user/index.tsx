@@ -14,7 +14,7 @@ const User: FC<IProps> = () => {
   //副作用代码
   useEffect(() => {
     // 获取用户列表塑胶
-    dispatch(fetchUserListAction({}))
+    dispatch(fetchUserListAction())
   }, [])
   return (
     <>

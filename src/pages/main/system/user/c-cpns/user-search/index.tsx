@@ -6,7 +6,7 @@ import { Button, Card, Col, Form, Input, Row, Select } from 'antd'
 import { DatePicker } from 'antd'
 import { UserSeachWrapper } from './style'
 import { useAppDispatch } from '@/store'
-import { fetchUserListAction } from '@/store/main/system'
+import { changeSearInfoAction, fetchUserListAction } from '@/store/main/system'
 
 const { RangePicker } = DatePicker
 interface IProps {
@@ -20,7 +20,8 @@ const UserSeach: FC<IProps> = () => {
     values['createAt'] = values['creatAt']
       ? values['creatAt'].map((item: any) => item!.toDate())
       : ''
-    dispatch(fetchUserListAction(values))
+    dispatch(changeSearInfoAction(values))
+    dispatch(fetchUserListAction())
   }
   const initialValues = {
     name: '',

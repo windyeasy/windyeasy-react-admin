@@ -3,9 +3,15 @@ import type { FC, ReactNode } from 'react'
 import { UserContentWrapper } from './style'
 import Card from 'antd/es/card/Card'
 import { Button, Pagination, Row, Table } from 'antd'
+import type { PaginationProps } from 'antd'
 import { colums } from './config'
-import { useAppSelector } from '@/store'
+import { useAppDispatch, useAppSelector } from '@/store'
 import { shallowEqual } from 'react-redux'
+import {
+  changeCurrentPageAction,
+  changePageSizeAction,
+  fetchUserListAction
+} from '@/store/main/system'
 
 interface IProps {
   children?: ReactNode
@@ -19,6 +25,14 @@ const UserContent: FC<IProps> = () => {
     }),
     shallowEqual
   )
+  const dispatch = useAppDispatch()
+
+  // 处理
+  const handlePaginationChange: PaginationProps['onChange'] = (page, pageSize) => {
+    dispatch(changePageSizeAction(pageSize))
+    dispatch(changeCurrentPageAction(page))
+    dispatch(fetchUserListAction())
+  }
   return (
     <UserContentWrapper>
       <Card>
@@ -37,7 +51,12 @@ const UserContent: FC<IProps> = () => {
           />
         </div>
         <div className="pagination">
-          <Pagination total={pageTotal} showSizeChanger showQuickJumper />
+          <Pagination
+            total={pageTotal}
+            showSizeChanger
+            showQuickJumper
+            onChange={handlePaginationChange}
+          />
         </div>
       </Card>
     </UserContentWrapper>

@@ -8,23 +8,25 @@ interface ISystemState {
   pageTotal: number
   currentPage: number
   pageSize: number
+  searInfo: any
 }
 const initialState: ISystemState = {
   userList: [],
   pageTotal: 0,
   currentPage: 1,
-  pageSize: PAGE_SIZE
+  pageSize: PAGE_SIZE,
+  searInfo: {}
 }
 
 // 默认查询用户列表
-export const fetchUserListAction = createAsyncThunk<void, any, AsyncThunkState>(
+export const fetchUserListAction = createAsyncThunk<void, void, AsyncThunkState>(
   'fetchUserList',
-  (queryInfo, { getState, dispatch }) => {
+  (_, { getState, dispatch }) => {
     // 获取分页查询信息
     const system = getState().system
     const offset = (system.currentPage - 1) * system.pageSize
     const info = { offset, size: system.pageSize }
-    queryInfo = { ...info, ...queryInfo }
+    const queryInfo = { ...info, ...system.searInfo }
     postUserList(queryInfo).then((res) => {
       if (res.data && res.data.list) {
         dispatch(changeUserListAction(res.data.list))
@@ -43,10 +45,25 @@ const systemSlice = createSlice({
     },
     changePageTotalAction(state, { payload }) {
       state.pageTotal = payload
+    },
+    changePageSizeAction(state, { payload }) {
+      state.pageSize = payload
+    },
+    changeCurrentPageAction(state, { payload }) {
+      state.currentPage = payload
+    },
+    changeSearInfoAction(state, { payload }) {
+      state.searInfo = payload
     }
   }
 })
 
 const systemReducer = systemSlice.reducer
-export const { changeUserListAction, changePageTotalAction } = systemSlice.actions
+export const {
+  changeUserListAction,
+  changePageTotalAction,
+  changePageSizeAction,
+  changeCurrentPageAction,
+  changeSearInfoAction
+} = systemSlice.actions
 export default systemReducer
