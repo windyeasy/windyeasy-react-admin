@@ -20,5 +20,7 @@ export const MainWrapper = styled.div`
   }
   .ant-layout-content {
     padding: 15px;
+    height: 100vh;
+    overflow-y: auto;
   }
 `
