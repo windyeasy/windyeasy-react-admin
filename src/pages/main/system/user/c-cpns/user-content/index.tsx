@@ -7,11 +7,7 @@ import type { PaginationProps } from 'antd'
 import { colums } from './config'
 import { useAppDispatch, useAppSelector } from '@/store'
 import { shallowEqual } from 'react-redux'
-import {
-  changeCurrentPageAction,
-  changePageSizeAction,
-  fetchUserListAction
-} from '@/store/main/system'
+import { changeCurrentPageAction, changePageSizeAction, fetchUserListAction } from '../../store'
 
 interface IProps {
   children?: ReactNode
@@ -20,8 +16,8 @@ interface IProps {
 const UserContent: FC<IProps> = () => {
   const { userList, pageTotal } = useAppSelector(
     (state) => ({
-      userList: state.system.userList,
-      pageTotal: state.system.pageTotal
+      userList: state.user.userList,
+      pageTotal: state.user.pageTotal
     }),
     shallowEqual
   )

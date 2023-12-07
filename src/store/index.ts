@@ -4,14 +4,14 @@ import mianReducer from '@/store/main'
 import { configureStore } from '@reduxjs/toolkit'
 import { useSelector, useDispatch } from 'react-redux'
 import type { TypedUseSelectorHook } from 'react-redux'
-import systemReducer from './main/system'
+import userReducer from '@/pages/main/system/user/store'
 
 const store = configureStore({
   reducer: {
     login: loginReducer,
     main: mianReducer,
     menu: menuReducer,
-    system: systemReducer
+    user: userReducer
   }
 })
 

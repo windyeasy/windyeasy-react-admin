@@ -6,7 +6,7 @@ import { Button, Card, Col, Form, Input, Row, Select } from 'antd'
 import { DatePicker } from 'antd'
 import { UserSeachWrapper } from './style'
 import { useAppDispatch } from '@/store'
-import { changeSearInfoAction, fetchUserListAction } from '@/store/main/system'
+import { changeSearInfoAction, fetchUserListAction } from '../../store'
 
 const { RangePicker } = DatePicker
 interface IProps {

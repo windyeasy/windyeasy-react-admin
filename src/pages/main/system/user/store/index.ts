@@ -1,16 +1,16 @@
-import { postUserList } from '@/services/main/system/system'
+import { postUserList } from '../service'
 import { AsyncThunkState } from '@/store'
 
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { PAGE_SIZE } from './constants'
-interface ISystemState {
+interface IUserState {
   userList: any[]
   pageTotal: number
   currentPage: number
   pageSize: number
   searInfo: any
 }
-const initialState: ISystemState = {
+const initialState: IUserState = {
   userList: [],
   pageTotal: 0,
   currentPage: 1,
@@ -23,10 +23,10 @@ export const fetchUserListAction = createAsyncThunk<void, void, AsyncThunkState>
   'fetchUserList',
   (_, { getState, dispatch }) => {
     // 获取分页查询信息
-    const system = getState().system
-    const offset = (system.currentPage - 1) * system.pageSize
-    const info = { offset, size: system.pageSize }
-    const queryInfo = { ...info, ...system.searInfo }
+    const user = getState().user
+    const offset = (user.currentPage - 1) * user.pageSize
+    const info = { offset, size: user.pageSize }
+    const queryInfo = { ...info, ...user.searInfo }
     postUserList(queryInfo).then((res) => {
       if (res.data && res.data.list) {
         dispatch(changeUserListAction(res.data.list))
@@ -36,8 +36,8 @@ export const fetchUserListAction = createAsyncThunk<void, void, AsyncThunkState>
   }
 )
 
-const systemSlice = createSlice({
-  name: 'system',
+const userSlice = createSlice({
+  name: 'user',
   initialState,
   reducers: {
     changeUserListAction(state, { payload }) {
@@ -58,12 +58,12 @@ const systemSlice = createSlice({
   }
 })
 
-const systemReducer = systemSlice.reducer
+const userReducer = userSlice.reducer
 export const {
   changeUserListAction,
   changePageTotalAction,
   changePageSizeAction,
   changeCurrentPageAction,
   changeSearInfoAction
-} = systemSlice.actions
-export default systemReducer
+} = userSlice.actions
+export default userReducer

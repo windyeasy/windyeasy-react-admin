@@ -4,7 +4,7 @@ import UserSearch from './c-cpns/user-search'
 import UserContent from './c-cpns/user-content'
 
 import { useAppDispatch } from '@/store'
-import { fetchUserListAction } from '@/store/main/system'
+import { fetchUserListAction } from '../user/store'
 interface IProps {
   children?: ReactNode
 }
