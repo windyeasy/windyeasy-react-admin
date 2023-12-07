@@ -4,8 +4,8 @@ import {
   changeMenuListAction,
   changeUserInfoAction
 } from '@/pages/login/store'
-import { COLLAPSED } from '@/pages/main/service/constants'
-import { changeIsCollapsedAction } from '@/pages/main/store'
+import { COLLAPSED } from '@/store/main/constants'
+import { changeIsCollapsedAction } from '@/store/main'
 import { localCache } from '@/utils/cache'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'

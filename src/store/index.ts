@@ -1,6 +1,6 @@
 import menuReducer from '@/components/layout-menu/store'
 import loginReducer from '@/pages/login/store'
-import mianReducer from '@/pages/main/store'
+import mianReducer from '@/store/main'
 import { configureStore } from '@reduxjs/toolkit'
 import { useSelector, useDispatch } from 'react-redux'
 import type { TypedUseSelectorHook } from 'react-redux'
