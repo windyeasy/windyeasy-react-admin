@@ -9,7 +9,13 @@ interface IUserState {
   currentPage: number
   pageSize: number
   searInfo: any
+  /**
+   * 用同一个modal实现删除与添加功能
+   */
   isModalOpen: boolean
+  modalTitle: string
+  editUserInfo: any
+  isModalNew: boolean // 通过这个状态控制删除与编辑
 }
 const initialState: IUserState = {
   userList: [],
@@ -17,10 +23,13 @@ const initialState: IUserState = {
   currentPage: 1,
   pageSize: PAGE_SIZE,
   searInfo: {},
-  isModalOpen: false
+  isModalOpen: false,
+  modalTitle: '',
+  isModalNew: true,
+  editUserInfo: {}
 }
 
-// 默认查询用户列表
+// 查询用户列表
 export const fetchUserListAction = createAsyncThunk<void, void, AsyncThunkState>(
   'fetchUserList',
   (_, { getState, dispatch }) => {
@@ -35,6 +44,27 @@ export const fetchUserListAction = createAsyncThunk<void, void, AsyncThunkState>
         dispatch(changePageTotalAction(res.data.totalCount))
       }
     })
+  }
+)
+interface HandleModalPayload {
+  isModalNew?: boolean
+  record?: any
+}
+// 用户管理modal管理
+export const handleModalAction = createAsyncThunk<void, HandleModalPayload, AsyncThunkState>(
+  'handleModal',
+  (payload, { dispatch }) => {
+    const { isModalNew = true } = payload
+    dispatch(changeIsModalNewAction(isModalNew))
+    // 不是新增
+    if (!isModalNew) {
+      // 就添加编辑用户信息
+      dispatch(changeEditUserInfoAction(payload.record))
+      dispatch(changeModalTitleAction('编辑用户'))
+    } else {
+      dispatch(changeModalTitleAction('新增用户'))
+    }
+    dispatch(changeIsModalOpenAction(true))
   }
 )
 
@@ -59,6 +89,15 @@ const userSlice = createSlice({
     },
     changeIsModalOpenAction(state, { payload }) {
       state.isModalOpen = payload
+    },
+    changeEditUserInfoAction(state, { payload }) {
+      state.editUserInfo = payload
+    },
+    changeModalTitleAction(state, { payload }) {
+      state.modalTitle = payload
+    },
+    changeIsModalNewAction(state, { payload }) {
+      state.isModalNew = payload
     }
   }
 })
@@ -70,6 +109,9 @@ export const {
   changePageSizeAction,
   changeCurrentPageAction,
   changeSearInfoAction,
-  changeIsModalOpenAction
+  changeIsModalOpenAction,
+  changeModalTitleAction,
+  changeIsModalNewAction,
+  changeEditUserInfoAction
 } = userSlice.actions
 export default userReducer

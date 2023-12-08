@@ -9,9 +9,9 @@ import { useAppDispatch, useAppSelector } from '@/store'
 import { shallowEqual } from 'react-redux'
 import {
   changeCurrentPageAction,
-  changeIsModalOpenAction,
   changePageSizeAction,
-  fetchUserListAction
+  fetchUserListAction,
+  handleModalAction
 } from '../../store'
 
 interface IProps {
@@ -35,7 +35,7 @@ const UserContent: FC<IProps> = () => {
     dispatch(fetchUserListAction())
   }
   const newUserClick = () => {
-    dispatch(changeIsModalOpenAction(true))
+    dispatch(handleModalAction({ isModalNew: true }))
   }
   return (
     <UserContentWrapper>

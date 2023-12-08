@@ -8,16 +8,19 @@ import { shallowEqual } from 'react-redux'
 import { changeIsModalOpenAction, fetchUserListAction } from '../../store'
 import type { DefaultOptionType } from 'antd/es/select'
 import { getEntireDepartments, getEntireRoles } from '@/services/main/system'
-import { createUserData } from '../../service'
+import { createUserData, editUserData } from '../../service'
 
 interface IProps {
   children?: ReactNode
 }
 
 const UserModal: FC<IProps> = () => {
-  const { isModalOpen } = useAppSelector(
+  const { isModalOpen, isModalNew, modalTitle, editInfo } = useAppSelector(
     (state) => ({
-      isModalOpen: state.user.isModalOpen
+      isModalOpen: state.user.isModalOpen,
+      isModalNew: state.user.isModalNew,
+      modalTitle: state.user.modalTitle,
+      editInfo: state.user.editUserInfo
     }),
     shallowEqual
   )
@@ -28,26 +31,54 @@ const UserModal: FC<IProps> = () => {
     name: '',
     realname: '',
     cellphone: '',
-    password: ''
+    password: '',
+    roleId: '',
+    departmentId: ''
   }
+
   // 事件处理
   const handleCancel = () => {
     form.resetFields()
     dispatch(changeIsModalOpenAction(false))
   }
   const searchSubmit = (values: any) => {
-    createUserData(values).then((res) => {
-      if (res.code === 0) {
-        console.log('创建用户成功！')
-        dispatch(fetchUserListAction())
-      } else {
-        console.log('创建用户失败！', res.message)
-      }
-    })
+    if (isModalNew) {
+      createUserData(values).then((res) => {
+        if (res.code === 0) {
+          console.log('创建用户成功！')
+          dispatch(fetchUserListAction())
+        } else {
+          console.log('创建用户失败！', res.message)
+        }
+      })
+    } else {
+      editUserData(editInfo.id, values).then((res) => {
+        if (res.code === 0) {
+          console.log('编辑用户成功')
+          dispatch(fetchUserListAction())
+          return
+        }
+        console.log('编辑用户失败', res.message)
+      })
+    }
+
     dispatch(changeIsModalOpenAction(false))
   }
   const [rolesOptions, setRolesOptions] = useState<DefaultOptionType[]>([])
   const [depsOptions, setDepsOptions] = useState<DefaultOptionType[]>([])
+  // 处理modal被打开时的功能
+  useEffect(() => {
+    // 当isModalOpen发生变化时，处理时编辑还是添加
+    if (isModalOpen) {
+      if (!isModalNew) {
+        const newInitValues: any = {}
+        for (const key in initialValues) {
+          newInitValues[key] = editInfo[key]
+        }
+        form.setFieldsValue(newInitValues)
+      }
+    }
+  }, [isModalOpen])
   // 副作用功能
   useEffect(() => {
     getEntireRoles().then((res) => {
@@ -70,6 +101,7 @@ const UserModal: FC<IProps> = () => {
       }
     })
   }, [])
+
   return (
     <UserModalWrapper>
       <Modal
@@ -78,7 +110,7 @@ const UserModal: FC<IProps> = () => {
             className="title"
             style={{ fontWeight: 'normal', fontSize: '18px', textAlign: 'center' }}
           >
-            新建用户
+            {modalTitle}
           </div>
         }
         width={'30%'}
@@ -89,6 +121,7 @@ const UserModal: FC<IProps> = () => {
         <Form
           form={form}
           initialValues={initialValues}
+          name="userform"
           onFinish={searchSubmit}
           labelCol={{ span: 5 }}
           wrapperCol={{ span: 18 }}
@@ -104,11 +137,14 @@ const UserModal: FC<IProps> = () => {
                 <Input placeholder="请输入真实姓名" />
               </Form.Item>
             </Col>
-            <Col span={24}>
-              <Form.Item label="登录密码" name="password">
-                <Input.Password placeholder="请输入登录密码" />
-              </Form.Item>
-            </Col>
+            {isModalNew && (
+              <Col span={24}>
+                <Form.Item label="登录密码" name="password">
+                  <Input.Password placeholder="请输入登录密码" />
+                </Form.Item>
+              </Col>
+            )}
+
             <Col span={24}>
               <Form.Item label="手机号码" name="cellphone">
                 <Input placeholder="请输入手机号码" />

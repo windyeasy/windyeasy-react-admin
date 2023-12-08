@@ -1,22 +1,33 @@
-import React, { memo } from 'react'
-import type { FC, ReactNode } from 'react'
-import { DemoWrapper } from './style'
-import { DatePicker } from 'antd'
+import React, { forwardRef, useRef, useImperativeHandle, memo } from 'react'
 
-const { RangePicker } = DatePicker
-interface IProps {
-  children?: ReactNode
+interface CanShowAlert {
+  showAlert(): void
 }
+interface IProps {
+  test?: string
+}
+const Child = forwardRef<CanShowAlert, IProps>(function Test(props, ref) {
+  useImperativeHandle(ref, () => ({
+    showAlert() {
+      console.log('进入了')
+    }
+  }))
+  return <>测试</>
+})
 
-const Demo: FC<IProps> = () => {
-  const handleDateChange = (values: any) => {
-    console.log(values[0].toDate())
-  }
+const Demo = () => {
+  const childRef = useRef<CanShowAlert>(null)
   return (
-    <DemoWrapper>
-      {/* 时间选择demo演示 */}
-      <RangePicker onChange={handleDateChange} />
-    </DemoWrapper>
+    <div className="container">
+      <Child test="name" ref={childRef} />
+      <button
+        onClick={() => {
+          childRef.current?.showAlert()
+        }}
+      >
+        Call Function
+      </button>
+    </div>
   )
 }
 
