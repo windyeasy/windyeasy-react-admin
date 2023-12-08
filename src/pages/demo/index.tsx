@@ -1,34 +1,32 @@
-import React, { forwardRef, useRef, useImperativeHandle, memo } from 'react'
+import React, { memo } from 'react'
+import type { FC, ReactNode } from 'react'
+import Card from 'antd/es/card/Card'
 
-interface CanShowAlert {
-  showAlert(): void
-}
+import { colums } from './config'
+import { useAppSelector } from '@/store'
+import { shallowEqual } from 'react-redux'
+import CustomTable from '@/components/wtb/src'
 interface IProps {
-  test?: string
+  children?: ReactNode
 }
-const Child = forwardRef<CanShowAlert, IProps>(function Test(props, ref) {
-  useImperativeHandle(ref, () => ({
-    showAlert() {
-      console.log('进入了')
-    }
-  }))
-  return <>测试</>
-})
 
-const Demo = () => {
-  const childRef = useRef<CanShowAlert>(null)
+const UserContent: FC<IProps> = () => {
+  const { userList } = useAppSelector(
+    (state) => ({
+      userList: state.user.userList
+    }),
+    shallowEqual
+  )
+
   return (
-    <div className="container">
-      <Child test="name" ref={childRef} />
-      <button
-        onClick={() => {
-          childRef.current?.showAlert()
-        }}
-      >
-        Call Function
-      </button>
-    </div>
+    <>
+      <Card>
+        <div className="content">
+          <CustomTable data={userList} wcolums={colums} />
+        </div>
+      </Card>
+    </>
   )
 }
 
-export default memo(Demo)
+export default memo(UserContent)
