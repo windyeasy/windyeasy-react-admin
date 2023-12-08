@@ -1,4 +1,4 @@
-import { ACOUNT_TOKEN, MENU_LIST, USER_INFO } from '@/pages/login/service/constants'
+import { ACCOUNT_TOKEN, MENU_LIST, USER_INFO } from '@/pages/login/service/constants'
 import {
   changeIsLoginAction,
   changeMenuListAction,
@@ -17,7 +17,7 @@ export const useLoadLocalData = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     const userInfo = localCache.getCache(USER_INFO)
-    const token = localCache.getCache(ACOUNT_TOKEN)
+    const token = localCache.getCache(ACCOUNT_TOKEN)
     const isCollapsed = localCache.getCache(COLLAPSED)
     const menuList = localCache.getCache(MENU_LIST)
     if (token && userInfo && menuList) {

@@ -1,11 +1,14 @@
-import React, { memo } from 'react'
-import type { FC, ReactNode } from 'react'
+import React, { memo, useEffect } from 'react'
+import { FC, ReactNode, useState } from 'react'
 import { Button, Col, Form, Input, Modal, Row, Select } from 'antd'
 
 import { UserModalWrapper } from './style'
 import { useAppDispatch, useAppSelector } from '@/store'
 import { shallowEqual } from 'react-redux'
-import { changeIsModalOpenAction } from '../../store'
+import { changeIsModalOpenAction, fetchUserListAction } from '../../store'
+import type { DefaultOptionType } from 'antd/es/select'
+import { getEntireDepartments, getEntireRoles } from '@/services/main/system'
+import { createUserData } from '../../service'
 
 interface IProps {
   children?: ReactNode
@@ -21,22 +24,52 @@ const UserModal: FC<IProps> = () => {
   const dispatch = useAppDispatch()
   const [form] = Form.useForm()
 
-  const searchSubmit = (values: any) => {
-    console.log(values)
-    dispatch(changeIsModalOpenAction(false))
-  }
   const initialValues = {
     name: '',
     realname: '',
     cellphone: '',
     password: ''
   }
-
+  // 事件处理
   const handleCancel = () => {
     form.resetFields()
-    searchSubmit(form.getFieldsValue())
     dispatch(changeIsModalOpenAction(false))
   }
+  const searchSubmit = (values: any) => {
+    createUserData(values).then((res) => {
+      if (res.code === 0) {
+        console.log('创建用户成功！')
+        dispatch(fetchUserListAction())
+      } else {
+        console.log('创建用户失败！', res.message)
+      }
+    })
+    dispatch(changeIsModalOpenAction(false))
+  }
+  const [rolesOptions, setRolesOptions] = useState<DefaultOptionType[]>([])
+  const [depsOptions, setDepsOptions] = useState<DefaultOptionType[]>([])
+  // 副作用功能
+  useEffect(() => {
+    getEntireRoles().then((res) => {
+      if (res.data && res.data.list) {
+        const roles = res.data.list.map((item: any) => ({
+          value: item.id,
+          label: item.name
+        }))
+        setRolesOptions(roles)
+      }
+    })
+
+    getEntireDepartments().then((res) => {
+      if (res.data && res.data.list) {
+        const deps = res.data.list.map((item: any) => ({
+          value: item.id,
+          label: item.name
+        }))
+        setDepsOptions(deps)
+      }
+    })
+  }, [])
   return (
     <UserModalWrapper>
       <Modal
@@ -83,24 +116,12 @@ const UserModal: FC<IProps> = () => {
             </Col>
             <Col span={24}>
               <Form.Item label="选择角色" name="roleId">
-                <Select
-                  placeholder="请选择角色"
-                  options={[
-                    { value: 1, label: '启用' },
-                    { value: 0, label: '禁用' }
-                  ]}
-                />
+                <Select placeholder="请选择角色" options={rolesOptions} />
               </Form.Item>
             </Col>
             <Col span={24}>
               <Form.Item label="选择部门" name="departmentId">
-                <Select
-                  placeholder="请选择部门"
-                  options={[
-                    { value: 1, label: '启用' },
-                    { value: 0, label: '禁用' }
-                  ]}
-                />
+                <Select placeholder="请选择部门" options={depsOptions} />
               </Form.Item>
             </Col>
           </Row>

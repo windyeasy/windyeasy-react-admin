@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { ACOUNT_TOKEN, FLAT_MENU_LIST, MENU_LIST, USER_INFO } from '../service/constants'
+import { ACCOUNT_TOKEN, FLAT_MENU_LIST, MENU_LIST, USER_INFO } from '../service/constants'
 import { getMenuByRoleID, getUserInfoByID } from '../service'
 import { localCache } from '@/utils/cache'
 import { fetchFlatMenuList } from '@/utils/map-menu'
@@ -7,7 +7,7 @@ import { fetchFlatMenuList } from '@/utils/map-menu'
 // 存储登录信息
 export const handleLoginAction = createAsyncThunk('handleLogin', (result: any, { dispatch }) => {
   // 存储token
-  localCache.setCache(ACOUNT_TOKEN, result.token)
+  localCache.setCache(ACCOUNT_TOKEN, result.token)
   // 获取用户信息，并存入store
   const id = result.id
   getUserInfoByID(id).then(async (res) => {
