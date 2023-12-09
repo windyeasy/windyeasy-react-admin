@@ -22,7 +22,14 @@ const CustomTable: FC<IProps> = (props) => {
       }
     }
   ]
-  return <Wtb {...props} extendProps={extendProps} />
+  return (
+    <Wtb
+      requestConfig={{ method: 'post' }}
+      responseConfig={{ dataIndex: 'data.list', totalIndex: 'data.totalCount' }}
+      {...props}
+      extendProps={extendProps}
+    />
+  )
 }
 
 export default memo(CustomTable)

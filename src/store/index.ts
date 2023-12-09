@@ -5,13 +5,15 @@ import { configureStore } from '@reduxjs/toolkit'
 import { useSelector, useDispatch } from 'react-redux'
 import type { TypedUseSelectorHook } from 'react-redux'
 import userReducer from '@/pages/main/system/user/store'
+import wtbReducer from '@/components/wtb/src/store'
 
 const store = configureStore({
   reducer: {
     login: loginReducer,
     main: mianReducer,
     menu: menuReducer,
-    user: userReducer
+    user: userReducer,
+    wtb: wtbReducer
   }
 })
 
