@@ -1,8 +1,13 @@
-import React, { memo } from 'react'
+import React, { memo, useRef, useState } from 'react'
 import type { FC, ReactNode } from 'react'
-import { ExtendFormItem, WFormItem } from '../type'
+import { ExtendFormItem, VisibleIfInfoType, WFormItem } from '../type'
 import { Col, Form, Row } from 'antd'
-import { handleConfig, mapTypeIndexToRender } from '../utils/utils'
+import {
+  handleConfig,
+  mapTypeIndexToRender,
+  visibleIfDiff,
+  visibleIfInfoDiffByKey
+} from '../utils/utils'
 import { WFormProxySerive } from '../service/proxy-serive'
 
 export interface WFromProps {
@@ -29,16 +34,59 @@ const WForm: FC<WFromProps> = (props) => {
     if (!formItem.defaultValueUn) {
       initialValues[formItem.prop] = formItem.initValue ?? ''
     }
-    // 获取初始化值
   }
+  /**
+   * 通过映射处理，扩展内容
+   */
   const formItemsInfo = mapTypeIndexToRender(extendFormItems)
-  // 提交表单
-  // form.validateFields
+
+  /**
+   * 实现visibleIf 功能
+   */
+  const visibleIfInfo = useRef<VisibleIfInfoType>({})
+  const [formData, setFormData] = useState<any>({})
+  const handleValuesChange = (modifyValue: any, allValues: any) => {
+    // 通过判断减少更新次数
+    if (visibleIfInfoDiffByKey(modifyValue, visibleIfInfo.current)) {
+      setFormData(allValues)
+    }
+  }
+  function handleFormItems() {
+    const renderArray: any = []
+    const length = formItems.length
+    for (let i = 0; i < length; i++) {
+      const item = formItems[i]
+      if (item.handleParams && props.proxyService) {
+        props.proxyService.addFn(item.handleParams)
+      }
+
+      if (item.visibleIf && Object.keys(item.visibleIf).length) {
+        // 判断visibleIf是否存，添加比对，当已经存储就不再存储,减少更新次数
+        if (!visibleIfInfo.current[item.prop]) {
+          visibleIfInfo.current[item.prop] = item.visibleIf
+          console.log('进入了', 'vit')
+        }
+        if (!visibleIfDiff(item.visibleIf, formData)) {
+          continue
+        }
+      }
+      renderArray.push(
+        <Col
+          span={24}
+          {...handleConfig(props.uiConfig?.colConfig)}
+          {...handleConfig(item.colConfig)}
+          key={item.prop}
+        >
+          {formItemsInfo[item.type](item)}
+        </Col>
+      )
+    }
+    return renderArray
+  }
   /**
    *
    * 使用items： 创建模板，实现搜索功能
    */
-
   return (
     <>
       <Form
@@ -46,46 +94,10 @@ const WForm: FC<WFromProps> = (props) => {
         {...handleConfig(props?.uiConfig?.formConfig)}
         initialValues={initialValues}
         name={formname}
+        onValuesChange={handleValuesChange}
       >
         <Row>
-          {formItems.map((item) => {
-            if (item.handleParams && props.proxyService) {
-              props.proxyService.addFn(item.handleParams)
-            }
-            /**
-             * 要实现的功能：
-             *  1. 提取出hidden的值
-             *      name: '123', 存储，当name: 的值发生变化，change
-             *      从新渲染：
-             *        formData = {name: '123'}
-             *      visibleIfInfo = {
-             *        'password': {
-             *          hidden: {name: '123'}
-             *        }
-             *      }
-             *    if(visibleIfInfo[item.type]){
-             *      const {hidden} = visibleIfInfos[item.type]
-             *         const keys = objectKeys(hidden)
-             *      if (formData[key] === hidden[key]){
-             *          containue
-             *       }
-             *   }
-             *
-             *    if(){}
-             *         得到name: 的值，
-             */
-
-            return (
-              <Col
-                span={24}
-                {...handleConfig(props.uiConfig?.colConfig)}
-                {...handleConfig(item.colConfig)}
-                key={item.prop}
-              >
-                {formItemsInfo[item.type](item)}
-              </Col>
-            )
-          })}
+          {handleFormItems()}
           {props.children && props.children}
         </Row>
       </Form>

@@ -129,9 +129,6 @@ export const modalConfig: PageModalConfig = {
       label: '登录密码',
       // editHidden: true
       visibleIf: {
-        hidden: {
-          name: '123'
-        },
         show: {
           name: '123'
         }
