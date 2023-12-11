@@ -1,5 +1,5 @@
-import { WBaseFormItem } from '@/components/w-form/src'
-import { WBaseType } from '@/components/wtb/src'
+import { WBaseFormItem } from '@/base-ui/w-form/src'
+import { WBaseType } from '@/base-ui/wtb/src'
 import React from 'react'
 export const colums: WBaseType = [
   {

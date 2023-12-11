@@ -2,12 +2,12 @@ import React, { memo } from 'react'
 import type { FC, ReactNode } from 'react'
 import Card from 'antd/es/card/Card'
 
-// import MyForm from '@/components/w-form/src/index'
 import { colums, formItems } from './config'
-import SearchForm from '@/components/w-form/src/components/SearchForm'
+import SearchForm from '@/base-ui/w-form/src/components/SearchForm'
 import { DemoWrapper } from './style'
-import WBaseTable from '@/components/wtb/src'
-import { useWtbGetData } from '@/components/wtb/src/hooks/useWtbGetData'
+import WBaseTable from '@/base-ui/wtb/src'
+import { useWtbGetData } from '@/base-ui/wtb/src/hooks/useWtbGetData'
+import { Button } from 'antd'
 interface IProps {
   children?: ReactNode
 }
@@ -23,6 +23,7 @@ const UserContent: FC<IProps> = () => {
         <SearchForm formname="testform" onSubmit={submit} formItems={formItems} />
       </Card>
       <Card>
+        <Button type="primary">用户添加</Button>
         <WBaseTable api="/users/list" wcolums={colums} />
       </Card>
     </DemoWrapper>
