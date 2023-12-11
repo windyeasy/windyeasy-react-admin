@@ -43,11 +43,12 @@ const Wtb: FC<WtbProps> = (props) => {
     pPostion = 'center'
   } = props
   const colums = propsListToColumns(wcolums, extendProps)
-  const { list, total, isLoading } = useAppSelector(
+  const { list, total, isLoading, page } = useAppSelector(
     (state) => ({
       list: state.wtb.list,
       total: state.wtb.total,
-      isLoading: state.wtb.isLoading
+      isLoading: state.wtb.isLoading,
+      page: state.wtb.page
     }),
     shallowEqual
   )
@@ -109,6 +110,7 @@ const Wtb: FC<WtbProps> = (props) => {
         >
           <Pagination
             total={total}
+            current={page}
             showSizeChanger
             showQuickJumper
             onChange={handlePaginationChange}
