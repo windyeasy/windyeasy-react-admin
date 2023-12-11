@@ -62,6 +62,7 @@ const WForm: FC<WFromProps> = (props) => {
               </Col>
             )
           })}
+          {props.children && props.children}
         </Row>
       </Form>
     </>

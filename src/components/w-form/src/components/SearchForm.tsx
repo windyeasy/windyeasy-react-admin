@@ -3,7 +3,7 @@ import type { FC, ReactNode } from 'react'
 import { WBaseFormProps } from '..'
 import WBaseForm from '../index'
 import { formPrxoySerive } from '../service/proxy-serive'
-import { Button, Row } from 'antd'
+import { Button, Col, Row } from 'antd'
 import { ReloadOutlined, SearchOutlined } from '@ant-design/icons'
 interface IProps extends WBaseFormProps {
   children?: ReactNode
@@ -40,15 +40,30 @@ const SearchForm: FC<IProps> = (props) => {
             span: 8
           }
         }}
-      />
-      <Row justify="end">
-        <Button onClick={onSubmit} type="primary" icon={<SearchOutlined />}>
-          查询
-        </Button>
-        <Button style={{ marginLeft: '10px' }} onClick={onReset} icon={<ReloadOutlined />}>
-          重置
-        </Button>
-      </Row>
+      >
+        {props.formItems.length < 3 && (
+          <Col>
+            <Button onClick={onSubmit} type="primary" icon={<SearchOutlined />}>
+              查询
+            </Button>
+            <Button style={{ marginLeft: '10px' }} onClick={onReset} icon={<ReloadOutlined />}>
+              重置
+            </Button>
+          </Col>
+        )}
+      </WBaseForm>
+      {props.formItems.length > 2 && (
+        <Row justify="end">
+          <Col>
+            <Button onClick={onSubmit} type="primary" icon={<SearchOutlined />}>
+              查询
+            </Button>
+            <Button style={{ marginLeft: '10px' }} onClick={onReset} icon={<ReloadOutlined />}>
+              重置
+            </Button>
+          </Col>
+        </Row>
+      )}
     </div>
   )
 }
