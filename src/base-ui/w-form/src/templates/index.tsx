@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { DatePicker, Form, Input, Select } from 'antd'
 import type { ExtendFormItem } from '../type'
 import type { WBaseFormItem } from '..'
 
+export type WFormItemType = 'input' | 'select' | 'rangePicker' | 'password' | 'custom'
 type NewExtendFormItem = ExtendFormItem<WBaseFormItem>
 
 const { RangePicker } = DatePicker
@@ -20,9 +21,15 @@ export const extendFormItems: NewExtendFormItem[] = [
   {
     type: 'select',
     render: (item) => {
+      const [options, setOptions] = useState(item.options || [])
+      if (item.asyncOptions) {
+        item.asyncOptions.then((options: any) => {
+          setOptions(options)
+        })
+      }
       return (
         <Form.Item label={item.label} name={item.prop}>
-          <Select placeholder={item.placeholder} options={item.options} />
+          <Select placeholder={item.placeholder} options={options} />
         </Form.Item>
       )
     }
@@ -33,6 +40,16 @@ export const extendFormItems: NewExtendFormItem[] = [
       return (
         <Form.Item label={item.label} name={item.prop}>
           <RangePicker />
+        </Form.Item>
+      )
+    }
+  },
+  {
+    type: 'password',
+    render: (item) => {
+      return (
+        <Form.Item label={item.label} name={item.prop}>
+          <Input.Password placeholder={item.placeholder} />
         </Form.Item>
       )
     }

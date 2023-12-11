@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import type { TypedUseSelectorHook } from 'react-redux'
 import userReducer from '@/pages/main/system/user/store'
 import wtbReducer from '@/base-ui/wtb/src/store'
+import pageModalReducer from '@/base-ui/page-modal/store'
 
 const store = configureStore({
   reducer: {
@@ -13,7 +14,8 @@ const store = configureStore({
     main: mianReducer,
     menu: menuReducer,
     user: userReducer,
-    wtb: wtbReducer
+    wtb: wtbReducer,
+    pageModal: pageModalReducer
   }
 })
 

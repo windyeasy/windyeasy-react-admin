@@ -5,7 +5,7 @@ import Card from 'antd/es/card/Card'
 import { colums } from './config'
 // import { useAppSelector } from '@/store'
 // import { shallowEqual } from 'react-redux'
-import CustomTable from '@/components/wtb/src'
+import CustomTable from '@/base-ui/wtb/src'
 interface IProps {
   children?: ReactNode
 }

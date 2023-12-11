@@ -3,7 +3,7 @@ import type { FC, ReactNode } from 'react'
 import type { WFormItem } from './type'
 import WForm from './core/index'
 import { WFormProxySerive } from './service/proxy-serive'
-import { extendFormItems } from './templates'
+import { WFormItemType, extendFormItems } from './templates'
 
 export interface WBaseFormProps {
   children?: ReactNode
@@ -15,14 +15,15 @@ export interface WBaseFormProps {
     colConfig?: any
   }
 }
-type WFormItemType = 'input' | 'select' | 'rangePicker' | 'custom'
 interface SlectOption {
   label: string
   value: any
 }
+
 // WFormItem扩展类型
 export interface WBaseFormItem extends WFormItem<WFormItemType> {
   options?: SlectOption[]
+  asyncOptions?: any
   placeholder?: string
 }
 const WBaseForm: FC<WBaseFormProps> = (props) => {

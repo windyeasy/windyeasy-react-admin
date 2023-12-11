@@ -26,7 +26,7 @@ const WForm: FC<WFromProps> = (props) => {
    */
   const initialValues: any = {}
   for (const formItem of formItems) {
-    if (formItem.initValue || formItem.type !== 'select') {
+    if (!formItem.defaultValueUn) {
       initialValues[formItem.prop] = formItem.initValue ?? ''
     }
     // 获取初始化值
@@ -38,6 +38,7 @@ const WForm: FC<WFromProps> = (props) => {
    *
    * 使用items： 创建模板，实现搜索功能
    */
+
   return (
     <>
       <Form
@@ -51,6 +52,29 @@ const WForm: FC<WFromProps> = (props) => {
             if (item.handleParams && props.proxyService) {
               props.proxyService.addFn(item.handleParams)
             }
+            /**
+             * 要实现的功能：
+             *  1. 提取出hidden的值
+             *      name: '123', 存储，当name: 的值发生变化，change
+             *      从新渲染：
+             *        formData = {name: '123'}
+             *      visibleIfInfo = {
+             *        'password': {
+             *          hidden: {name: '123'}
+             *        }
+             *      }
+             *    if(visibleIfInfo[item.type]){
+             *      const {hidden} = visibleIfInfos[item.type]
+             *         const keys = objectKeys(hidden)
+             *      if (formData[key] === hidden[key]){
+             *          containue
+             *       }
+             *   }
+             *
+             *    if(){}
+             *         得到name: 的值，
+             */
+
             return (
               <Col
                 span={24}
