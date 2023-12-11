@@ -1,6 +1,7 @@
 import {
   changePageAction,
   changeParamsAction,
+  changeSearchInfoAction,
   changeSizeAction,
   fetchPageListAction
 } from '../store'
@@ -27,9 +28,15 @@ export function useWtbGetData() {
     dispatch(changeSizeAction(size))
     fetchPageList()
   }
+  // 改变搜索信息
+  function changeSearchInfo(searchInfo: any = {}) {
+    dispatch(changeSearchInfoAction(searchInfo))
+    fetchPageList()
+  }
   return {
     fetchPageList,
     changePageInfo,
-    changeFetchPageListParmas
+    changeFetchPageListParmas,
+    changeSearchInfo
   }
 }

@@ -1,27 +1,19 @@
 import React, { memo } from 'react'
 import type { FC, ReactNode } from 'react'
 import Wtb from './core'
-import { WtbProps } from './core'
-import { ExtendPropType, WColumType } from './type'
-import { utcFormat } from '@/utils/format'
+import type { WtbProps } from './core'
+import type { WColumType } from './type'
+import { extendProps } from './templates'
 
 type TbType = 'utcTimer'
-export type WColumsType<T = any> = WColumType<T, TbType>[]
+export type WBaseType<T = any> = WColumType<T, TbType>[]
 
 interface IProps extends WtbProps {
   children?: ReactNode
-  wcolums: WColumsType
+  wcolums: WBaseType
 }
 
-const CustomTable: FC<IProps> = (props) => {
-  const extendProps: ExtendPropType[] = [
-    {
-      type: 'utcTimer',
-      render: (time: string) => {
-        return <>{utcFormat(time)}</>
-      }
-    }
-  ]
+const WBaseTable: FC<IProps> = (props) => {
   return (
     <Wtb
       requestConfig={{ method: 'post' }}
@@ -32,4 +24,4 @@ const CustomTable: FC<IProps> = (props) => {
   )
 }
 
-export default memo(CustomTable)
+export default memo(WBaseTable)

@@ -43,10 +43,11 @@ const Wtb: FC<WtbProps> = (props) => {
     pPostion = 'center'
   } = props
   const colums = propsListToColumns(wcolums, extendProps)
-  const { list, total } = useAppSelector(
+  const { list, total, isLoading } = useAppSelector(
     (state) => ({
       list: state.wtb.list,
-      total: state.wtb.total
+      total: state.wtb.total,
+      isLoading: state.wtb.isLoading
     }),
     shallowEqual
   )
@@ -56,7 +57,6 @@ const Wtb: FC<WtbProps> = (props) => {
   // 通过不同类型显示数据
   function fetchData() {
     if (type === 'api') {
-      console.log(list)
       return list
     } else {
       return data
@@ -93,6 +93,7 @@ const Wtb: FC<WtbProps> = (props) => {
     <>
       <div className="content">
         <Table
+          loading={isLoading}
           dataSource={fetchData()}
           columns={colums}
           rowKey={(record: any) => String(record.id)}

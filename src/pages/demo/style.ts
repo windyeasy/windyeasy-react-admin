@@ -1,5 +1,5 @@
 import styled from 'styled-components'
 
 export const DemoWrapper = styled.div`
-  justify-content: flex-end;
+  background-color: #f5f5f5;
 `

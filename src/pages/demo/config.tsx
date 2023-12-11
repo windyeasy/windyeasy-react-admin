@@ -1,7 +1,7 @@
 import { WBaseFormItem } from '@/components/w-form/src'
-import { WColumsType } from '@/components/wtb/src'
+import { WBaseType } from '@/components/wtb/src'
 import React from 'react'
-export const colums: WColumsType = [
+export const colums: WBaseType = [
   {
     title: '序号',
     dataIndex: 'id',

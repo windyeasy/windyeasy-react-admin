@@ -10,13 +10,19 @@ interface IWtbState {
   page: number
   size: number
   fetchPageListParams: FetchPageListParamsType | Record<string, never>
+  // 搜索内容处理
+  seachInfo: any
+  // 管理loading效果
+  isLoading: boolean
 }
 const initialState: IWtbState = {
   list: [],
   total: 0,
   page: 1,
   size: 10,
-  fetchPageListParams: {}
+  fetchPageListParams: {},
+  seachInfo: {},
+  isLoading: false
 }
 
 const wtbSlice = createSlice({
@@ -37,6 +43,12 @@ const wtbSlice = createSlice({
     },
     changeParamsAction(state, { payload }) {
       state.fetchPageListParams = payload
+    },
+    changeSearchInfoAction(state, { payload }) {
+      state.seachInfo = payload
+    },
+    changeIsLoadingAction(state, { payload }) {
+      state.isLoading = payload
     }
   }
 })
@@ -50,13 +62,21 @@ export const fetchPageListAction = createAsyncThunk<void, void, AsyncThunkState>
     const { api, method, dataIndexs, totalIndexs } = wtb.fetchPageListParams
     const offset = (wtb.page - 1) * wtb.size
     const info = { offset, size: wtb.size }
-    const queryInfo = { ...info }
+    const searchInfo = wtb.seachInfo
+    const queryInfo = { ...info, ...searchInfo }
+    dispatch(changeIsLoadingAction(true))
     // 请求数据，通过分页
-    getPageList(api, method, queryInfo).then((res) => {
-      const { total, list } = fetchListAndTotal(res, dataIndexs, totalIndexs)
-      dispatch(changeTotalAction(total))
-      dispatch(changeListAction(list))
-    })
+    getPageList(api, method, queryInfo)
+      .then((res) => {
+        dispatch(changeIsLoadingAction(false))
+        const { total, list } = fetchListAndTotal(res, dataIndexs, totalIndexs)
+        dispatch(changeTotalAction(total))
+        dispatch(changeListAction(list))
+      })
+      .catch((err) => {
+        console.log('wtb-列表请求出错', err)
+        dispatch(changeIsLoadingAction(false))
+      })
   }
 )
 const wtbReducer = wtbSlice.reducer
@@ -65,6 +85,8 @@ export const {
   changeTotalAction,
   changePageAction,
   changeSizeAction,
-  changeParamsAction
+  changeParamsAction,
+  changeSearchInfoAction,
+  changeIsLoadingAction
 } = wtbSlice.actions
 export default wtbReducer
