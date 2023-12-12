@@ -50,13 +50,19 @@ const PageModal: FC<IProps> = (props) => {
   }
   // 回调提交函数
   function handleSubmit() {
-    changeModalOpen(false)
-    let values = formPrxoySerive.form?.getFieldsValue()
-    /*
-     * 执行提交隐式处理功能，对函数参数进行处理
-     */
-    values = formPrxoySerive.execFns(values)
-    props.onSubmit && props.onSubmit(isNew, values, formData)
+    formPrxoySerive.form
+      ?.validateFields()
+      .then((values) => {
+        changeModalOpen(false)
+        /*
+         * 执行提交隐式处理功能，对函数参数进行处理
+         */
+        values = formPrxoySerive.execFns(values)
+        props.onSubmit && props.onSubmit(isNew, values, formData)
+      })
+      .catch((err) => {
+        console.error('验证失败', err)
+      })
   }
 
   // 处理过滤不同模式需要隐藏的表单项，editHidden或addHidden
