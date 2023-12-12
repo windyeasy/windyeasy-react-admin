@@ -1,3 +1,4 @@
+import type { ColProps, FormProps } from 'antd'
 import type { ReactNode } from 'react'
 type AnyObject = {
   [index: string]: any
@@ -29,6 +30,6 @@ export interface ExtendFormItem<T = WFormItem> {
 }
 
 export interface WFormUiConfig {
-  formConfig?: any
-  colConfig?: any
+  formConfig?: FormProps
+  colConfig?: ColProps
 }
