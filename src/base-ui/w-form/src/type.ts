@@ -27,3 +27,8 @@ export interface ExtendFormItem<T = WFormItem> {
   type: string // 'input'
   render: (formItem: T) => ReactNode
 }
+
+export interface WFormUiConfig {
+  formConfig?: any
+  colConfig?: any
+}

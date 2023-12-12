@@ -111,6 +111,7 @@ export const modalConfig: PageModalConfig = {
     newTitle: '用户添加',
     editTitle: '用户编辑'
   },
+  editHidden: ['password'],
   formItmes: [
     {
       type: 'input',
@@ -124,15 +125,15 @@ export const modalConfig: PageModalConfig = {
       prop: 'realname',
       placeholder: '请输入真实姓名'
     },
+    /**
+     * 实现编辑时：有些配置项不展示，
+     *    1. 分成两个配置项，添加一个，编辑一个，这个不采用，应该是跟modal相关的，
+     * 所 以先在编辑哪里添加一个配置项：editHidden: ['password', ''],
+     * addHidden: ['username']
+     */
     {
       type: 'password',
       label: '登录密码',
-      // editHidden: true
-      visibleIf: {
-        show: {
-          name: '123'
-        }
-      },
       prop: 'password',
       placeholder: '请输入登录密码'
     },

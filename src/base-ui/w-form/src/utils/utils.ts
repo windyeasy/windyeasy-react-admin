@@ -15,6 +15,7 @@ export function mapTypeIndexToRender(extendFormItems: ExtendFormItem[]): FnRetur
   }
   return obj
 }
+
 // visibleIf diff
 export function visibleIfDiff(visibleIf: VisibleIfType, formData: any) {
   if (Object.keys(visibleIf).length) {
@@ -48,7 +49,7 @@ export function visibleIfDiff(visibleIf: VisibleIfType, formData: any) {
   return true
 }
 
-// 递归查询值否存在
+// 比对改变的值否visibleIfInfo的的值
 export function visibleIfInfoDiffByKey(modifyValue: any, visibleIfInfo: VisibleIfInfoType) {
   const key = Object.keys(modifyValue)[0]
   const keys = Object.keys(visibleIfInfo)

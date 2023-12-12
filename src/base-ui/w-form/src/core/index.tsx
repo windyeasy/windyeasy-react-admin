@@ -1,6 +1,6 @@
 import React, { memo, useRef, useState } from 'react'
 import type { FC, ReactNode } from 'react'
-import { ExtendFormItem, VisibleIfInfoType, WFormItem } from '../type'
+import { ExtendFormItem, VisibleIfInfoType, WFormItem, WFormUiConfig } from '../type'
 import { Col, Form, Row } from 'antd'
 import {
   handleConfig,
@@ -16,10 +16,7 @@ export interface WFromProps {
   extendFormItems: ExtendFormItem<any>[]
   formname: string
   proxyService?: WFormProxySerive
-  uiConfig?: {
-    formConfig?: any
-    colConfig?: any
-  }
+  uiConfig?: WFormUiConfig
 }
 
 const WForm: FC<WFromProps> = (props) => {

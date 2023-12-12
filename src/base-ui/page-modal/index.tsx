@@ -10,6 +10,7 @@ import { formPrxoySerive } from '../w-form/src/service/proxy-serive'
 export type OnModalSubmitType = (isNew: boolean, values: any, record: any) => void
 interface IProps {
   children?: ReactNode
+  width?: string | number
   modalConfig: PageModalConfig
   formname: string
   onSubmit?: OnModalSubmitType
@@ -23,6 +24,16 @@ interface IProps {
  * 并进行展示
  */
 const PageModal: FC<IProps> = (props) => {
+  const {
+    width = '30%',
+    modalConfig: {
+      uiConfig = {
+        formConfig: { labelCol: { span: 5 }, wrapperCol: { span: 18 } }
+      }
+    }
+  } = props
+
+  // 数据与函数处理
   const { changeModalOpen } = usePageModal()
   const { isOpen, formData, isNew } = useAppSelector(
     (state) => ({
@@ -42,11 +53,27 @@ const PageModal: FC<IProps> = (props) => {
     changeModalOpen(false)
     let values = formPrxoySerive.form?.getFieldsValue()
     /*
-     * 执行提交隐式处理功能
+     * 执行提交隐式处理功能，对函数参数进行处理
      */
     values = formPrxoySerive.execFns(values)
     props.onSubmit && props.onSubmit(isNew, values, formData)
   }
+
+  // 处理过滤不同模式需要隐藏的表单项，editHidden或addHidden
+  function handleHiddenFormItems() {
+    let { formItmes } = props.modalConfig
+    const { editHidden, addHidden } = props.modalConfig
+    // 是新增的时候过滤新增的
+    if (addHidden && addHidden.length && isNew) {
+      formItmes = formItmes.filter((item) => !addHidden!.includes(item.prop))
+    }
+    // 是编辑的时候就是过滤编辑隐藏
+    if (editHidden && editHidden.length && !isNew) {
+      formItmes = formItmes.filter((item) => !editHidden!.includes(item.prop))
+    }
+    return formItmes
+  }
+
   // 副作用代码
   useEffect(() => {
     // 如果对象有值就，设置表单初始值
@@ -58,8 +85,9 @@ const PageModal: FC<IProps> = (props) => {
         const item = formItmes[i]
         initValues[item.prop] = formData[item.prop] ?? (item.initValue ? item.initValue : '')
       }
-      console.log(initValues)
       formPrxoySerive.form?.setFieldsValue(initValues)
+    } else {
+      formPrxoySerive.form?.resetFields()
     }
   }, [formData])
   return (
@@ -72,7 +100,7 @@ const PageModal: FC<IProps> = (props) => {
           {isNew ? props.modalConfig.header.newTitle : props.modalConfig.header.editTitle}
         </div>
       }
-      width={'30%'}
+      width={width}
       open={isOpen}
       onCancel={handleCancel}
       footer={null}
@@ -80,7 +108,8 @@ const PageModal: FC<IProps> = (props) => {
       <WBaseForm
         proxyService={formPrxoySerive}
         formname={props.formname}
-        formItems={props.modalConfig.formItmes}
+        formItems={handleHiddenFormItems()}
+        uiConfig={uiConfig}
       />
       <Row justify="center">
         <Button onClick={handleCancel}>取消</Button>
