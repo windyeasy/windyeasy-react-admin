@@ -10,7 +10,7 @@ import {
 import { MenuItemRes } from '@/pages/login/service/type'
 import { checkArrayNotEmpty } from './checkValue'
 import type { MenuProps } from 'antd'
-import MenuItemLabel from '@/components/layout-menu/menu-item-label'
+import MenuItemLabel from '@/layout/components/layout-menu/menu-item-label'
 
 type MenuItem = Required<MenuProps>['items'][number]
 

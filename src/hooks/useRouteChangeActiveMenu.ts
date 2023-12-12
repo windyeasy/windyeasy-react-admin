@@ -1,4 +1,7 @@
-import { changeOpenKeysAction, changeSelectedKeysAction } from '@/components/layout-menu/store'
+import {
+  changeOpenKeysAction,
+  changeSelectedKeysAction
+} from '@/layout/components/layout-menu/store'
 import { useAppDispatch, useAppSelector } from '@/store'
 import { matchActiveMenuInfo } from '@/utils/map-menu'
 import { useEffect } from 'react'

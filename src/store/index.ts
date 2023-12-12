@@ -1,4 +1,4 @@
-import menuReducer from '@/components/layout-menu/store'
+import menuReducer from '@/layout/components/layout-menu/store'
 import loginReducer from '@/pages/login/store'
 import mianReducer from '@/store/main'
 import { configureStore } from '@reduxjs/toolkit'

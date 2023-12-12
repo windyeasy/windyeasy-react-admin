@@ -8,7 +8,7 @@ interface IProps {
   children?: ReactNode
 }
 
-const LayoutHederCrumb: FC<IProps> = () => {
+const LayoutHeaderCrumb: FC<IProps> = () => {
   return (
     <HeaderCrumbWrapper>
       <CrumbLeft />
@@ -17,4 +17,4 @@ const LayoutHederCrumb: FC<IProps> = () => {
   )
 }
 
-export default memo(LayoutHederCrumb)
+export default memo(LayoutHeaderCrumb)
