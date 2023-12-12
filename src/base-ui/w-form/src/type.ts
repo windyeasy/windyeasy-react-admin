@@ -1,4 +1,5 @@
 import type { ColProps, FormProps } from 'antd'
+import type { Rule } from 'antd/es/form'
 import type { ReactNode } from 'react'
 type AnyObject = {
   [index: string]: any
@@ -20,6 +21,7 @@ export interface WFormItem<T = string> {
   handleHidden?: any // 通过条件处理隐藏
   // 隐式处理参数
   handleParams?: (values: any) => any
+  rules?: Rule[]
   visibleIf?: VisibleIfType
   [key: string]: any // 添加使用别的类型进行扩展
 }
