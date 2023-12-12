@@ -53,5 +53,15 @@ export const extendFormItems: NewExtendFormItem[] = [
         </Form.Item>
       )
     }
+  },
+  {
+    type: 'custom',
+    render: (item) => {
+      if (item.render) {
+        return item.render(item)
+      } else {
+        return <></>
+      }
+    }
   }
 ]

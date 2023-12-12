@@ -61,7 +61,6 @@ const WForm: FC<WFromProps> = (props) => {
         // 判断visibleIf是否存，添加比对，当已经存储就不再存储,减少更新次数
         if (!visibleIfInfo.current[item.prop]) {
           visibleIfInfo.current[item.prop] = item.visibleIf
-          console.log('进入了', 'vit')
         }
         if (!visibleIfDiff(item.visibleIf, formData)) {
           continue

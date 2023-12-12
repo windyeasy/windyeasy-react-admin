@@ -23,6 +23,7 @@ export interface WFormItem<T = string> {
   handleParams?: (values: any) => any
   rules?: Rule[]
   visibleIf?: VisibleIfType
+  render?: (formItem: WFormItem) => ReactNode
   [key: string]: any // 添加使用别的类型进行扩展
 }
 
