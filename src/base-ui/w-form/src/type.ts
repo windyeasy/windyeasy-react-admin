@@ -1,6 +1,8 @@
 import type { ColProps, FormProps } from 'antd'
 import type { Rule } from 'antd/es/form'
 import type { ReactNode } from 'react'
+import { WFormProxySerive } from './service/proxy-serive'
+import { TypeToRenderReturnType } from './utils/utils'
 type AnyObject = {
   [index: string]: any
 }
@@ -40,5 +42,19 @@ export interface WFormUiConfig {
 // 分组类型
 export interface WGroupsType {
   formItemsProps: string[]
-  renderWrapper: (props: { children: ReactNode }) => ReactNode
+  renderWrapper: (props: { children: ReactNode; key: string | number }) => ReactNode
+}
+export interface WFormPublicProps {
+  mode?: 'normal' | 'group'
+  groups?: WGroupsType[]
+  formItems: WFormItem[]
+  formname: string
+  proxyService?: WFormProxySerive
+  uiConfig?: WFormUiConfig
+}
+
+export interface WFormComPublicProps {
+  formItems: WFormItem[]
+  colConfig?: any
+  formItemsInfo: TypeToRenderReturnType
 }

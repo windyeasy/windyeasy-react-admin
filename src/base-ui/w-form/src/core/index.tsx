@@ -1,29 +1,23 @@
 import React, { memo, useRef, useState } from 'react'
 import type { FC, ReactNode } from 'react'
-import { ExtendFormItem, VisibleIfInfoType, WFormItem, WFormUiConfig, WGroupsType } from '../type'
-import { Col, Form, Row } from 'antd'
+import { ExtendFormItem, VisibleIfInfoType, WFormItem, WFormPublicProps } from '../type'
+import { Form } from 'antd'
 import {
   handleConfig,
   mapTypeIndexToRender,
   visibleIfDiff,
   visibleIfInfoDiffByKey
 } from '../utils/utils'
-import { WFormProxySerive } from '../service/proxy-serive'
 import GroupsForm from '../components/GroupsForm'
+import NormalForm from '../components/NormalForm'
 
-export interface WFromProps {
+export interface WFromProps extends WFormPublicProps {
   children?: ReactNode
-  mode?: 'normal' | 'group'
-  groups?: WGroupsType[]
-  formItems: WFormItem[]
   extendFormItems: ExtendFormItem<any>[]
-  formname: string
-  proxyService?: WFormProxySerive
-  uiConfig?: WFormUiConfig
 }
 
 const WForm: FC<WFromProps> = (props) => {
-  const { formItems = [], formname, extendFormItems, mode = 'normal' } = props
+  const { formItems = [], formname, extendFormItems, mode = 'normal', groups = [] } = props
   const [form] = Form.useForm()
   props.proxyService && props.proxyService.injectForm(form)
   /**
@@ -52,10 +46,11 @@ const WForm: FC<WFromProps> = (props) => {
     }
   }
   function handleFormItems() {
-    const renderArray: any = []
+    const renderArray: WFormItem[] = []
     const length = formItems.length
     for (let i = 0; i < length; i++) {
       const item = formItems[i]
+      // 添加额外处理函数
       if (item.handleParams && props.proxyService) {
         props.proxyService.addFn(item.handleParams)
       }
@@ -69,16 +64,7 @@ const WForm: FC<WFromProps> = (props) => {
           continue
         }
       }
-      renderArray.push(
-        <Col
-          span={24}
-          {...handleConfig(props.uiConfig?.colConfig)}
-          {...handleConfig(item.colConfig)}
-          key={item.prop}
-        >
-          {formItemsInfo[item.type](item)}
-        </Col>
-      )
+      renderArray.push(item)
     }
     return renderArray
   }
@@ -95,14 +81,24 @@ const WForm: FC<WFromProps> = (props) => {
         name={formname}
         onValuesChange={handleValuesChange}
       >
-        {mode === 'group' ? (
-          <GroupsForm />
+        {/*
+
+          1. 对分组表单进行过滤处理，
+          2. 过滤后在映射，多一个层
+        */}
+        {mode === 'normal' ? (
+          <NormalForm
+            formItems={handleFormItems()}
+            formItemsInfo={formItemsInfo}
+            colConfig={props.uiConfig?.colConfig}
+          />
         ) : (
-          <Row>
-            {/* 调用处理FormItems函数 */}
-            {handleFormItems()}
-            {props.children && props.children}
-          </Row>
+          <GroupsForm
+            formItems={handleFormItems()}
+            formItemsInfo={formItemsInfo}
+            colConfig={props.uiConfig?.colConfig}
+            groups={groups}
+          />
         )}
       </Form>
     </>
