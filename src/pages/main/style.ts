@@ -24,4 +24,18 @@ export const MainWrapper = styled.div`
     height: 100vh;
     overflow-y: auto;
   }
+  .set-theme {
+    position: fixed;
+    right: 6px;
+    font-size: 20px;
+    color: #fff;
+    width: 48px;
+    height: 48px;
+    border-radius: 5px 0 0 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1890ff;
+    top: 36%;
+  }
 `
