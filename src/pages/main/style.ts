@@ -17,6 +17,7 @@ export const MainWrapper = styled.div`
   .ant-layout-sider {
     /* background-color: #545c64; */
     background-color: #fff;
+    overflow-x: hidden;
   }
   .ant-layout-content {
     padding: 15px;

@@ -10,6 +10,7 @@ import { Content, Header } from 'antd/es/layout/layout'
 import { useAppSelector } from '@/store'
 import { MainWrapper } from './style'
 import { LayoutHeaderCrumb, LayoutMenu } from '@/layout'
+import LoginInfo from '@/components/login-info'
 interface IProps {
   children?: ReactNode
 }
@@ -25,6 +26,7 @@ const Main: FC<IProps> = () => {
     <MainWrapper>
       <Layout>
         <Sider width={220} collapsed={isCollapsed} collapsedWidth={60}>
+          <LoginInfo />
           <LayoutMenu />
         </Sider>
         <Layout>
