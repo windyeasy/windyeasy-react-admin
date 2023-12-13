@@ -1,65 +1,80 @@
 import React, { memo } from 'react'
 import type { FC, ReactNode } from 'react'
 import Card from 'antd/es/card/Card'
-
-import { colums, formItems, modalConfig } from './config'
-import SearchForm from '@/base-ui/w-form/src/components/SearchForm'
 import { DemoWrapper } from './style'
-import WBaseTable from '@/base-ui/wtb/src'
-import { useWtbGetData } from '@/base-ui/wtb/src/hooks/useWtbGetData'
-import { Button } from 'antd'
-import PageModal, { OnModalSubmitType } from '@/base-ui/page-modal'
-import { usePageModal } from '@/base-ui/page-modal/hooks/usePageModal'
-import { createUserData, editUserData } from '../main/system/user/service'
+import { Button, Col, Form, Input, Row } from 'antd'
+
 interface IProps {
   children?: ReactNode
 }
 
-const UserContent: FC<IProps> = () => {
-  const { changeSearchInfo, fetchPageList } = useWtbGetData()
-  const { setModalContent } = usePageModal()
-  function submit(values: any) {
-    changeSearchInfo(values)
+const Demo: FC<IProps> = () => {
+  const [form] = Form.useForm()
+
+  const initialValues = {
+    name: '',
+    realname: '',
+    cellphone: '',
+    password: '',
+    roleId: '',
+    departmentId: ''
   }
-  function addUserClick() {
-    setModalContent()
-  }
-  const addUserSubmit: OnModalSubmitType = (isNew, values, record) => {
-    if (isNew) {
-      createUserData(values).then((res) => {
-        if (res.code === 0) {
-          console.log('创建用户成功！')
-          fetchPageList()
-        } else {
-          console.log('创建用户失败！', res.message)
-        }
-      })
-    } else {
-      // 编辑用户
-      editUserData(record.id, values).then((res) => {
-        if (res.code === 0) {
-          console.log('编辑用户成功')
-          fetchPageList()
-        } else {
-          console.log('编辑用户失败', res.message)
-        }
-      })
-    }
+
+  // 事件处理
+  const handleCancel = () => {}
+  const searchSubmit = (values: any) => {
+    console.log(values)
   }
   return (
     <DemoWrapper>
-      <Card>
-        <SearchForm formname="testform" onSubmit={submit} formItems={formItems} />
-      </Card>
-      <Card>
-        <Button type="primary" onClick={addUserClick}>
-          用户添加
-        </Button>
-        <WBaseTable api="/users/list" wcolums={colums} />
-      </Card>
-      <PageModal onSubmit={addUserSubmit} modalConfig={modalConfig} formname="userForm" />
+      <Form
+        form={form}
+        initialValues={initialValues}
+        name="userform"
+        onFinish={searchSubmit}
+        labelCol={{ span: 5 }}
+        wrapperCol={{ span: 18 }}
+      >
+        <Card>
+          <Row>
+            <Col span={24}>
+              <Form.Item label="用户名" name="name">
+                <Input placeholder="请输入用户名" />
+              </Form.Item>
+            </Col>
+            <Col span={24}>
+              <Form.Item label="真实姓名" name="realname">
+                <Input placeholder="请输入真实姓名" />
+              </Form.Item>
+            </Col>
+
+            <Col span={24}>
+              <Form.Item label="登录密码" name="password">
+                <Input.Password placeholder="请输入登录密码" />
+              </Form.Item>
+            </Col>
+          </Row>
+        </Card>
+        <Card>
+          <Row>
+            <Col span={24}>
+              <Form.Item label="手机号码" name="cellphone">
+                <Input placeholder="请输入手机号码" />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row justify="center">
+            <Form.Item labelCol={{ span: 0 }} wrapperCol={{ span: 24 }}>
+              <Button onClick={handleCancel}>取消</Button>
+              <Button htmlType="submit" style={{ marginLeft: '10px' }} type="primary">
+                确定
+              </Button>
+            </Form.Item>
+          </Row>
+        </Card>
+      </Form>
     </DemoWrapper>
   )
 }
 
-export default memo(UserContent)
+export default memo(Demo)

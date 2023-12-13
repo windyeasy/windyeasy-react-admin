@@ -36,3 +36,9 @@ export interface WFormUiConfig {
   formConfig?: FormProps
   colConfig?: ColProps
 }
+
+// 分组类型
+export interface WGroupsType {
+  formItemsProps: string[]
+  renderWrapper: (props: { children: ReactNode }) => ReactNode
+}

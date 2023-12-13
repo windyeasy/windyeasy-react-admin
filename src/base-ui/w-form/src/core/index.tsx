@@ -1,6 +1,6 @@
 import React, { memo, useRef, useState } from 'react'
 import type { FC, ReactNode } from 'react'
-import { ExtendFormItem, VisibleIfInfoType, WFormItem, WFormUiConfig } from '../type'
+import { ExtendFormItem, VisibleIfInfoType, WFormItem, WFormUiConfig, WGroupsType } from '../type'
 import { Col, Form, Row } from 'antd'
 import {
   handleConfig,
@@ -9,9 +9,12 @@ import {
   visibleIfInfoDiffByKey
 } from '../utils/utils'
 import { WFormProxySerive } from '../service/proxy-serive'
+import GroupsForm from '../components/GroupsForm'
 
 export interface WFromProps {
   children?: ReactNode
+  mode?: 'normal' | 'group'
+  groups?: WGroupsType[]
   formItems: WFormItem[]
   extendFormItems: ExtendFormItem<any>[]
   formname: string
@@ -20,7 +23,7 @@ export interface WFromProps {
 }
 
 const WForm: FC<WFromProps> = (props) => {
-  const { formItems = [], formname, extendFormItems } = props
+  const { formItems = [], formname, extendFormItems, mode = 'normal' } = props
   const [form] = Form.useForm()
   props.proxyService && props.proxyService.injectForm(form)
   /**
@@ -92,11 +95,15 @@ const WForm: FC<WFromProps> = (props) => {
         name={formname}
         onValuesChange={handleValuesChange}
       >
-        <Row>
-          {/* 调用处理FormItems函数 */}
-          {handleFormItems()}
-          {props.children && props.children}
-        </Row>
+        {mode === 'group' ? (
+          <GroupsForm />
+        ) : (
+          <Row>
+            {/* 调用处理FormItems函数 */}
+            {handleFormItems()}
+            {props.children && props.children}
+          </Row>
+        )}
       </Form>
     </>
   )
