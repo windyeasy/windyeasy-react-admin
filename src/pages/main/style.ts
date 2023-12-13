@@ -15,7 +15,6 @@ export const MainWrapper = styled.div`
     line-height: 1.2;
   }
   .ant-layout-sider {
-    /* background-color: #545c64; */
     background-color: #fff;
     overflow-x: hidden;
   }
