@@ -3,7 +3,8 @@ import styled from 'styled-components'
 export const ThemeDrawerWrapper = styled.div`
   .set-theme {
     position: fixed;
-    right: 0px;
+    inset-block-start: 240px;
+    inset-inline-end: 0px;
     font-size: 20px;
     color: #fff;
     width: 48px;
@@ -12,7 +13,6 @@ export const ThemeDrawerWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    top: 32%;
     z-index: 0;
     cursor: pointer;
   }

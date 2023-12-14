@@ -33,6 +33,7 @@ export function useTheme() {
         }
       }
     }
+    document.body.setAttribute('class', '')
     if (isDark) {
       newTheme.algorithm = antTheme.darkAlgorithm
       newTheme.components = {
@@ -41,6 +42,7 @@ export function useTheme() {
           siderBg: '#141414'
         }
       }
+      document.body.setAttribute('class', 'dark')
     }
     setTheme(newTheme)
   }, [themeConfig])
