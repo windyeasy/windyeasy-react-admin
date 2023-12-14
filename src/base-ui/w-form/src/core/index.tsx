@@ -10,6 +10,7 @@ import {
 } from '../utils/utils'
 import GroupsForm from '../components/GroupsForm'
 import NormalForm from '../components/NormalForm'
+import { fetchInitialValues } from '../utils/fetch-initial-values'
 
 export interface WFromProps extends WFormPublicProps {
   children?: ReactNode
@@ -23,12 +24,23 @@ const WForm: FC<WFromProps> = (props) => {
   /**
    * 处理初始化值
    */
-  const initialValues: any = {}
-  for (const formItem of formItems) {
-    if (!formItem.defaultValueUn) {
-      initialValues[formItem.prop] = formItem.initValue ?? ''
-    }
-  }
+  const initialValues = fetchInitialValues(formItems)
+  // 设置默认值处理，当表单的时候需要处理默认值
+  props.proxyService &&
+    props.proxyService.injectSetFieldsValueByData((data: any = {}) => {
+      if (Object.keys(data).length) {
+        const length = formItems.length
+        const initValues: any = {}
+        for (let i = 0; i < length; i++) {
+          const item = formItems[i]
+          initValues[item.prop] = data[item.prop] ?? (item.initValue ? item.initValue : '')
+        }
+        form.setFieldsValue(initValues)
+      } else {
+        form.resetFields()
+      }
+    })
+
   /**
    * 通过映射处理，扩展内容
    */
@@ -45,6 +57,7 @@ const WForm: FC<WFromProps> = (props) => {
       setFormData(allValues)
     }
   }
+  // 对handleFormItems处理，实现visibleIf功能
   function handleFormItems() {
     const renderArray: WFormItem[] = []
     const length = formItems.length
