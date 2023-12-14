@@ -1,6 +1,4 @@
 const theme = {
-  color: {},
-  size: {},
-  mixin: {}
+  dark: {}
 }
 export default theme

@@ -4,21 +4,19 @@ import type { FC, ReactNode } from 'react'
 import { MainWrapper } from './style'
 // import { LayoutTopHeader } from '@/layout'
 import { LayoutLeftMenu } from '@/layout'
-import { SettingOutlined } from '@ant-design/icons'
+import ChangeThemeDrawer from '@/components/change-theme-drawer'
+import { useAntToken } from '@/hooks/useAntToken'
 
 interface IProps {
   children?: ReactNode
 }
 
 const Main: FC<IProps> = () => {
+  const { token } = useAntToken()
   return (
-    <MainWrapper>
+    <MainWrapper $borderColor={token.colorSplit}>
       <LayoutLeftMenu />
-      {/* <LayoutTopHeader /> */}
-      {/* 设置主题样式按钮 */}
-      <div className="set-theme">
-        <SettingOutlined />
-      </div>
+      <ChangeThemeDrawer />
     </MainWrapper>
   )
 }

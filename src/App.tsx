@@ -1,11 +1,15 @@
 import React, { Suspense } from 'react'
-import { Navigate, useLocation, useRoutes } from 'react-router-dom'
-// import routes from './router'
-import { useAppSelector } from '@/store'
+import zhCN from 'antd/locale/zh_CN'
+import { ConfigProvider } from 'antd'
 import { shallowEqual } from 'react-redux'
+
+import { Navigate, useLocation, useRoutes } from 'react-router-dom'
+import { useAppSelector } from '@/store'
+
 import { useLoadLocalData } from './hooks/useLocalData'
 import { useRoutingDynamic } from './hooks/useRoutingDynamic'
 import { firstMenu } from './utils/map-menu'
+import { useTheme } from './hooks/useTheme'
 
 function App() {
   const location = useLocation()
@@ -33,13 +37,16 @@ function App() {
   // 使用获取本地数据hook
   useLoadLocalData()
   const routes = useRoutingDynamic('/main')
+  const theme = useTheme()
   return (
-    <div className="App">
-      <Suspense fallback="">
-        <div className="main">{useRoutes(routes)}</div>
-        {handleRouterNav()}
-      </Suspense>
-    </div>
+    <ConfigProvider locale={zhCN} theme={theme}>
+      <div className="App">
+        <Suspense fallback="">
+          <div className="main">{useRoutes(routes)}</div>
+          {handleRouterNav()}
+        </Suspense>
+      </div>
+    </ConfigProvider>
   )
 }
 

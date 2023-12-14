@@ -1,6 +1,9 @@
 import styled from 'styled-components'
 
 export const MenuWrapper = styled.div`
-  /* overflow: auto;
-  height: 100vh; */
+  overflow: auto;
+  height: 100vh;
+  .ant-menu {
+    border-inline-end: none;
+  }
 `

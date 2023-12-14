@@ -12,8 +12,10 @@ export const CrumbRightWrapper = styled.div`
       height: 25px;
     }
     .user-name {
-      color: #333;
       font-weight: normal;
+    }
+    &:hover {
+      color: none;
     }
   }
 `

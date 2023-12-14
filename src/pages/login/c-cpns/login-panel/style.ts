@@ -2,7 +2,6 @@ import styled from 'styled-components'
 
 export const LoginPanelWrapper = styled.div`
   width: 400px;
-  background-color: #fff;
   margin: 160px auto;
   border: 1px solid #ccc;
   border-radius: 5px;
