@@ -27,5 +27,6 @@ export const MainWrapper = styled.div<IProps>`
     padding: 15px;
     flex: 1;
     overflow: auto;
+    position: relative;
   }
 `

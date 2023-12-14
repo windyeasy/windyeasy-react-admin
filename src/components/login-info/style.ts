@@ -6,7 +6,7 @@ export const LoginInfoWrapper = styled.div`
     display: flex;
     align-items: center;
     padding-left: 15px;
-
+    width: 100%;
     .login-img {
       width: 32px;
       height: 32px;

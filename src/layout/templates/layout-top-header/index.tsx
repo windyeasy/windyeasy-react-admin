@@ -24,7 +24,9 @@ const LayoutTopHeader: FC<IProps> = () => {
     <TopHeaderWrapper>
       <Layout>
         <Header>
-          <LoginInfo />
+          <div className="header-left">
+            <LoginInfo />
+          </div>
           <LayoutHeaderCrumb />
         </Header>
 
