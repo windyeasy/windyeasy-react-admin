@@ -83,18 +83,7 @@ const PageModal: FC<IProps> = (props) => {
   // 副作用代码
   useEffect(() => {
     // 如果对象有值就，设置表单初始值
-    if (Object.keys(formData).length) {
-      const formItmes = props.modalConfig.formItmes
-      const length = formItmes.length
-      const initValues: any = {}
-      for (let i = 0; i < length; i++) {
-        const item = formItmes[i]
-        initValues[item.prop] = formData[item.prop] ?? (item.initValue ? item.initValue : '')
-      }
-      formPrxoySerive.form?.setFieldsValue(initValues)
-    } else {
-      formPrxoySerive.form?.resetFields()
-    }
+    formPrxoySerive.execFieldsValueByData(formData)
   }, [formData])
   return (
     <Modal
