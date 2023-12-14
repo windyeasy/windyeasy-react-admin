@@ -7,9 +7,8 @@ import { ThemeConfig, theme as antTheme } from 'antd'
 export function useTheme() {
   const [theme, setTheme] = useState<ThemeConfig>({})
 
-  const { isDark, themeConfig } = useAppSelector(
+  const { themeConfig } = useAppSelector(
     (state) => ({
-      isDark: state.theme.isDark,
       themeConfig: state.theme.themeConfig
     }),
     shallowEqual
@@ -23,9 +22,10 @@ export function useTheme() {
      *
      *
      */
-    const { headerBg, sidlerBg } = themeConfig
+    const { headerBg, sidlerBg, isDark, colorPrimary } = themeConfig
     const newTheme: ThemeConfig = {
       algorithm: antTheme.defaultAlgorithm,
+      token: { colorPrimary: colorPrimary },
       components: {
         Layout: {
           headerBg: headerBg,
@@ -43,6 +43,6 @@ export function useTheme() {
       }
     }
     setTheme(newTheme)
-  }, [isDark, themeConfig])
+  }, [themeConfig])
   return theme
 }
