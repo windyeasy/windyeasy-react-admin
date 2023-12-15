@@ -1,7 +1,10 @@
 import { useAppSelector } from '@/store'
 import { useEffect, useState } from 'react'
-import { shallowEqual } from 'react-redux'
+import { shallowEqual, useDispatch } from 'react-redux'
 import { ThemeConfig, theme as antTheme } from 'antd'
+import { WThemeConfig, changeThemeConfigAction } from '@/store/theme'
+import { localCache } from '@/utils/cache'
+import { CACHE_THEME_CONFIG } from '@/store/theme/constants'
 
 // 通过antd设置主题
 export function useTheme() {
@@ -13,15 +16,14 @@ export function useTheme() {
     }),
     shallowEqual
   )
+  // 修改主题公共方法
+  const dispatch = useDispatch()
+  function changeThemeConfig(themeConfig: WThemeConfig) {
+    dispatch(changeThemeConfigAction(themeConfig))
+    localCache.setCache(CACHE_THEME_CONFIG, themeConfig)
+  }
+  // 注入主题样式
   useEffect(() => {
-    /**
-     * 如何设计主题功能，
-     * 1. 分为两个模式：
-     *    default | dark,
-     *
-     *
-     *
-     */
     const { headerBg, sidlerBg, isDark, colorPrimary } = themeConfig
     const newTheme: ThemeConfig = {
       algorithm: antTheme.defaultAlgorithm,
@@ -46,5 +48,5 @@ export function useTheme() {
     }
     setTheme(newTheme)
   }, [themeConfig])
-  return theme
+  return { theme, changeThemeConfig }
 }

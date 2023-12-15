@@ -3,13 +3,12 @@ import type { FC, ReactNode } from 'react'
 import { ThemeDrawerWrapper } from './style'
 import { SettingOutlined } from '@ant-design/icons'
 import { Divider, Drawer, Switch } from 'antd'
-import { useAppDispatch, useAppSelector } from '@/store'
+import { useAppSelector } from '@/store'
 import { shallowEqual } from 'react-redux'
-import { changeThemeConfigAction } from '@/store/theme'
-import { localCache } from '@/utils/cache'
-import { CACHE_THEME_CONFIG } from '@/store/theme/constants'
 import { useAntToken } from '@/hooks/useAntToken'
 import Cell from '../cell'
+import ThemeColorList from '../theme-color-list'
+import { useTheme } from '@/hooks/useTheme'
 interface IProps {
   children?: ReactNode
 }
@@ -17,13 +16,13 @@ interface IProps {
 const ChangeThemeDrawer: FC<IProps> = () => {
   const [open, setOpen] = useState(false)
   const { token } = useAntToken()
+  const { changeThemeConfig } = useTheme()
   const { themeConfig } = useAppSelector(
     (state) => ({
       themeConfig: state.theme.themeConfig
     }),
     shallowEqual
   )
-  const dispatch = useAppDispatch()
   function onClose() {
     setOpen(false)
   }
@@ -33,8 +32,7 @@ const ChangeThemeDrawer: FC<IProps> = () => {
   function changeMode() {
     const newThemeConfig = { ...themeConfig }
     newThemeConfig.isDark = !newThemeConfig.isDark
-    dispatch(changeThemeConfigAction(newThemeConfig))
-    localCache.setCache(CACHE_THEME_CONFIG, newThemeConfig)
+    changeThemeConfig(newThemeConfig)
   }
   return (
     <ThemeDrawerWrapper>
@@ -55,6 +53,10 @@ const ChangeThemeDrawer: FC<IProps> = () => {
             title="深色模式"
             cellRight={<Switch onChange={changeMode} defaultChecked={themeConfig.isDark} />}
           />
+        </div>
+        <div className="wrap">
+          <Divider>主题色</Divider>
+          <ThemeColorList />
         </div>
       </Drawer>
     </ThemeDrawerWrapper>

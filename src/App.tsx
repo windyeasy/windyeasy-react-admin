@@ -37,7 +37,7 @@ function App() {
   // 使用获取本地数据hook
   useLoadLocalData()
   const routes = useRoutingDynamic('/main')
-  const theme = useTheme()
+  const { theme } = useTheme()
   return (
     <ConfigProvider locale={zhCN} theme={theme}>
       <div className="App">
