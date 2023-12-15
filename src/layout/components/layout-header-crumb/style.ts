@@ -7,5 +7,5 @@ export const HeaderCrumbWrapper = styled.div`
   flex: 1;
   justify-content: space-between;
   align-items: center;
-  padding: 0 15px 0 0px;
+  padding: 0 15px 0 10px;
 `

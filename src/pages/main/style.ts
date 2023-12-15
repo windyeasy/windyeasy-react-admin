@@ -1,10 +1,21 @@
 import styled from 'styled-components'
+
 interface IProps {
   $borderColor: string
 }
 export const MainWrapper = styled.div<IProps>`
   width: 100%;
-
+  &.otherHeaderTheme {
+    .ant-layout-header {
+      &,
+      * {
+        color: rgba(255, 255, 255, 0.85);
+        &:hover {
+          color: rgba(255, 255, 255, 0.85);
+        }
+      }
+    }
+  }
   .ant-layout {
     height: 100vh;
     overflow: hidden;
@@ -16,6 +27,9 @@ export const MainWrapper = styled.div<IProps>`
     height: auto;
     line-height: 1.2;
     border-bottom: 1px solid ${(props) => props.$borderColor};
+  }
+  .login-title {
+    color: rgba(0, 0, 0, 0.88);
   }
   .ant-layout-sider {
     overflow: hidden;

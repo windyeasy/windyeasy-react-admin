@@ -14,6 +14,7 @@ import { localCache } from '@/utils/cache'
 import { CACHE_THEME_CONFIG } from '@/store/theme/constants'
 import useMessage from 'antd/lib/message/useMessage'
 import { useLocation } from 'react-router-dom'
+import ChangeHeaderColor from '../change-header-color'
 interface IProps {
   children?: ReactNode
 }
@@ -98,6 +99,10 @@ const ChangeThemeDrawer: FC<IProps> = () => {
         <div className="wrap">
           <Divider orientation="left">布局</Divider>
           <LayoutModeSelect />
+        </div>
+        <div className="wrap">
+          <Divider orientation="left">修改Header颜色</Divider>
+          <ChangeHeaderColor />
         </div>
         <div className="wrap">
           <Divider />

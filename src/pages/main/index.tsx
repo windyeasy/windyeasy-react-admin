@@ -9,7 +9,7 @@ import { useAntToken } from '@/hooks/useAntToken'
 import { LayoutMode } from '@/store/theme'
 import { useAppSelector } from '@/store'
 import { shallowEqual } from 'react-redux'
-
+import classNames from 'classnames'
 interface IProps {
   children?: ReactNode
 }
@@ -32,8 +32,18 @@ const Main: FC<IProps> = () => {
         return ''
     }
   }
+  function checkoutWhiteBg(color: string) {
+    if (color === '#fff' || color === '#ffffff' || color === 'rgb(255, 255, 255)') {
+      return false
+    } else {
+      return true
+    }
+  }
   return (
-    <MainWrapper $borderColor={token.colorSplit}>
+    <MainWrapper
+      $borderColor={token.colorSplit}
+      className={classNames({ otherHeaderTheme: checkoutWhiteBg(themeConfig.headerBg) })}
+    >
       {/* <LayoutLeftMenu /> */}
       {switchLayoutMode(themeConfig.layoutMode)}
       <ChangeThemeDrawer />

@@ -7,6 +7,7 @@ export const ColorCardWrapper = styled.div`
   margin-bottom: 8px;
   position: relative;
   cursor: pointer;
+  border: 1px solid #ccc;
   &:last-child {
     margin-right: 0;
   }

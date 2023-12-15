@@ -1,9 +1,9 @@
 import React, { memo, useEffect, useState } from 'react'
 import type { FC, ReactNode } from 'react'
-import ColorCard from '../color-card'
 import { useAppSelector } from '@/store'
 import { shallowEqual } from 'react-redux'
 import { useTheme } from '@/hooks/useTheme'
+import ColorCardList from '../color-card-list'
 
 interface IProps {
   children?: ReactNode
@@ -34,17 +34,11 @@ const ThemeColorList: FC<IProps> = () => {
   }, [themeConfig])
   return (
     <div className="theme-color-list">
-      {primaryListColor.map((item, index) => {
-        return (
-          <ColorCard
-            bgColor={item.color}
-            checked={currentIndex === index}
-            tipTitle={item.tipTitle}
-            onTap={changeColorPrimary}
-            key={item.tipTitle}
-          />
-        )
-      })}
+      <ColorCardList
+        onChange={changeColorPrimary}
+        colorList={primaryListColor}
+        activeIndex={currentIndex}
+      />
     </div>
   )
 }

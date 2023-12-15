@@ -6,6 +6,7 @@ import { LayoutMode } from '@/store/theme'
 import { useAppSelector } from '@/store'
 import { shallowEqual } from 'react-redux'
 import { useTheme } from '@/hooks/useTheme'
+import { Tooltip } from 'antd'
 
 interface IProps {
   children?: ReactNode
@@ -37,22 +38,32 @@ const LayoutModeSelect: FC<IProps> = () => {
   }
   return (
     <LayoutModeWrapper>
-      <div className="layout-mode-1 layout-mode-wrap" onClick={() => changeLayoutMode('leftSider')}>
-        {showChecked('leftSider')}
-        <div className="w-silder"></div>
-        <div className="w-main">
-          <div className="w-header"></div>
-          <div className="w-content"></div>
-        </div>
-      </div>
-      <div className="layout-mode-2 layout-mode-wrap" onClick={() => changeLayoutMode('topHeader')}>
-        {showChecked('topHeader')}
-        <div className="w-header"></div>
-        <div className="w-main">
+      <Tooltip title="左侧菜单栏布局">
+        <div
+          className="layout-mode-1 layout-mode-wrap"
+          onClick={() => changeLayoutMode('leftSider')}
+        >
+          {showChecked('leftSider')}
           <div className="w-silder"></div>
-          <div className="w-content"></div>
+          <div className="w-main">
+            <div className="w-header"></div>
+            <div className="w-content"></div>
+          </div>
         </div>
-      </div>
+      </Tooltip>
+      <Tooltip title="混合菜单布局">
+        <div
+          className="layout-mode-2 layout-mode-wrap"
+          onClick={() => changeLayoutMode('topHeader')}
+        >
+          {showChecked('topHeader')}
+          <div className="w-header"></div>
+          <div className="w-main">
+            <div className="w-silder"></div>
+            <div className="w-content"></div>
+          </div>
+        </div>
+      </Tooltip>
     </LayoutModeWrapper>
   )
 }
