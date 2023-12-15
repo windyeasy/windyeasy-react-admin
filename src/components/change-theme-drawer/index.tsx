@@ -2,7 +2,7 @@ import React, { memo, useState } from 'react'
 import type { FC, ReactNode } from 'react'
 import { ThemeDrawerWrapper } from './style'
 import { SettingOutlined } from '@ant-design/icons'
-import { Divider, Drawer, Switch } from 'antd'
+import { Alert, Button, Divider, Drawer, Switch } from 'antd'
 import { useAppSelector } from '@/store'
 import { shallowEqual } from 'react-redux'
 import { useAntToken } from '@/hooks/useAntToken'
@@ -10,12 +10,16 @@ import Cell from '../cell'
 import ThemeColorList from '../theme-color-list'
 import { useTheme } from '@/hooks/useTheme'
 import LayoutModeSelect from '../layout-mode-select'
+import { localCache } from '@/utils/cache'
+import { CACHE_THEME_CONFIG } from '@/store/theme/constants'
+import useMessage from 'antd/lib/message/useMessage'
 interface IProps {
   children?: ReactNode
 }
 
 const ChangeThemeDrawer: FC<IProps> = () => {
   const [open, setOpen] = useState(false)
+  const [messageApi, contextHolder] = useMessage()
   const { token } = useAntToken()
   const { changeThemeConfig } = useTheme()
   const { themeConfig } = useAppSelector(
@@ -35,8 +39,27 @@ const ChangeThemeDrawer: FC<IProps> = () => {
     newThemeConfig.isDark = !newThemeConfig.isDark
     changeThemeConfig(newThemeConfig)
   }
+  // 处理复制配置内容
+  function handleCopyThemeConfig() {
+    const config = JSON.stringify(themeConfig)
+    navigator.clipboard
+      .writeText(config)
+      .then(() => {
+        messageApi.success('复制成功！')
+      })
+      .catch(() => {
+        messageApi.success('复制失败！')
+      })
+  }
+  // 重置布局
+  function resetThemeConfig() {
+    localCache.removeCache(CACHE_THEME_CONFIG)
+    window.location.reload()
+  }
+
   return (
     <ThemeDrawerWrapper>
+      {contextHolder}
       {/* 设置主题样式按钮 */}
       <div
         className="set-theme"
@@ -62,6 +85,28 @@ const ChangeThemeDrawer: FC<IProps> = () => {
         <div className="wrap">
           <Divider orientation="left">布局</Divider>
           <LayoutModeSelect />
+        </div>
+        <div className="wrap">
+          <Divider />
+          <div className="tip-content">
+            <Alert
+              message="点击下方按钮，复制布局配置去 `src/store/theme/index.ts` 中修改themeConfig字段"
+              type="warning"
+            />
+          </div>
+          <div
+            className="btns"
+            style={{
+              marginTop: '20px'
+            }}
+          >
+            <Button type="primary" onClick={handleCopyThemeConfig}>
+              复制
+            </Button>
+            <Button style={{ marginLeft: '15px' }} onClick={resetThemeConfig}>
+              重置
+            </Button>
+          </div>
         </div>
       </Drawer>
     </ThemeDrawerWrapper>

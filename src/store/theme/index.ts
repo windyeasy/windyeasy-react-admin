@@ -19,7 +19,7 @@ interface IThemeState {
 const initialState: IThemeState = {
   themeConfig: {
     colorPrimary: '#20B2AA',
-    isDark: true,
+    isDark: false,
     headerBg: '#fff',
     sidlerBg: '#fff',
     layoutMode: 'leftSider'
