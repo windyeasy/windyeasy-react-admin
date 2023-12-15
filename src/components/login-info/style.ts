@@ -15,5 +15,8 @@ export const LoginInfoWrapper = styled.div`
       margin-left: 13px;
       font-size: 16px;
     }
+    .white-login-title {
+      color: #fff;
+    }
   }
 `

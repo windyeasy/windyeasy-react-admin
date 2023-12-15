@@ -24,14 +24,14 @@ export function useTheme() {
   }
   // 注入主题样式
   useEffect(() => {
-    const { headerBg, sidlerBg, isDark, colorPrimary } = themeConfig
+    const { headerBg, sidlerBg, isDark, colorPrimary, isMenuDark } = themeConfig
     const newTheme: ThemeConfig = {
       algorithm: antTheme.defaultAlgorithm,
       token: { colorPrimary: colorPrimary },
       components: {
         Layout: {
           headerBg: headerBg,
-          siderBg: sidlerBg
+          siderBg: isMenuDark ? '#001529' : sidlerBg
         }
       }
     }

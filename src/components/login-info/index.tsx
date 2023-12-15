@@ -4,6 +4,7 @@ import { LoginInfoWrapper } from './style'
 import { Link } from 'react-router-dom'
 import { useAppSelector } from '@/store'
 import { shallowEqual } from 'react-redux'
+import classNames from 'classnames'
 
 interface IProps {
   children?: ReactNode
@@ -29,7 +30,13 @@ const LoginInfo: FC<IProps> = () => {
     <LoginInfoWrapper>
       <Link to="/main" className="logo-content">
         <img className="login-img" src={logo} alt="windyeasy-admin" />
-        {showLoginTitle() && <h1 className="login-title">windyeasy-admin</h1>}
+        {showLoginTitle() && (
+          <h1
+            className={classNames('login-title', { 'white-login-title': themeConfig.isMenuDark })}
+          >
+            windyeasy-admin
+          </h1>
+        )}
       </Link>
     </LoginInfoWrapper>
   )

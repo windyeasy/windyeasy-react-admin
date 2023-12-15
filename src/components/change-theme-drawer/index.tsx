@@ -60,6 +60,12 @@ const ChangeThemeDrawer: FC<IProps> = () => {
     localCache.removeCache(CACHE_THEME_CONFIG)
     window.location.reload()
   }
+  // 更改菜单主题
+  function changeMenuDark() {
+    const newThemeConfig = { ...themeConfig }
+    newThemeConfig.isMenuDark = !newThemeConfig.isMenuDark
+    changeThemeConfig(newThemeConfig)
+  }
   useEffect(() => {
     const el = document.querySelector('#layout-content')
     if (el?.scrollHeight && el?.clientHeight) {
@@ -101,9 +107,17 @@ const ChangeThemeDrawer: FC<IProps> = () => {
           <LayoutModeSelect />
         </div>
         <div className="wrap">
+          <Divider orientation="left">菜单主题</Divider>
+          <Cell
+            title="深色模式"
+            cellRight={<Switch onChange={changeMenuDark} defaultChecked={themeConfig.isMenuDark} />}
+          />
+        </div>
+        <div className="wrap">
           <Divider orientation="left">修改Header颜色</Divider>
           <ChangeHeaderColor />
         </div>
+
         <div className="wrap">
           <Divider />
           <div className="tip-content">

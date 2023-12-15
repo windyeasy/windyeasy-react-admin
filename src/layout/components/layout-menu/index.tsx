@@ -19,10 +19,11 @@ const LayoutMenu: FC<IProps> = () => {
    * selectedKeys在切换路由时处理，
    * 当点击最底层菜单会切换路由，就能得到selectedKeys
    */
-  const { openKeys, selectedKeys } = useAppSelector(
+  const { openKeys, selectedKeys, themeConfig } = useAppSelector(
     (state) => ({
       openKeys: state.menu.openKeys,
-      selectedKeys: state.menu.selectedKeys
+      selectedKeys: state.menu.selectedKeys,
+      themeConfig: state.theme.themeConfig
     }),
     shallowEqual
   )
@@ -46,6 +47,7 @@ const LayoutMenu: FC<IProps> = () => {
         onOpenChange={handleOpenChange}
         style={{ height: '100%' }}
         items={menuItems}
+        theme={themeConfig.isMenuDark ? 'dark' : 'light'}
       />
     </MenuWrapper>
   )

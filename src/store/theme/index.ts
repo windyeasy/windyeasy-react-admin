@@ -6,6 +6,7 @@ export interface WThemeConfig {
   isDark: boolean
   colorPrimary: string
   layoutMode: LayoutMode
+  isMenuDark: boolean
 }
 export interface CardColorType {
   tipTitle: string
@@ -64,7 +65,8 @@ const initialState: IThemeState = {
     isDark: false,
     headerBg: '#20B2AA',
     sidlerBg: '#fff',
-    layoutMode: 'leftSider'
+    layoutMode: 'leftSider',
+    isMenuDark: true
   },
   // 主题样式列表
   primaryListColor: pulistCardList,
