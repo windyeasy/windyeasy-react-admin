@@ -9,6 +9,7 @@ import { useAntToken } from '@/hooks/useAntToken'
 import Cell from '../cell'
 import ThemeColorList from '../theme-color-list'
 import { useTheme } from '@/hooks/useTheme'
+import LayoutModeSelect from '../layout-mode-select'
 interface IProps {
   children?: ReactNode
 }
@@ -55,8 +56,12 @@ const ChangeThemeDrawer: FC<IProps> = () => {
           />
         </div>
         <div className="wrap">
-          <Divider>主题色</Divider>
+          <Divider orientation="left">主题色</Divider>
           <ThemeColorList />
+        </div>
+        <div className="wrap">
+          <Divider orientation="left">布局</Divider>
+          <LayoutModeSelect />
         </div>
       </Drawer>
     </ThemeDrawerWrapper>

@@ -18,6 +18,7 @@ export const MainWrapper = styled.div<IProps>`
     border-bottom: 1px solid ${(props) => props.$borderColor};
   }
   .ant-layout-sider {
+    overflow: hidden;
     .ant-layout-sider-children {
       display: flex;
       flex-direction: column;

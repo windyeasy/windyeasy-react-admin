@@ -1,10 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
-
+export type LayoutMode = 'leftSider' | 'topHeader'
 export interface WThemeConfig {
   headerBg: string
   sidlerBg: string
   isDark: boolean
   colorPrimary: string
+  layoutMode: LayoutMode
 }
 interface ListColor {
   tipTitle: string
@@ -20,7 +21,8 @@ const initialState: IThemeState = {
     colorPrimary: '#20B2AA',
     isDark: true,
     headerBg: '#fff',
-    sidlerBg: '#fff'
+    sidlerBg: '#fff',
+    layoutMode: 'leftSider'
   },
   // 主题样式列表
   primaryListColor: [
