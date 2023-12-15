@@ -34,7 +34,7 @@ const LayoutTopHeader: FC<IProps> = () => {
           <Sider width={220} collapsed={isCollapsed} collapsedWidth={60}>
             <LayoutMenu />
           </Sider>
-          <Content>
+          <Content id="layout-content">
             <Suspense fallback="">
               <Outlet />
             </Suspense>

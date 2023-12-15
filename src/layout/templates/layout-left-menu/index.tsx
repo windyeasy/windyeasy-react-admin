@@ -30,7 +30,7 @@ const LayoutLeftMenu: FC<IProps> = () => {
           <Header>
             <LayoutHeaderCrumb />
           </Header>
-          <Content>
+          <Content id="layout-content">
             <Suspense fallback="">
               <Outlet />
             </Suspense>

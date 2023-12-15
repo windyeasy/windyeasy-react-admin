@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import type { FC, ReactNode } from 'react'
 import { ThemeDrawerWrapper } from './style'
 import { SettingOutlined } from '@ant-design/icons'
@@ -13,12 +13,15 @@ import LayoutModeSelect from '../layout-mode-select'
 import { localCache } from '@/utils/cache'
 import { CACHE_THEME_CONFIG } from '@/store/theme/constants'
 import useMessage from 'antd/lib/message/useMessage'
+import { useLocation } from 'react-router-dom'
 interface IProps {
   children?: ReactNode
 }
 
 const ChangeThemeDrawer: FC<IProps> = () => {
   const [open, setOpen] = useState(false)
+  const [isContentScroll, setIsContentScroll] = useState(false)
+  const { pathname } = useLocation()
   const [messageApi, contextHolder] = useMessage()
   const { token } = useAntToken()
   const { changeThemeConfig } = useTheme()
@@ -56,7 +59,16 @@ const ChangeThemeDrawer: FC<IProps> = () => {
     localCache.removeCache(CACHE_THEME_CONFIG)
     window.location.reload()
   }
-
+  useEffect(() => {
+    const el = document.querySelector('#layout-content')
+    if (el?.scrollHeight && el?.clientHeight) {
+      if (el?.scrollHeight > el?.clientHeight) {
+        setIsContentScroll(true)
+      } else {
+        setIsContentScroll(false)
+      }
+    }
+  }, [pathname])
   return (
     <ThemeDrawerWrapper>
       {contextHolder}
@@ -64,7 +76,8 @@ const ChangeThemeDrawer: FC<IProps> = () => {
       <div
         className="set-theme"
         style={{
-          backgroundColor: token.colorPrimary
+          backgroundColor: token.colorPrimary,
+          right: isContentScroll ? '6px' : ''
         }}
         onClick={onOpen}
       >
