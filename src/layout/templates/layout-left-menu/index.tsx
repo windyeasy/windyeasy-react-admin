@@ -8,6 +8,7 @@ import { useAppSelector } from '@/store'
 import { LayoutHeaderCrumb, LayoutMenu } from '@/layout'
 import LoginInfo from '@/components/login-info'
 import { shallowEqual } from 'react-redux'
+import ChangeThemeDrawer from '@/components/change-theme-drawer'
 interface IProps {
   children?: ReactNode
 }
@@ -30,10 +31,13 @@ const LayoutLeftMenu: FC<IProps> = () => {
           <Header>
             <LayoutHeaderCrumb />
           </Header>
-          <Content id="layout-content">
-            <Suspense fallback="">
-              <Outlet />
-            </Suspense>
+          <Content>
+            <ChangeThemeDrawer />
+            <div className="main-content">
+              <Suspense fallback="">
+                <Outlet />
+              </Suspense>
+            </div>
           </Content>
         </Layout>
       </Layout>

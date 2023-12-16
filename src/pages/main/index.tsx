@@ -1,7 +1,7 @@
 import React, { memo } from 'react'
 import type { FC, ReactNode } from 'react'
 
-import ChangeThemeDrawer from '@/components/change-theme-drawer'
+// import ChangeThemeDrawer from '@/components/change-theme-drawer'
 import { MainWrapper } from './style'
 import { LayoutTopHeader } from '@/layout'
 import { LayoutLeftMenu } from '@/layout'
@@ -46,7 +46,6 @@ const Main: FC<IProps> = () => {
     >
       {/* <LayoutLeftMenu /> */}
       {switchLayoutMode(themeConfig.layoutMode)}
-      <ChangeThemeDrawer />
     </MainWrapper>
   )
 }

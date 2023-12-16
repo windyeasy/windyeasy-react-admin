@@ -40,7 +40,9 @@ export const MainWrapper = styled.div<IProps>`
     }
   }
   .ant-layout-content {
-    padding: 15px;
+    .main-content {
+      padding: 15px;
+    }
     flex: 1;
     overflow: auto;
     position: relative;

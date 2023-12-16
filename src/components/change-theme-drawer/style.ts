@@ -1,9 +1,14 @@
 import styled from 'styled-components'
 
 export const ThemeDrawerWrapper = styled.div`
+  position: sticky;
+  top: 190px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
   .set-theme {
-    position: fixed;
-    inset-block-start: 240px;
+    position: absolute;
     inset-inline-end: 0px;
     font-size: 20px;
     color: #fff;

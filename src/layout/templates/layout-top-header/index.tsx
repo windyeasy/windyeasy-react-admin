@@ -9,6 +9,7 @@ import { LayoutHeaderCrumb, LayoutMenu } from '@/layout'
 import LoginInfo from '@/components/login-info'
 import { shallowEqual } from 'react-redux'
 import { TopHeaderWrapper } from './style'
+import ChangeThemeDrawer from '@/components/change-theme-drawer'
 interface IProps {
   children?: ReactNode
 }
@@ -34,10 +35,13 @@ const LayoutTopHeader: FC<IProps> = () => {
           <Sider width={220} collapsed={isCollapsed} collapsedWidth={60}>
             <LayoutMenu />
           </Sider>
-          <Content id="layout-content">
-            <Suspense fallback="">
-              <Outlet />
-            </Suspense>
+          <Content>
+            <ChangeThemeDrawer />
+            <div className="main-content">
+              <Suspense fallback="">
+                <Outlet />
+              </Suspense>
+            </div>
           </Content>
         </Layout>
       </Layout>
