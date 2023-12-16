@@ -9,9 +9,9 @@ export const MainWrapper = styled.div<IProps>`
     .ant-layout-header {
       &,
       * {
-        color: rgba(255, 255, 255, 0.85);
+        color: #fff;
         &:hover {
-          color: rgba(255, 255, 255, 0.85);
+          color: #fff;
         }
       }
     }
@@ -29,7 +29,7 @@ export const MainWrapper = styled.div<IProps>`
     border-bottom: 1px solid ${(props) => props.$borderColor};
   }
   .login-title {
-    color: rgba(0, 0, 0, 0.88);
+    color: #fff;
   }
   .ant-layout-sider {
     overflow: hidden;
