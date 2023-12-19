@@ -1,12 +1,12 @@
 import React, { memo } from 'react'
 import type { FC, ReactNode } from 'react'
 
-import { acountLogin } from '../../service'
+import { accountLogin } from '../../service'
 import useMessage from 'antd/es/message/useMessage'
 
 import { LoginPanelWrapper } from './style'
-import PanelAcount from '../panel-acount'
-import type { OnSubmitType } from '../panel-acount'
+import PanelAccount from '../panel-account'
+import type { OnSubmitType } from '../panel-account'
 import { useAppDispatch } from '@/store'
 import { handleLoginAction } from '../../store'
 
@@ -20,7 +20,7 @@ const LoginPanel: FC<IProps> = () => {
   const [messageApi, contextHolder] = useMessage()
 
   const handleSubmit: OnSubmitType = (values) => {
-    acountLogin(values).then((res) => {
+    accountLogin(values).then((res) => {
       if (res.code === 0) {
         // 存储token
         dispatch(handleLoginAction(res.data))
@@ -36,7 +36,7 @@ const LoginPanel: FC<IProps> = () => {
       {contextHolder}
       <h2 className="panel-title">windyeasy-react-admin</h2>
       <div className="panel-content">
-        <PanelAcount onSubmit={handleSubmit} />
+        <PanelAccount onSubmit={handleSubmit} />
       </div>
     </LoginPanelWrapper>
   )

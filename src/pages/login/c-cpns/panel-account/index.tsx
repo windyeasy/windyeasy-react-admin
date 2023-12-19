@@ -1,13 +1,13 @@
 import React, { memo } from 'react'
 import type { FC, ReactNode } from 'react'
-import { PanelAcountWrapper } from './style'
+import { PanelAccountWrapper } from './style'
 import { Button, Form, Input } from 'antd'
 import FormItem from 'antd/es/form/FormItem'
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
-import { LoginAcount } from '../../service/type'
+import { LoginAccount } from '../../service/type'
 import useMessage from 'antd/es/message/useMessage'
 
-export interface OnSubmitType<T = LoginAcount> {
+export interface OnSubmitType<T = LoginAccount> {
   (values: T): void
 }
 interface IProps {
@@ -15,21 +15,21 @@ interface IProps {
   onSubmit: OnSubmitType
 }
 
-const PanelAcount: FC<IProps> = (props) => {
+const PanelAccount: FC<IProps> = (props) => {
   const [messageApi, contextHolder] = useMessage()
   const { onSubmit } = props
-  function handleFinish(values: LoginAcount) {
+  function handleFinish(values: LoginAccount) {
     onSubmit(values)
   }
   function handleForgotPassword() {
     messageApi.info('请联系管理员')
   }
   return (
-    <PanelAcountWrapper>
+    <PanelAccountWrapper>
       {contextHolder}
       <Form
         size="large"
-        name="acount-form"
+        name="account-form"
         initialValues={{ name: 'coderwhy', password: '123456' }}
         onFinish={handleFinish}
       >
@@ -39,7 +39,7 @@ const PanelAcount: FC<IProps> = (props) => {
         <FormItem name="password" rules={[{ required: true, message: '请输入用户密码!' }]}>
           <Input.Password prefix={<LockOutlined />} type="password" placeholder="请输入密码" />
         </FormItem>
-        <FormItem className="fogot-password">
+        <FormItem className="forgot-password">
           <a onClick={handleForgotPassword}>忘记密码</a>
         </FormItem>
         <FormItem>
@@ -48,8 +48,8 @@ const PanelAcount: FC<IProps> = (props) => {
           </Button>
         </FormItem>
       </Form>
-    </PanelAcountWrapper>
+    </PanelAccountWrapper>
   )
 }
 
-export default memo(PanelAcount)
+export default memo(PanelAccount)

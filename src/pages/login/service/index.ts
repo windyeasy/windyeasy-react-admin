@@ -1,12 +1,12 @@
 import request from '@/services'
-import type { LoginAcount, MenuItemRes } from './type'
+import type { LoginAccount, MenuItemRes } from './type'
 import { BaseRequest } from '@/services/type'
 
 // 登录
-export function acountLogin(acount: LoginAcount) {
+export function accountLogin(account: LoginAccount) {
   return request.post({
     url: '/login',
-    data: acount
+    data: account
   })
 }
 
