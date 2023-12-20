@@ -8,15 +8,15 @@ import { extendProps } from './templates'
 type TbType = 'utcTimer'
 export type WBaseType<T = any> = WColumType<T, TbType>[]
 
-interface IProps extends WtbProps {
+export interface WBaseTableProps extends WtbProps {
   children?: ReactNode
   wcolumns: WBaseType
 }
 
-const WBaseTable: FC<IProps> = (props) => {
+const WBaseTable: FC<WBaseTableProps> = (props) => {
   return (
     <Wtb
-      responseConfig={{ dataIndex: 'data.list', totalIndex: 'data.totalCount' }}
+      responseConfig={{ dataIndex: 'data.list', totalIndex: 'data.total' }}
       {...props}
       extendProps={extendProps}
     />
