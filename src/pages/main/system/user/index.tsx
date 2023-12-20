@@ -6,12 +6,19 @@ import { tableConfig } from './config/table.config'
 import { SearchForm } from '@/base-ui/w-form'
 import { searchConfig } from './config/search.config'
 import { UserWrapper } from './style'
+import PageModal from '@/base-ui/page-modal'
+import { modalConfig } from './config/modal.config'
+import { usePageModal } from '@/base-ui/page-modal/hooks/usePageModal'
 
 interface IProps {
   children?: ReactNode
 }
 
 const User: FC<IProps> = () => {
+  const { setModalContent } = usePageModal()
+  function addUser() {
+    setModalContent()
+  }
   return (
     <UserWrapper>
       <Card>
@@ -21,11 +28,14 @@ const User: FC<IProps> = () => {
         <Row justify="space-between" className="card-header">
           <div className="header-title">用户列表</div>
           <div className="header-btns">
-            <Button type="primary">新增用户</Button>
+            <Button type="primary" onClick={addUser}>
+              新增用户
+            </Button>
           </div>
         </Row>
         <WBaseTable {...tableConfig} />
       </Card>
+      <PageModal modalConfig={modalConfig} formname="userForm" />
     </UserWrapper>
   )
 }

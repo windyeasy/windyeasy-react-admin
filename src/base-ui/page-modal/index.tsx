@@ -7,6 +7,8 @@ import { usePageModal } from './hooks/usePageModal'
 import { PageModalConfig } from './type'
 import { WBaseForm } from '../w-form'
 import { formProxyService } from '../w-form/src/service/proxy-service'
+import { modalConfig } from '@/pages/demo/config'
+import { ModalWrapper } from './style'
 export type OnModalSubmitType = (isNew: boolean, values: any, record: any) => void
 interface IProps {
   children?: ReactNode
@@ -25,10 +27,11 @@ interface IProps {
  */
 const PageModal: FC<IProps> = (props) => {
   const {
-    width = '30%',
+    width = '769px',
     modalConfig: {
       uiConfig = {
-        formConfig: { labelCol: { span: 5 }, wrapperCol: { span: 18 } }
+        formConfig: { labelCol: { span: 6 }, wrapperCol: { span: 17 } },
+        colConfig: { span: 12 }
       }
     }
   } = props
@@ -79,7 +82,18 @@ const PageModal: FC<IProps> = (props) => {
     }
     return formItems
   }
-
+  function fetchFooterPosition() {
+    const { footerPosition = 'right' } = modalConfig
+    if (footerPosition === 'left') {
+      return 'start'
+    }
+    if (footerPosition === 'center') {
+      return 'center'
+    }
+    if (footerPosition === 'right') {
+      return 'end'
+    }
+  }
   // 副作用代码
   useEffect(() => {
     // 如果对象有值就，设置表单初始值
@@ -88,10 +102,7 @@ const PageModal: FC<IProps> = (props) => {
   return (
     <Modal
       title={
-        <div
-          className="title"
-          style={{ fontWeight: 'normal', fontSize: '18px', textAlign: 'center' }}
-        >
+        <div className="title" style={{ fontWeight: '400', fontSize: '18px' }}>
           {isNew ? props.modalConfig.header.newTitle : props.modalConfig.header.editTitle}
         </div>
       }
@@ -99,19 +110,24 @@ const PageModal: FC<IProps> = (props) => {
       open={isOpen}
       onCancel={handleCancel}
       footer={null}
+      centered
     >
-      <WBaseForm
-        proxyService={formProxyService}
-        formname={props.formname}
-        formItems={handleHiddenFormItems()}
-        uiConfig={uiConfig}
-      />
-      <Row justify="center">
-        <Button onClick={handleCancel}>取消</Button>
-        <Button onClick={handleSubmit} style={{ marginLeft: '10px' }} type="primary">
-          确定
-        </Button>
-      </Row>
+      <ModalWrapper>
+        <div className="modal-content">
+          <WBaseForm
+            proxyService={formProxyService}
+            formname={props.formname}
+            formItems={handleHiddenFormItems()}
+            uiConfig={uiConfig}
+          />
+        </div>
+        <Row justify={fetchFooterPosition()} className="modal-footer">
+          <Button onClick={handleCancel}>取消</Button>
+          <Button onClick={handleSubmit} style={{ marginLeft: '10px' }} type="primary">
+            确定
+          </Button>
+        </Row>
+      </ModalWrapper>
     </Modal>
   )
 }

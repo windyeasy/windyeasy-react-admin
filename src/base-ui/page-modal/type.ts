@@ -9,4 +9,5 @@ export interface PageModalConfig {
   addHidden?: string[]
   uiConfig?: WFormUiConfig
   formItems: WBaseFormItem[]
+  footerPosition?: 'left' | 'center' | 'right'
 }
