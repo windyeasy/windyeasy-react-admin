@@ -164,7 +164,7 @@ export const modalConfig: PageModalConfig = {
 }
 export const groupsFormConfig: WBaseFormProps = {
   mode: 'group',
-  formname: 'newMyform',
+  formname: 'newMyForm',
   groups: [
     {
       formItemsProps: ['name', 'realname', 'password'],

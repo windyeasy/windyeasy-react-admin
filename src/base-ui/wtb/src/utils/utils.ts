@@ -33,16 +33,16 @@ export function propsListToColumns(
 }
 
 // 获取表单里面的列表和total
-export function fetchListAndTotal(res: any, dataIndexs: string[], totalIndexs: string[]) {
+export function fetchListAndTotal(res: any, dataIndex: string[], totalIndex: string[]) {
   let list = res
   let total = res
-  if (dataIndexs.length > 0) {
-    for (const key of dataIndexs) {
+  if (dataIndex.length > 0) {
+    for (const key of dataIndex) {
       list = list[key]
     }
   }
-  if (totalIndexs.length > 0) {
-    for (const key of totalIndexs) {
+  if (totalIndex.length > 0) {
+    for (const key of totalIndex) {
       total = total[key]
     }
   }

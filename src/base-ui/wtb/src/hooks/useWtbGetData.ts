@@ -9,8 +9,8 @@ import { useAppDispatch } from '@/store'
 export interface FetchPageListParamsType {
   api: string
   method: string
-  dataIndexs: string[]
-  totalIndexs: string[]
+  dataIndex: string[]
+  totalIndex: string[]
 }
 export function useWtbGetData() {
   const dispatch = useAppDispatch()

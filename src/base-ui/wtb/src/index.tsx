@@ -16,7 +16,6 @@ interface IProps extends WtbProps {
 const WBaseTable: FC<IProps> = (props) => {
   return (
     <Wtb
-      requestConfig={{ method: 'post' }}
       responseConfig={{ dataIndex: 'data.list', totalIndex: 'data.totalCount' }}
       {...props}
       extendProps={extendProps}

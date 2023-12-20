@@ -24,13 +24,13 @@ export function extractProps(props: WtbProps) {
     handleValueError('totalIndex', totalIndex)
   }
   method = method.toUpperCase()
-  const dataIndexs = dataIndex.split('.')
-  const totalIndexs = totalIndex.split('.')
+  const dataIndex = dataIndex.split('.')
+  const totalIndex = totalIndex.split('.')
   return {
     api,
     method,
-    dataIndexs,
-    totalIndexs
+    dataIndex,
+    totalIndex
   }
 }
 

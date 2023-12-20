@@ -14,8 +14,8 @@ export function fetchAsyncOptions(
   return new Promise<any>((reslove) => {
     fn().then((res) => {
       let data = res
-      const dataIndexs = dataIndex.split('.')
-      for (const index of dataIndexs) {
+      const newDataIndex = dataIndex.split('.')
+      for (const index of newDataIndex) {
         data = data[index]
       }
       reslove(mapOptions(data, labelIndex, valueIndex))
