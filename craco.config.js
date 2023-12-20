@@ -12,7 +12,7 @@ module.exports = {
   devServer: {
     proxy: {
       '/': {
-        target: 'http://123.207.32.32:5000',
+        target: 'http://localhost:8000',
         pathRewrite: { '^/': '' }
       }
     }

@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { ACCOUNT_TOKEN, FLAT_MENU_LIST, MENU_LIST, USER_INFO } from '../service/constants'
-import { getMenuByRoleID, getUserInfoByID } from '../service'
+import { getUserInfo } from '../service'
 import { localCache } from '@/utils/cache'
 import { fetchFlatMenuList } from '@/utils/map-menu'
 
@@ -9,19 +9,20 @@ export const handleLoginAction = createAsyncThunk('handleLogin', (result: any, {
   // 存储token
   localCache.setCache(ACCOUNT_TOKEN, result.token)
   // 获取用户信息，并存入store
-  const id = result.id
-  getUserInfoByID(id).then(async (res) => {
-    localCache.setCache(USER_INFO, res.data)
-    dispatch(changeUserInfoAction(res.data))
-    // 据角色id获取菜单
-    const roleId = res.data.role.id
-    const result = await getMenuByRoleID(roleId)
+
+  getUserInfo().then(async (res) => {
+    const { menuList } = res.data
+    const userInfo = { ...res.data }
+    Reflect.deleteProperty(userInfo, 'menuList')
+    localCache.setCache(USER_INFO, userInfo)
+    dispatch(changeUserInfoAction(userInfo))
+
     // 存储菜单列表
-    localCache.setCache(MENU_LIST, result.data)
+    localCache.setCache(MENU_LIST, menuList)
     // 存储扁平化菜单到，localStore里面，不用每一次重复处理节约性能
-    const flatMenuList = fetchFlatMenuList(result.data)
+    const flatMenuList = fetchFlatMenuList(menuList)
     localCache.setCache(FLAT_MENU_LIST, flatMenuList)
-    dispatch(changeMenuListAction(result.data))
+    dispatch(changeMenuListAction(menuList))
     // 更改为登录状态
     dispatch(changeIsLoginAction(true))
   })

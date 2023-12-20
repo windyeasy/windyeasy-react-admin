@@ -1,6 +1,5 @@
 import request from '@/services'
-import type { LoginAccount, MenuItemRes } from './type'
-import { BaseRequest } from '@/services/type'
+import type { LoginAccount } from './type'
 
 // 登录
 export function accountLogin(account: LoginAccount) {
@@ -9,17 +8,9 @@ export function accountLogin(account: LoginAccount) {
     data: account
   })
 }
-
 // 获取用户信息
-export function getUserInfoByID(id: number) {
+export function getUserInfo() {
   return request.get({
-    url: `/users/${id}`
-  })
-}
-
-// 获取菜单信息
-export function getMenuByRoleID(id: number) {
-  return request.get<BaseRequest<MenuItemRes[]>>({
-    url: `/role/${id}/menu`
+    url: '/user/info'
   })
 }

@@ -30,10 +30,10 @@ const PanelAccount: FC<IProps> = (props) => {
       <Form
         size="large"
         name="account-form"
-        initialValues={{ name: 'coderwhy', password: '123456' }}
+        initialValues={{ username: 'superadmin', password: '123456' }}
         onFinish={handleFinish}
       >
-        <FormItem name="name" rules={[{ required: true, message: '请输入用户名!' }]}>
+        <FormItem name="username" rules={[{ required: true, message: '请输入用户名!' }]}>
           <Input prefix={<UserOutlined />} placeholder="请输入用户名" />
         </FormItem>
         <FormItem name="password" rules={[{ required: true, message: '请输入用户密码!' }]}>

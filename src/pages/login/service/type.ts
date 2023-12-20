@@ -1,17 +1,23 @@
 export interface LoginAccount {
-  name: string
+  username: string
   password: string
 }
 type IdType = number | string
 
 export interface MenuItemRes {
   id: IdType
-  name: string
   parentId?: IdType | null
   permission?: string
-  sort?: null | number
   type?: number
   icon?: string | null
   url: string | null
+  menuName: string
+  sort?: number
+  menuType?: number
+  isLink?: 0 | 1
+  isIframe?: 0 | 1
+  createAt?: string
+  updateAt?: string
+  redirectUrl?: string
   children?: MenuItemRes[] | null
 }

@@ -112,19 +112,15 @@ export function matchActiveMenuInfo(menuList: MenuItemRes[], path: string) {
 }
 
 /*
- *生成扁平化菜单, 使用扁平化菜单通过parentId查询所有的父级元素更容易
- *没有全部映射，只映射一部分我需要的数据
+ * 生成扁平化菜单, 使用扁平化菜单通过parentId查询所有的父级元素更容易
+ * 如何接口直接通过接口获取
  */
 export function fetchFlatMenuList(menuList: MenuItemRes[]) {
   const list: MenuItemRes[] = []
   for (const menu of menuList) {
-    list.push({
-      id: menu.id,
-      name: menu.name,
-      parentId: menu.parentId,
-      icon: menu.icon,
-      url: menu.url
-    })
+    const menuInfo = { ...menu }
+    Reflect.deleteProperty(menuInfo, 'children')
+    list.push(menu)
     if (checkArrayNotEmpty(menu.children) && menu.children) {
       fetchFlatMenuList(menu.children)
     }
@@ -159,16 +155,16 @@ export function fetchCrumbItemsByPath(menuList: MenuItemRes[], path: string) {
   for (const menu of menuList) {
     if (menu.url === path) {
       // 添加前面的菜单
-      let parants: ItemType[] = []
+      let parents: ItemType[] = []
       if (menu.parentId) {
-        parants = getParentsMenuByParentId(menu.parentId).map((item) => ({
-          title: item.name,
+        parents = getParentsMenuByParentId(menu.parentId).map((item) => ({
+          title: item.menuName,
           href: '#' + item.url
         })) as ItemType[]
-        items.push(...parants)
+        items.push(...parents)
       }
       items.push({
-        title: menu.name,
+        title: menu.menuName,
         href: '#' + menu.url
       })
       return items

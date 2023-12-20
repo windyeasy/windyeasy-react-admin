@@ -30,8 +30,8 @@ export function getItem(
 }
 
 // 获取菜单图标
-function getMenuIcon(iconname?: string | null) {
-  switch (iconname) {
+function getMenuIcon(iconName?: string | null) {
+  switch (iconName) {
     case 'el-icon-monitor':
       return <DesktopOutlined />
     case 'el-icon-setting':
@@ -57,11 +57,13 @@ export function handleMenuList(menuList: MenuItemRes[]) {
       const childrenArray = handleMenuList(item.children)
       // 当数组为空时不加入菜单
       if (checkArrayNotEmpty(childrenArray)) {
-        menuItems.push(getItem(item.name, String(item.id), getMenuIcon(item.icon), childrenArray))
+        menuItems.push(
+          getItem(item.menuName, String(item.id), getMenuIcon(item.icon), childrenArray)
+        )
       } else {
         menuItems.push(
           getItem(
-            <MenuItemLabel url={item.url} title={item.name} />,
+            <MenuItemLabel url={item.url} title={item.menuName} />,
             String(item.id),
             getMenuIcon(item.icon)
           )
@@ -70,7 +72,7 @@ export function handleMenuList(menuList: MenuItemRes[]) {
     } else {
       menuItems.push(
         getItem(
-          <MenuItemLabel url={item.url} title={item.name} />,
+          <MenuItemLabel url={item.url} title={item.menuName} />,
           String(item.id),
           getMenuIcon(item.icon)
         )

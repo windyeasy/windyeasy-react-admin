@@ -4,9 +4,10 @@ import { CrumbRightWrapper } from './style'
 import { Dropdown, MenuProps } from 'antd'
 import { localCache } from '@/utils/cache'
 import { useNavigate } from 'react-router-dom'
-import { useAppDispatch } from '@/store'
+import { useAppDispatch, useAppSelector } from '@/store'
 import { changeIsLoginAction } from '@/pages/login/store'
 import { useAntToken } from '@/hooks/useAntToken'
+import { shallowEqual } from 'react-redux'
 
 interface IProps {
   children?: ReactNode
@@ -15,6 +16,12 @@ interface IProps {
 const CrumbRight: FC<IProps> = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
+  const { userInfo } = useAppSelector(
+    (state) => ({
+      userInfo: state.login.userInfo
+    }),
+    shallowEqual
+  )
   function loginOut() {
     // 清除缓存
     localCache.clear()
@@ -38,7 +45,7 @@ const CrumbRight: FC<IProps> = () => {
             className="avatar"
             src="https://img2.baidu.com/it/u=1978192862,2048448374&fm=253&fmt=auto&app=138&f=JPEG?w=504&h=500"
           />
-          <span className="user-name">coderwhy</span>
+          <span className="user-name">{userInfo.username}</span>
         </a>
       </Dropdown>
     </CrumbRightWrapper>
