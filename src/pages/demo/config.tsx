@@ -112,7 +112,7 @@ export const modalConfig: PageModalConfig = {
     editTitle: '用户编辑'
   },
   editHidden: ['password'],
-  formItmes: [
+  formItems: [
     {
       type: 'input',
       label: '用户名',

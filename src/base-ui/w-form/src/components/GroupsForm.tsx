@@ -10,7 +10,7 @@ interface IProps extends WFormComPublicProps {
 
 const GroupsForm: FC<IProps> = (props) => {
   const { formItems, colConfig = {}, formItemsInfo, groups } = props
-  function handleGrousFormItmes() {
+  function handleGrousFormItems() {
     const renderArray: ReactNode[] = []
     // 查询出组后添加
     const length = groups.length
@@ -34,7 +34,7 @@ const GroupsForm: FC<IProps> = (props) => {
   }
   return (
     <>
-      {handleGrousFormItmes().map((item) => {
+      {handleGrousFormItems().map((item) => {
         return item
       })}
     </>

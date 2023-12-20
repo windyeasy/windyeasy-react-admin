@@ -67,17 +67,17 @@ const PageModal: FC<IProps> = (props) => {
 
   // 处理过滤不同模式需要隐藏的表单项，editHidden或addHidden
   function handleHiddenFormItems() {
-    let { formItmes } = props.modalConfig
+    let { formItems } = props.modalConfig
     const { editHidden, addHidden } = props.modalConfig
     // 是新增的时候过滤新增的
     if (addHidden && addHidden.length && isNew) {
-      formItmes = formItmes.filter((item) => !addHidden!.includes(item.prop))
+      formItems = formItems.filter((item) => !addHidden!.includes(item.prop))
     }
     // 是编辑的时候就是过滤编辑隐藏
     if (editHidden && editHidden.length && !isNew) {
-      formItmes = formItmes.filter((item) => !editHidden!.includes(item.prop))
+      formItems = formItems.filter((item) => !editHidden!.includes(item.prop))
     }
-    return formItmes
+    return formItems
   }
 
   // 副作用代码

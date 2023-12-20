@@ -8,5 +8,5 @@ export interface PageModalConfig {
   editHidden?: string[]
   addHidden?: string[]
   uiConfig?: WFormUiConfig
-  formItmes: WBaseFormItem[]
+  formItems: WBaseFormItem[]
 }
