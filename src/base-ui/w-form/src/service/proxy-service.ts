@@ -1,7 +1,7 @@
 import type { FormInstance } from 'antd'
 
 type FnType = (data?: any) => void
-export class WFormProxySerive {
+export class WFormProxyService {
   form: FormInstance<any> | undefined
   // 处理字段函数数组
   handleParamsFns: any[] = []
@@ -30,4 +30,4 @@ export class WFormProxySerive {
   }
 }
 
-export const formPrxoySerive = new WFormProxySerive()
+export const formProxyService = new WFormProxyService()

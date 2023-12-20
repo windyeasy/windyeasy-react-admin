@@ -18,18 +18,18 @@ export function propsListToColumns(
   propsList: WColumType<any>[],
   extendProps: ExtendPropType[] = []
 ) {
-  const colums: ColumnsType<any> = []
+  const columns: ColumnsType<any> = []
   for (const prop of propsList) {
     if (prop.type) {
-      colums.push(handleExtendProps(prop, extendProps))
+      columns.push(handleExtendProps(prop, extendProps))
     } else {
       const newProp = { ...prop }
       // 删除上面的type属性
       Reflect.deleteProperty(newProp, 'type')
-      colums.push(newProp)
+      columns.push(newProp)
     }
   }
-  return colums
+  return columns
 }
 
 // 获取表单里面的列表和total

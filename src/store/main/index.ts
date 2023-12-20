@@ -11,8 +11,8 @@ const initialState: IMainState = {
   entireDepartments: []
 }
 
-const mianSlice = createSlice({
-  name: 'mian',
+const mainSlice = createSlice({
+  name: 'main',
   initialState,
   reducers: {
     changeIsCollapsedAction(state, { payload }) {
@@ -26,6 +26,6 @@ const mianSlice = createSlice({
     }
   }
 })
-const mianReducer = mianSlice.reducer
-export const { changeIsCollapsedAction, changeEntireRolesAction } = mianSlice.actions
-export default mianReducer
+const mainReducer = mainSlice.reducer
+export const { changeIsCollapsedAction, changeEntireRolesAction } = mainSlice.actions
+export default mainReducer

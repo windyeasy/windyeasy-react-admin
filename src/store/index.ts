@@ -1,10 +1,9 @@
 import menuReducer from '@/layout/components/layout-menu/store'
 import loginReducer from '@/pages/login/store'
-import mianReducer from '@/store/main'
+import mainReducer from '@/store/main'
 import { configureStore } from '@reduxjs/toolkit'
 import { useSelector, useDispatch } from 'react-redux'
 import type { TypedUseSelectorHook } from 'react-redux'
-import userReducer from '@/pages/main/system/user/store'
 import wtbReducer from '@/base-ui/wtb/src/store'
 import pageModalReducer from '@/base-ui/page-modal/store'
 import themeReducer from './theme'
@@ -12,9 +11,8 @@ import themeReducer from './theme'
 const store = configureStore({
   reducer: {
     login: loginReducer,
-    main: mianReducer,
+    main: mainReducer,
     menu: menuReducer,
-    user: userReducer,
     wtb: wtbReducer,
     pageModal: pageModalReducer,
     theme: themeReducer

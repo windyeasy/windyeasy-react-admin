@@ -2,21 +2,21 @@ import React, { memo } from 'react'
 import type { FC, ReactNode } from 'react'
 import type { WFormItem, WFormPublicProps } from './type'
 import WForm from './core/index'
-import { WFormProxySerive } from './service/proxy-serive'
+import { WFormProxyService } from './service/proxy-service'
 import { WFormItemType, extendFormItems } from './templates'
 
 export interface WBaseFormProps extends WFormPublicProps {
   children?: ReactNode
-  proxyService?: WFormProxySerive
+  proxyService?: WFormProxyService
 }
-interface SlectOption {
+interface SelectOption {
   label: string
   value: any
 }
 
 // WFormItem扩展类型
 export interface WBaseFormItem extends WFormItem<WFormItemType> {
-  options?: SlectOption[]
+  options?: SelectOption[]
   asyncOptions?: any
   placeholder?: string
 }

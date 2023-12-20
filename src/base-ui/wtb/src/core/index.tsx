@@ -19,7 +19,7 @@ export interface WtbProps {
   requestConfig?: RequestConfig
   responseConfig?: RsponseConfig
   data?: any[]
-  wcolums: WColumType[]
+  wcolumns: WColumType[]
   extendProps?: ExtendPropType[]
   tableConfig?: typeof Table // ant表格的额外配置信息
   paginationConfig?: typeof Pagination // ant配置的额外信息
@@ -34,7 +34,7 @@ export interface WtbProps {
 const Wtb: FC<WtbProps> = (props) => {
   const {
     data,
-    wcolums,
+    wcolumns,
     extendProps,
     type = 'api',
     pagination = true,
@@ -42,7 +42,7 @@ const Wtb: FC<WtbProps> = (props) => {
     paginationConfig = {},
     pPostion = 'center'
   } = props
-  const colums = propsListToColumns(wcolums, extendProps)
+  const columns = propsListToColumns(wcolumns, extendProps)
   const { list, total, isLoading, page } = useAppSelector(
     (state) => ({
       list: state.wtb.list,
@@ -83,7 +83,7 @@ const Wtb: FC<WtbProps> = (props) => {
   /**
    * 通过type类型来确定是自己发送请求还是，传递过来的数据
    */
-  // 对colums数据信息处理
+  // 对columns数据信息处理
   useEffect(() => {
     if (type === 'api') {
       changeFetchPageListParmas(extractProps(props))
@@ -96,7 +96,7 @@ const Wtb: FC<WtbProps> = (props) => {
         <Table
           loading={isLoading}
           dataSource={fetchData()}
-          columns={colums}
+          columns={columns}
           rowKey={(record: any) => String(record.id)}
           pagination={false}
           {...tableConfig}

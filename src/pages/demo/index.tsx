@@ -1,7 +1,7 @@
 import React, { memo, useEffect } from 'react'
 import type { FC, ReactNode } from 'react'
 import { DemoWrapper } from './style'
-import { WBaseForm, formPrxoySerive } from '@/base-ui/w-form'
+import { WBaseForm, formProxyService } from '@/base-ui/w-form'
 import { groupsFormConfig } from './config'
 
 interface IProps {
@@ -20,11 +20,11 @@ const infos = {
 }
 const Demo: FC<IProps> = () => {
   useEffect(() => {
-    formPrxoySerive.execFieldsValueByData(infos)
+    formProxyService.execFieldsValueByData(infos)
   }, [])
   return (
     <DemoWrapper>
-      <WBaseForm {...groupsFormConfig} proxyService={formPrxoySerive} />
+      <WBaseForm {...groupsFormConfig} proxyService={formProxyService} />
     </DemoWrapper>
   )
 }

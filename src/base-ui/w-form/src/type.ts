@@ -1,7 +1,7 @@
 import type { ColProps, FormProps } from 'antd'
 import type { Rule } from 'antd/es/form'
 import type { ReactNode } from 'react'
-import { WFormProxySerive } from './service/proxy-serive'
+import { WFormProxyService } from './service/proxy-service'
 import { TypeToRenderReturnType } from './utils/utils'
 type AnyObject = {
   [index: string]: any
@@ -49,7 +49,7 @@ export interface WFormPublicProps {
   groups?: WGroupsType[]
   formItems: WFormItem[]
   formname: string
-  proxyService?: WFormProxySerive
+  proxyService?: WFormProxyService
   uiConfig?: WFormUiConfig
 }
 

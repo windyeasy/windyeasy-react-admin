@@ -2,7 +2,7 @@ import React, { memo } from 'react'
 import type { FC, ReactNode } from 'react'
 import Card from 'antd/es/card/Card'
 
-import { colums } from './config'
+import { columns } from './config'
 // import { useAppSelector } from '@/store'
 // import { shallowEqual } from 'react-redux'
 import CustomTable from '@/base-ui/wtb/src'
@@ -22,7 +22,7 @@ const UserContent: FC<IProps> = () => {
     <>
       <Card>
         <div className="content">
-          <CustomTable api="/users/list" wcolums={colums} />
+          <CustomTable api="/users/list" wcolumns={columns} />
         </div>
       </Card>
     </>

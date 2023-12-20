@@ -6,7 +6,7 @@ import { shallowEqual } from 'react-redux'
 import { usePageModal } from './hooks/usePageModal'
 import { PageModalConfig } from './type'
 import { WBaseForm } from '../w-form'
-import { formPrxoySerive } from '../w-form/src/service/proxy-serive'
+import { formProxyService } from '../w-form/src/service/proxy-service'
 export type OnModalSubmitType = (isNew: boolean, values: any, record: any) => void
 interface IProps {
   children?: ReactNode
@@ -50,14 +50,14 @@ const PageModal: FC<IProps> = (props) => {
   }
   // 回调提交函数
   function handleSubmit() {
-    formPrxoySerive.form
+    formProxyService.form
       ?.validateFields()
       .then((values) => {
         changeModalOpen(false)
         /*
          * 执行提交隐式处理功能，对函数参数进行处理
          */
-        values = formPrxoySerive.execFns(values)
+        values = formProxyService.execFns(values)
         props.onSubmit && props.onSubmit(isNew, values, formData)
       })
       .catch((err) => {
@@ -83,7 +83,7 @@ const PageModal: FC<IProps> = (props) => {
   // 副作用代码
   useEffect(() => {
     // 如果对象有值就，设置表单初始值
-    formPrxoySerive.execFieldsValueByData(formData)
+    formProxyService.execFieldsValueByData(formData)
   }, [formData])
   return (
     <Modal
@@ -101,7 +101,7 @@ const PageModal: FC<IProps> = (props) => {
       footer={null}
     >
       <WBaseForm
-        proxyService={formPrxoySerive}
+        proxyService={formProxyService}
         formname={props.formname}
         formItems={handleHiddenFormItems()}
         uiConfig={uiConfig}

@@ -10,7 +10,7 @@ export type WBaseType<T = any> = WColumType<T, TbType>[]
 
 interface IProps extends WtbProps {
   children?: ReactNode
-  wcolums: WBaseType
+  wcolumns: WBaseType
 }
 
 const WBaseTable: FC<IProps> = (props) => {

@@ -21,7 +21,7 @@ const Operate: FC<IProps> = (props) => {
     </>
   )
 }
-export const colums: WBaseType = [
+export const columns: WBaseType = [
   {
     title: '序号',
     dataIndex: 'id',
