@@ -27,12 +27,18 @@ export function useTheme() {
     const { headerBg, sidlerBg, isDark, colorPrimary, isMenuDark } = themeConfig
     const newTheme: ThemeConfig = {
       algorithm: antTheme.defaultAlgorithm,
-      token: { colorPrimary: colorPrimary },
+      token: {
+        colorPrimary: colorPrimary,
+        borderRadius: 2,
+        paddingLG: 4,
+        borderRadiusLG: 1
+      },
       components: {
         Layout: {
           headerBg: headerBg,
           siderBg: isMenuDark ? '#001529' : sidlerBg
-        }
+        },
+        Card: {}
       }
     }
     document.body.setAttribute('class', '')

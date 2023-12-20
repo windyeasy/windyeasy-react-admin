@@ -3,6 +3,7 @@ import { WBaseTableProps } from '@/base-ui/wtb/src'
 
 export const tableConfig: WBaseTableProps = {
   api: '/user',
+  pPosition: 'right',
   wcolumns: [
     {
       title: '序号',
