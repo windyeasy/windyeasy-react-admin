@@ -5,7 +5,7 @@ import { WtbProps } from '../core'
  * 提取配置项参数
  */
 export function extractProps(props: WtbProps) {
-  const { api = '', requestConfig, responseConfig } = props
+  const { api = '', requestConfig = {}, responseConfig } = props
 
   if (!requestConfig) {
     new Error('Parameter Error: Wtb组件props的type=api时必须传入requestConfig')
@@ -13,6 +13,7 @@ export function extractProps(props: WtbProps) {
   if (!responseConfig) {
     new Error('Parameter Error: Wtb组件props的type=api时必须传入responseConfig')
   }
+
   let { method = 'GET' } = requestConfig!
 
   const { dataIndex, totalIndex } = responseConfig!
@@ -24,13 +25,14 @@ export function extractProps(props: WtbProps) {
     handleValueError('totalIndex', totalIndex)
   }
   method = method.toUpperCase()
-  const dataIndex = dataIndex.split('.')
-  const totalIndex = totalIndex.split('.')
+  const dataIndexList = dataIndex.split('.')
+  const totalIndexList = totalIndex.split('.')
+  console.log(method)
   return {
     api,
     method,
-    dataIndex,
-    totalIndex
+    dataIndexList,
+    totalIndexList
   }
 }
 

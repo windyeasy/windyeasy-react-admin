@@ -3,8 +3,8 @@ import { usePageModal } from '@/base-ui/page-modal/hooks/usePageModal'
 import { PageModalConfig } from '@/base-ui/page-modal/type'
 import { WBaseFormItem, WBaseFormProps } from '@/base-ui/w-form/src'
 import { WBaseType } from '@/base-ui/wtb/src'
-import { getEntireDepartments, getEntireRoles } from '@/services/main/system'
-import { fetchAsyncOptions } from '@/utils/fetch-async-options'
+// import { getEntireDepartments, getEntireRoles } from '@/services/main/system'
+// import { fetchAsyncOptions } from '@/utils/fetch-async-options'
 import { Button, Card } from 'antd'
 interface IProps {
   record: any
@@ -149,16 +149,16 @@ export const modalConfig: PageModalConfig = {
       label: '选择角色',
       prop: 'roleId',
       placeholder: '请选择角色',
-      defaultValueUn: true,
-      asyncOptions: fetchAsyncOptions(getEntireRoles)
+      defaultValueUn: true
+      // asyncOptions: fetchAsyncOptions(getEntireRoles)
     },
     {
       type: 'select',
       label: '选择部门',
       prop: 'departmentId',
       placeholder: '请选择部门',
-      defaultValueUn: true,
-      asyncOptions: fetchAsyncOptions(getEntireDepartments)
+      defaultValueUn: true
+      // asyncOptions: fetchAsyncOptions(getEntireDepartments)
     }
   ]
 }
@@ -216,16 +216,16 @@ export const groupsFormConfig: WBaseFormProps = {
       label: '选择角色',
       prop: 'roleId',
       placeholder: '请选择角色',
-      defaultValueUn: true,
-      asyncOptions: fetchAsyncOptions(getEntireRoles)
+      defaultValueUn: true
+      // asyncOptions: fetchAsyncOptions(getEntireRoles)
     },
     {
       type: 'select',
       label: '选择部门',
       prop: 'departmentId',
       placeholder: '请选择部门',
-      defaultValueUn: true,
-      asyncOptions: fetchAsyncOptions(getEntireDepartments)
+      defaultValueUn: true
+      // asyncOptions: fetchAsyncOptions(getEntireDepartments)
     }
   ]
 }

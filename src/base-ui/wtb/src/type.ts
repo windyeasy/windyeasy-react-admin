@@ -13,7 +13,7 @@ export interface RequestConfig {
   pageName?: string
   sizeName?: string
 }
-export interface RsponseConfig {
+export interface ResponseConfig {
   dataIndex: string
   totalIndex: string
 }

@@ -59,18 +59,19 @@ export const fetchPageListAction = createAsyncThunk<void, void, AsyncThunkState>
   (_, { getState, dispatch }) => {
     // 获取分页查询信息
     const wtb = getState().wtb
-    const { api, method, dataIndex, totalIndex } = wtb.fetchPageListParams
+    const { api, method, dataIndexList, totalIndexList } = wtb.fetchPageListParams
     // const offset = (wtb.page - 1) * wtb.size
     // const info = { offset, size: wtb.size }
     const info = { page: wtb.page, pageSize: wtb.size }
     const searchInfo = wtb.searchInfo
     const queryInfo = { ...info, ...searchInfo }
     dispatch(changeIsLoadingAction(true))
+
     // 请求数据，通过分页
     getPageList(api, method, queryInfo)
       .then((res) => {
         dispatch(changeIsLoadingAction(false))
-        const { total, list } = fetchListAndTotal(res, dataIndex, totalIndex)
+        const { total, list } = fetchListAndTotal(res, dataIndexList, totalIndexList)
         dispatch(changeTotalAction(total))
         dispatch(changeListAction(list))
       })

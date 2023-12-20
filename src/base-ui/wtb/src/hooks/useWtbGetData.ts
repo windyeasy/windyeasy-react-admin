@@ -9,13 +9,13 @@ import { useAppDispatch } from '@/store'
 export interface FetchPageListParamsType {
   api: string
   method: string
-  dataIndex: string[]
-  totalIndex: string[]
+  dataIndexList: string[]
+  totalIndexList: string[]
 }
 export function useWtbGetData() {
   const dispatch = useAppDispatch()
   // 改变分页参数
-  function changeFetchPageListParmas(params: FetchPageListParamsType) {
+  function changeFetchPageListParams(params: FetchPageListParamsType) {
     dispatch(changeParamsAction(params))
   }
   // 获取分页礼拜数据
@@ -36,7 +36,7 @@ export function useWtbGetData() {
   return {
     fetchPageList,
     changePageInfo,
-    changeFetchPageListParmas,
+    changeFetchPageListParams,
     changeSearchInfo
   }
 }

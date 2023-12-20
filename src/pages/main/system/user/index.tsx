@@ -1,6 +1,8 @@
+import { WBaseTable } from '@/base-ui/wtb'
 import { Card } from 'antd/lib'
 import React, { memo } from 'react'
 import type { FC, ReactNode } from 'react'
+import { tableConfig } from './config/table.config'
 
 interface IProps {
   children?: ReactNode
@@ -9,7 +11,9 @@ interface IProps {
 const User: FC<IProps> = () => {
   return (
     <>
-      <Card></Card>
+      <Card>
+        <WBaseTable {...tableConfig} />
+      </Card>
     </>
   )
 }

@@ -4,11 +4,11 @@ import type { AxiosRequestConfig } from 'axios'
 export function getPageList(
   url: string,
   method: AxiosRequestConfig['method'],
-  serachInfo: any = {}
+  searchInfo: any = {}
 ) {
-  return request.post({
+  return request.request({
     url,
     method,
-    data: serachInfo
+    data: searchInfo
   })
 }

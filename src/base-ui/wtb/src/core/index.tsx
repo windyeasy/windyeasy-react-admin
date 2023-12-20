@@ -3,7 +3,7 @@ import type { FC, ReactNode } from 'react'
 import { Pagination, Row, Table } from 'antd'
 import type { PaginationProps } from 'antd'
 
-import { ExtendPropType, RequestConfig, RsponseConfig, WColumType } from '../type'
+import { ExtendPropType, RequestConfig, ResponseConfig, WColumType } from '../type'
 import { propsListToColumns } from '../utils/utils'
 
 import { extractProps } from '../utils/extract-props'
@@ -17,14 +17,14 @@ export interface WtbProps {
   type?: 'api' | 'data'
   api?: string
   requestConfig?: RequestConfig
-  responseConfig?: RsponseConfig
+  responseConfig?: ResponseConfig
   data?: any[]
   wcolumns: WColumType[]
   extendProps?: ExtendPropType[]
   tableConfig?: typeof Table // ant表格的额外配置信息
   paginationConfig?: typeof Pagination // ant配置的额外信息
   pagination?: boolean // 是否显示分页
-  pPostion?: 'left' | 'center' | 'right' // 分页器布局位置
+  pPosition?: 'left' | 'center' | 'right' // 分页器布局位置
 }
 
 /**
@@ -40,7 +40,7 @@ const Wtb: FC<WtbProps> = (props) => {
     pagination = true,
     tableConfig = {},
     paginationConfig = {},
-    pPostion = 'center'
+    pPosition = 'center'
   } = props
   const columns = propsListToColumns(wcolumns, extendProps)
   const { list, total, isLoading, page } = useAppSelector(
@@ -53,7 +53,7 @@ const Wtb: FC<WtbProps> = (props) => {
     shallowEqual
   )
   // 使用封装的use
-  const { fetchPageList, changePageInfo, changeFetchPageListParmas } = useWtbGetData()
+  const { fetchPageList, changePageInfo, changeFetchPageListParams } = useWtbGetData()
 
   // 通过不同类型显示数据
   function fetchData() {
@@ -64,11 +64,11 @@ const Wtb: FC<WtbProps> = (props) => {
     }
   }
   // 处理分页器显示位置
-  function handlePPostion(pPostion: string) {
-    if (pPostion === 'left') {
+  function handlePPosition(pPosition: string) {
+    if (pPosition === 'left') {
       return 'start'
     }
-    if (pPostion === 'right') {
+    if (pPosition === 'right') {
       return 'end'
     }
     return 'center'
@@ -86,7 +86,7 @@ const Wtb: FC<WtbProps> = (props) => {
   // 对columns数据信息处理
   useEffect(() => {
     if (type === 'api') {
-      changeFetchPageListParmas(extractProps(props))
+      changeFetchPageListParams(extractProps(props))
       fetchPageList()
     }
   }, [type])
@@ -104,7 +104,7 @@ const Wtb: FC<WtbProps> = (props) => {
       </div>
       {type === 'api' && pagination && (
         <Row
-          justify={handlePPostion(pPostion)}
+          justify={handlePPosition(pPosition)}
           className="pagination"
           style={{ marginTop: '15px' }}
         >
