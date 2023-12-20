@@ -29,16 +29,15 @@ export function useTheme() {
       algorithm: antTheme.defaultAlgorithm,
       token: {
         colorPrimary: colorPrimary,
-        borderRadius: 2,
-        paddingLG: 4,
-        borderRadiusLG: 1
+        borderRadius: 6,
+        paddingLG: 15,
+        borderRadiusLG: 4
       },
       components: {
         Layout: {
           headerBg: headerBg,
           siderBg: isMenuDark ? '#001529' : sidlerBg
-        },
-        Card: {}
+        }
       }
     }
     document.body.setAttribute('class', '')

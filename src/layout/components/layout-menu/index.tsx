@@ -37,7 +37,13 @@ const LayoutMenu: FC<IProps> = () => {
       dispatch(changeOpenKeysAction(newKeys))
     }
   }
-
+  function fetchMenuTheme() {
+    if (!themeConfig.isDark && themeConfig.isMenuDark) {
+      return 'dark'
+    } else {
+      return 'light'
+    }
+  }
   return (
     <MenuWrapper>
       <Menu
@@ -47,7 +53,7 @@ const LayoutMenu: FC<IProps> = () => {
         onOpenChange={handleOpenChange}
         style={{ height: '100%' }}
         items={menuItems}
-        theme={themeConfig.isMenuDark ? 'dark' : 'light'}
+        theme={fetchMenuTheme()}
       />
     </MenuWrapper>
   )
