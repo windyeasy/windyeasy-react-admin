@@ -2,6 +2,7 @@ import { localCache } from '@/utils/cache'
 import { BASE_URL, TIME_OUT } from './config'
 import Request from './request'
 import { ACCOUNT_TOKEN } from '@/pages/login/service/constants'
+import { logOff } from '@/utils/log-off'
 
 const request = new Request({
   baseURL: BASE_URL,
@@ -16,7 +17,22 @@ const request = new Request({
         config.headers.Authorization = 'Bearer ' + token
       }
       return config
+    },
+    // 响应拦截
+    responseSuccessFn(res) {
+      if (res.data.code === -401) {
+        // 退出登录
+        logOff()
+      } else if (res.data.code != 0) {
+        // 抛出错误，可以实现在成功获取数据时不需要res.code==0判断
+        throw Error('请求数据不成功！')
+      }
+      return res.data
     }
+  },
+  // 错误拦截
+  tryError(error) {
+    console.error('请求错误: ', error)
   }
 })
 export default request

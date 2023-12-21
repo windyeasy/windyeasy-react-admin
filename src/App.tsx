@@ -38,6 +38,7 @@ function App() {
   useLoadLocalData()
   const routes = useRoutingDynamic('/main')
   const { theme } = useTheme()
+
   return (
     <ConfigProvider locale={zhCN} theme={theme}>
       <div className="App">

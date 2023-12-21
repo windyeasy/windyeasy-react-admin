@@ -8,7 +8,7 @@ import type {
 export interface InterceptorsType<T = AxiosResponse, RT = InternalAxiosRequestConfig> {
   requestSuccessFn?: (config: RT) => RT
   requestErrFn?: (err: any) => any
-  responseSuccessFn?: (config: T) => T
+  responseSuccessFn?: (config: T | AxiosResponse['data']) => T | AxiosResponse['data']
   responseErrFn?: (err: any) => any
 }
 

@@ -1,14 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 interface IMainState {
   isCollapsed: boolean
-  entireRoles: any[]
-
-  entireDepartments: any[]
 }
 const initialState: IMainState = {
-  isCollapsed: false,
-  entireRoles: [],
-  entireDepartments: []
+  isCollapsed: false
 }
 
 const mainSlice = createSlice({
@@ -17,15 +12,9 @@ const mainSlice = createSlice({
   reducers: {
     changeIsCollapsedAction(state, { payload }) {
       state.isCollapsed = payload
-    },
-    changeEntireRolesAction(state, { payload }) {
-      state.entireRoles = payload
-    },
-    changeEntireDepartmentsAction(state, { payload }) {
-      state.entireDepartments = payload
     }
   }
 })
 const mainReducer = mainSlice.reducer
-export const { changeIsCollapsedAction, changeEntireRolesAction } = mainSlice.actions
+export const { changeIsCollapsedAction } = mainSlice.actions
 export default mainReducer

@@ -21,14 +21,16 @@ const User: FC<IProps> = () => {
   function addUserClick() {
     setModalContent()
   }
-  function newUserSubmit(values: any) {
-    newUser(values).then((res) => {
-      if (res.code === 0) {
-        console.log('用户添加成功')
-        fetchPageList()
-      }
-      console.log(res)
-    })
+  function newUserSubmit(isNew: boolean, values: any) {
+    if (isNew) {
+      newUser(values).then((res) => {
+        if (res.code === 0) {
+          console.log('用户添加成功')
+          fetchPageList()
+        }
+        console.log(res)
+      })
+    }
   }
   return (
     <UserWrapper>

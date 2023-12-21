@@ -7,25 +7,25 @@ class Request {
   constructor(config: RequestConstructorConfig) {
     this.instance = axios.create(config)
     // 请求拦截
-    this.instance.interceptors.request.use(
-      (config) => {
-        console.log('全局请求拦截成功')
-        return config
-      },
-      (err) => {
-        console.log('全局请求拦截失败')
-        return err
-      }
-    )
+    // this.instance.interceptors.request.use(
+    //   (config) => {
+    //     // console.log('全局请求拦截成功')
+    //     return config
+    //   },
+    //   (err) => {
+    //     // console.log('全局请求拦截失败')
+    //     return err
+    //   }
+    // )
     // 响应拦截
-    this.instance.interceptors.response.use(
-      (config) => {
-        return config.data
-      },
-      (err) => {
-        return err
-      }
-    )
+    // this.instance.interceptors.response.use(
+    //   (config) => {
+    //     return config.data
+    //   },
+    //   (err) => {
+    //     return err
+    //   }
+    // )
     // 单独请求拦截
     this.instance.interceptors.request.use(
       config?.interceptors?.requestSuccessFn,
@@ -42,14 +42,14 @@ class Request {
     if (config?.interceptors?.requestSuccessFn) {
       config = config.interceptors.requestSuccessFn(config)
     }
-    return new Promise<T>((resove, reject) => {
+    return new Promise<T>((reslove, reject) => {
       this.instance
         .request<any, T>(config)
         .then((res) => {
           if (config?.interceptors?.responseSuccessFn) {
             res = config?.interceptors?.responseSuccessFn(res)
           }
-          resove(res)
+          reslove(res)
         })
         .catch((err) => reject(err))
     })
