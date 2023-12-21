@@ -42,7 +42,8 @@ class Request {
     if (config?.interceptors?.requestSuccessFn) {
       config = config.interceptors.requestSuccessFn(config)
     }
-    return new Promise<T>((reslove, reject) => {
+
+    return new Promise<T>((reslove) => {
       this.instance
         .request<any, T>(config)
         .then((res) => {
@@ -51,7 +52,9 @@ class Request {
           }
           reslove(res)
         })
-        .catch((err) => reject(err))
+        .catch((err: string) => {
+          console.error('请求出错: ', err)
+        })
     })
   }
   get<T = any>(config: RequestConfig<T>) {
