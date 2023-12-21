@@ -30,7 +30,7 @@ const PageModal: FC<IProps> = (props) => {
     width = '769px',
     modalConfig: {
       uiConfig = {
-        formConfig: { labelCol: { span: 6 }, wrapperCol: { span: 17 } },
+        formConfig: { labelCol: { span: 6 }, wrapperCol: { span: 18 } },
         colConfig: { span: 12 }
       }
     }

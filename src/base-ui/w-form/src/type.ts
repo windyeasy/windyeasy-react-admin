@@ -18,12 +18,14 @@ export interface WFormItem<T = string> {
   prop: string
   label?: string
   initValue?: any
-  colConfig?: any
+  colConfig?: ColProps
   defaultValueUn?: boolean // 默认值是否未定义
   handleHidden?: any // 通过条件处理隐藏
   // 隐式处理参数
   handleParams?: (values: any) => any
   rules?: Rule[]
+  labelCol?: ColProps
+  wrapperCol?: ColProps
   visibleIf?: VisibleIfType
   render?: (formItem: WFormItem) => ReactNode
   [key: string]: any // 添加使用别的类型进行扩展

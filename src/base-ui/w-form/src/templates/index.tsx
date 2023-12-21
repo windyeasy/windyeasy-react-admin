@@ -12,7 +12,13 @@ export const extendFormItems: NewExtendFormItem[] = [
     type: 'input',
     render: (item) => {
       return (
-        <Form.Item label={item.label} name={item.prop} rules={item.rules}>
+        <Form.Item
+          label={item.label}
+          name={item.prop}
+          labelCol={item.labelCol}
+          wrapperCol={item.wrapperCol}
+          rules={item.rules}
+        >
           <Input placeholder={item.placeholder} />
         </Form.Item>
       )
@@ -28,7 +34,13 @@ export const extendFormItems: NewExtendFormItem[] = [
         })
       }
       return (
-        <Form.Item label={item.label} name={item.prop} rules={item.rules}>
+        <Form.Item
+          label={item.label}
+          name={item.prop}
+          labelCol={item.labelCol}
+          wrapperCol={item.wrapperCol}
+          rules={item.rules}
+        >
           <Select placeholder={item.placeholder} options={options} />
         </Form.Item>
       )
@@ -38,7 +50,13 @@ export const extendFormItems: NewExtendFormItem[] = [
     type: 'rangePicker',
     render: (item) => {
       return (
-        <Form.Item label={item.label} name={item.prop} rules={item.rules}>
+        <Form.Item
+          label={item.label}
+          labelCol={item.labelCol}
+          wrapperCol={item.wrapperCol}
+          name={item.prop}
+          rules={item.rules}
+        >
           <RangePicker />
         </Form.Item>
       )
@@ -48,7 +66,12 @@ export const extendFormItems: NewExtendFormItem[] = [
     type: 'password',
     render: (item) => {
       return (
-        <Form.Item label={item.label} name={item.prop}>
+        <Form.Item
+          label={item.label}
+          labelCol={item.labelCol}
+          wrapperCol={item.wrapperCol}
+          name={item.prop}
+        >
           <Input.Password placeholder={item.placeholder} />
         </Form.Item>
       )

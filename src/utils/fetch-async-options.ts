@@ -8,11 +8,11 @@ export function mapOptions(list: any[], labelIndex: string, valueIndex: string) 
 }
 
 export function fetchAsyncOptions(
-  fn: () => Promise<any>,
+  dataP: Promise<any>,
   { dataIndex = 'data.list', labelIndex = 'name', valueIndex = 'id' } = {}
 ) {
   return new Promise<any>((reslove) => {
-    fn().then((res) => {
+    dataP.then((res) => {
       let data = res
       const newDataIndex = dataIndex.split('.')
       for (const index of newDataIndex) {
