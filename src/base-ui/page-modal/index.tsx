@@ -49,6 +49,7 @@ const PageModal: FC<IProps> = (props) => {
   // 回调取消函数
   function handleCancel() {
     changeModalOpen(false)
+    formProxyService.form?.resetFields()
     props.onCancel && props.onCancel()
   }
   // 回调提交函数
@@ -98,7 +99,7 @@ const PageModal: FC<IProps> = (props) => {
   useEffect(() => {
     // 如果对象有值就，设置表单初始值
     formProxyService.execFieldsValueByData(formData)
-  }, [formData])
+  }, [isOpen])
   return (
     <Modal
       title={

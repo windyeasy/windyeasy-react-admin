@@ -5,10 +5,10 @@ import type { FC, ReactNode } from 'react'
 import { SearchForm } from '@/base-ui/w-form'
 import { searchConfig } from './config/search.config'
 import { UserWrapper } from './style'
-import PageModal from '@/base-ui/page-modal'
+import PageModal, { OnModalSubmitType } from '@/base-ui/page-modal'
 import { modalConfig } from './config/modal.config'
 import { usePageModal } from '@/base-ui/page-modal/hooks/usePageModal'
-import { deleteUser, newUser } from './service'
+import { deleteUser, editUserInfo, newUser } from './service'
 import { WBaseTableProps } from '@/base-ui/wtb/src'
 import { useMessageApi } from '@/utils/global-ant-proxy'
 interface IProps {
@@ -18,20 +18,6 @@ interface IProps {
 const User: FC<IProps> = () => {
   const { setModalContent } = usePageModal()
   const { fetchPageList } = useWtbGetData()
-  function addUserClick() {
-    setModalContent()
-  }
-  function newUserSubmit(isNew: boolean, values: any) {
-    if (isNew) {
-      newUser(values).then((res) => {
-        if (res.code === 0) {
-          console.log('用户添加成功')
-          fetchPageList()
-        }
-        console.log(res)
-      })
-    }
-  }
   const tableConfig: WBaseTableProps = {
     api: '/user',
     pPosition: 'right',
@@ -83,6 +69,7 @@ const User: FC<IProps> = () => {
           {
             type: 'primary',
             click: (record) => {
+              // 编辑用户
               setModalContent(false, record)
             },
             text: '编辑'
@@ -106,6 +93,25 @@ const User: FC<IProps> = () => {
       }
     ]
   }
+  // 添加用户
+  function addUserClick() {
+    setModalContent()
+  }
+  const newUserSubmit: OnModalSubmitType = (isNew, values, record) => {
+    if (isNew) {
+      newUser(values).then(() => {
+        fetchPageList()
+        useMessageApi()?.success('添加用户成功！')
+      })
+    } else {
+      // 编辑用户
+      editUserInfo(record.id, values).then(() => {
+        fetchPageList()
+        useMessageApi()?.success('编辑用户成功！')
+      })
+    }
+  }
+
   return (
     <UserWrapper>
       <Card>

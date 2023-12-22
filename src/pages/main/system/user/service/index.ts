@@ -12,3 +12,10 @@ export function deleteUser(id: number) {
     url: '/user/' + id
   })
 }
+// 编辑用户
+export function editUserInfo(id: number, payload: any) {
+  return request.patch({
+    url: '/user/' + id,
+    data: payload
+  })
+}
