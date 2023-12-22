@@ -5,7 +5,7 @@ import type { WtbProps } from './core'
 import type { WColumType } from './type'
 import { extendProps } from './templates'
 
-type TbType = 'utcTimer'
+export type TbType = 'utcTimer' | 'button'
 export type WBaseType<T = any> = WColumType<T, TbType>[]
 
 export interface WBaseTableProps extends WtbProps {

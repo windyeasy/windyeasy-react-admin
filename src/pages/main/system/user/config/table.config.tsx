@@ -33,12 +33,19 @@ export const tableConfig: WBaseTableProps = {
       dataIndex: 'intro'
     },
     {
+      type: 'utcTimer',
       title: '创建时间',
       dataIndex: 'createAt'
     },
     {
+      type: 'utcTimer',
       title: '更新时间',
       dataIndex: 'updateAt'
+    },
+    {
+      title: '操作',
+      type: 'button',
+      fixed: 'right'
     }
   ]
 }

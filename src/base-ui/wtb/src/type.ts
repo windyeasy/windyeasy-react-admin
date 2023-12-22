@@ -1,11 +1,13 @@
-import { ColumnType } from 'antd/lib/table'
+import type { ColumnType } from 'antd/lib/table'
 
 import type { AxiosRequestConfig } from 'axios'
+import type { TbType } from '.'
+import type { ButtonProps } from 'antd'
 export interface WColumType<T = unknown, WT = string> extends ColumnType<T> {
   type?: WT
 }
-export interface ExtendPropType {
-  type: string
+export interface ExtendPropType<T = TbType> {
+  type: T
   render: ColumnType<any>['render']
 }
 export interface RequestConfig {
@@ -16,4 +18,7 @@ export interface RequestConfig {
 export interface ResponseConfig {
   dataIndex: string
   totalIndex: string
+}
+export interface WTbButtonProps extends ButtonProps {
+  text: string
 }
