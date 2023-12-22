@@ -1,8 +1,7 @@
 import React, { Suspense } from 'react'
 import zhCN from 'antd/locale/zh_CN'
-import { ConfigProvider } from 'antd'
+import { ConfigProvider, message } from 'antd'
 import { shallowEqual } from 'react-redux'
-
 import { Navigate, useLocation, useRoutes } from 'react-router-dom'
 import { useAppSelector } from '@/store'
 
@@ -10,10 +9,11 @@ import { useLoadLocalData } from './hooks/useLocalData'
 import { useRoutingDynamic } from './hooks/useRoutingDynamic'
 import { firstMenu } from './utils/map-menu'
 import { useTheme } from './hooks/useTheme'
-
+import { globalAntProxy } from './utils/global-ant-proxy'
 function App() {
+  const [messageApi, contextHolder] = message.useMessage()
+  globalAntProxy.injectMessage(messageApi)
   const location = useLocation()
-
   const { isLogin } = useAppSelector(
     (state) => ({
       isLogin: state.login.isLogin
@@ -42,6 +42,7 @@ function App() {
   return (
     <ConfigProvider locale={zhCN} theme={theme}>
       <div className="App">
+        {contextHolder}
         <Suspense fallback="">
           <div className="main">{useRoutes(routes)}</div>
           {handleRouterNav()}

@@ -14,7 +14,6 @@ export interface InterceptorsType<T = AxiosResponse, RT = InternalAxiosRequestCo
 
 export interface RequestConstructorConfig extends CreateAxiosDefaults {
   interceptors?: InterceptorsType
-  tryError?: (error: any) => void
 }
 
 export type RequestConfigInterceptors<T> = Omit<

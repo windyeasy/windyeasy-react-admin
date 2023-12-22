@@ -7,5 +7,4 @@ export function logOff() {
   localCache.removeCache(USER_INFO)
   localCache.removeCache(MENU_LIST)
   store.dispatch(changeIsLoginAction(false))
-  window.location.reload()
 }

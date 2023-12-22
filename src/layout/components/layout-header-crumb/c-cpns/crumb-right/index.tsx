@@ -2,20 +2,17 @@ import React, { memo } from 'react'
 import type { FC, ReactNode } from 'react'
 import { CrumbRightWrapper } from './style'
 import { Dropdown, MenuProps } from 'antd'
-import { localCache } from '@/utils/cache'
-import { useNavigate } from 'react-router-dom'
-import { useAppDispatch, useAppSelector } from '@/store'
-import { changeIsLoginAction } from '@/pages/login/store'
+import { useAppSelector } from '@/store'
 import { useAntToken } from '@/hooks/useAntToken'
 import { shallowEqual } from 'react-redux'
+import { logOff } from '@/utils/log-off'
+import { useMessageApi } from '@/utils/global-ant-proxy'
 
 interface IProps {
   children?: ReactNode
 }
 
 const CrumbRight: FC<IProps> = () => {
-  const navigate = useNavigate()
-  const dispatch = useAppDispatch()
   const { userInfo } = useAppSelector(
     (state) => ({
       userInfo: state.login.userInfo
@@ -23,12 +20,8 @@ const CrumbRight: FC<IProps> = () => {
     shallowEqual
   )
   function loginOut() {
-    // 清除缓存
-    localCache.clear()
-    // 更改登录状态
-    dispatch(changeIsLoginAction(false))
-    // 跳转登录页
-    navigate('/login')
+    logOff()
+    useMessageApi()?.success('退出登录成功！')
   }
   const { token } = useAntToken()
   const items: MenuProps['items'] = [

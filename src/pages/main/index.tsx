@@ -10,6 +10,7 @@ import { LayoutMode } from '@/store/theme'
 import { useAppSelector } from '@/store'
 import { shallowEqual } from 'react-redux'
 import classNames from 'classnames'
+
 interface IProps {
   children?: ReactNode
 }
@@ -39,6 +40,7 @@ const Main: FC<IProps> = () => {
       return true
     }
   }
+
   return (
     <MainWrapper
       $borderColor={token.colorSplit}
