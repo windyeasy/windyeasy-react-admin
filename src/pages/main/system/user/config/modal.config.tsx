@@ -17,6 +17,13 @@ export const modalConfig: PageModalConfig = {
       placeholder: '请输入用户名',
       rules: [{ required: true, message: '请输入用户名' }]
     },
+
+    {
+      type: 'input',
+      label: '邮箱',
+      prop: 'email',
+      placeholder: '请输入邮箱'
+    },
     {
       type: 'input',
       label: '用户昵称',
@@ -24,23 +31,12 @@ export const modalConfig: PageModalConfig = {
       placeholder: '请输入用户昵称'
     },
     {
-      type: 'password',
-      label: '登录密码',
-      prop: 'password',
-      placeholder: '请输入登录密码'
-    },
-    {
       type: 'input',
       label: '手机号码',
       prop: 'telephone',
       placeholder: '请输入手机号码'
     },
-    {
-      type: 'input',
-      label: '邮箱',
-      prop: 'email',
-      placeholder: '请输入邮箱'
-    },
+
     {
       type: 'select',
       label: '选择角色',
@@ -55,15 +51,37 @@ export const modalConfig: PageModalConfig = {
       prop: 'departmentId',
       placeholder: '请选择部门',
       defaultValueUn: true,
-      colConfig: {
-        span: 24
-      },
-      labelCol: { span: 3 },
-      wrapperCol: { span: 21 },
+
       asyncOptions: fetchAsyncOptions(getEntireDepartments(), {
         dataIndex: 'data',
         labelIndex: 'depName'
       })
+    },
+    {
+      type: 'password',
+      label: '登录密码',
+      prop: 'password',
+      placeholder: '请输入登录密码',
+      colConfig: {
+        span: 24
+      },
+      labelCol: { span: 3 },
+      wrapperCol: { span: 21 }
+    },
+    {
+      type: 'textarea',
+      label: '介绍',
+      prop: 'intro',
+      placeholder: '请输入介绍',
+      colConfig: {
+        span: 24
+      },
+      autoSize: {
+        minRows: 3,
+        maxRows: 5
+      },
+      labelCol: { span: 3 },
+      wrapperCol: { span: 21 }
     }
   ]
 }

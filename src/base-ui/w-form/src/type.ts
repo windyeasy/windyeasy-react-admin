@@ -13,6 +13,10 @@ export interface VisibleIfType {
 export interface VisibleIfInfoType {
   [index: string]: VisibleIfType
 }
+interface AutoSizeType {
+  minRows: number
+  maxRows: number
+}
 export interface WFormItem<T = string> {
   type: T
   prop: string
@@ -28,6 +32,7 @@ export interface WFormItem<T = string> {
   wrapperCol?: ColProps
   visibleIf?: VisibleIfType
   render?: (formItem: WFormItem) => ReactNode
+  autoSize?: AutoSizeType | boolean
   [key: string]: any // 添加使用别的类型进行扩展
 }
 

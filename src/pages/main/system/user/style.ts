@@ -8,6 +8,10 @@ export const UserWrapper = styled.div`
     }
     .card-header {
       margin-bottom: 15px;
+      .header-title {
+        font-weight: bold;
+        font-size: 16px;
+      }
     }
   }
 `

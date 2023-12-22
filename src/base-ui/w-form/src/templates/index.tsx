@@ -3,7 +3,7 @@ import { DatePicker, Form, Input, Select } from 'antd'
 import type { ExtendFormItem } from '../type'
 import type { WBaseFormItem } from '..'
 
-export type WFormItemType = 'input' | 'select' | 'rangePicker' | 'password' | 'custom'
+export type WFormItemType = 'input' | 'select' | 'rangePicker' | 'password' | 'textarea' | 'custom'
 type NewExtendFormItem = ExtendFormItem<WBaseFormItem>
 
 const { RangePicker } = DatePicker
@@ -85,6 +85,21 @@ export const extendFormItems: NewExtendFormItem[] = [
       } else {
         return <></>
       }
+    }
+  },
+  {
+    type: 'textarea',
+    render: (item) => {
+      return (
+        <Form.Item
+          label={item.label}
+          labelCol={item.labelCol}
+          wrapperCol={item.wrapperCol}
+          name={item.prop}
+        >
+          <Input.TextArea placeholder={item.placeholder} autoSize={item.autoSize} />
+        </Form.Item>
+      )
     }
   }
 ]
