@@ -10,6 +10,7 @@ import { useRoutingDynamic } from './hooks/useRoutingDynamic'
 import { firstMenu } from './utils/map-menu'
 import { useTheme } from './hooks/useTheme'
 import { globalAntProxy } from './utils/global-ant-proxy'
+import Loading from './components/loading'
 function App() {
   const [messageApi, contextHolder] = message.useMessage()
   globalAntProxy.injectMessage(messageApi)
@@ -43,7 +44,7 @@ function App() {
     <ConfigProvider locale={zhCN} theme={theme}>
       <div className="App">
         {contextHolder}
-        <Suspense fallback="">
+        <Suspense fallback={<Loading fullscreen />}>
           <div className="main">{useRoutes(routes)}</div>
           {handleRouterNav()}
         </Suspense>

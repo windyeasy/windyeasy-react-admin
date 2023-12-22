@@ -4,6 +4,7 @@ import { HashRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 
 import 'normalize.css'
+import 'nprogress/nprogress.css'
 import '@/assets/css/index.less'
 import dayjs from 'dayjs'
 import 'dayjs/locale/zh-cn'

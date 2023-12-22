@@ -9,6 +9,7 @@ import { LayoutHeaderCrumb, LayoutMenu } from '@/layout'
 import LoginInfo from '@/components/login-info'
 import { shallowEqual } from 'react-redux'
 import ChangeThemeDrawer from '@/components/change-theme-drawer'
+import Loading from '@/components/loading'
 interface IProps {
   children?: ReactNode
 }
@@ -34,7 +35,7 @@ const LayoutLeftMenu: FC<IProps> = () => {
           <Content>
             <ChangeThemeDrawer />
             <div className="main-content">
-              <Suspense fallback="">
+              <Suspense fallback={<Loading fullscreen />}>
                 <Outlet />
               </Suspense>
             </div>

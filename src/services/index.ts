@@ -4,12 +4,13 @@ import Request from './request'
 import { ACCOUNT_TOKEN } from '@/pages/login/service/constants'
 import { logOff } from '@/utils/log-off'
 import { useMessageApi } from '@/utils/global-ant-proxy'
-
+import NProgress from 'nprogress'
 const request = new Request({
   baseURL: BASE_URL,
   timeout: TIME_OUT,
   interceptors: {
     requestSuccessFn(config) {
+      NProgress.start()
       /**
        * 在拦截里面添加token
        **/
@@ -21,6 +22,7 @@ const request = new Request({
     },
     // 响应拦截
     responseSuccessFn(res) {
+      NProgress.done()
       if (res.data.code === -401) {
         // 退出登录
         logOff()
