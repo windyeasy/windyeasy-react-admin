@@ -5,8 +5,12 @@ export function handleExtendProps(prop: WColumType<any>, extendProps: ExtendProp
   let newProp: ColumnType<any> = {}
   for (const typeProp of extendProps) {
     if (prop.type === typeProp.type) {
-      const render = typeProp.render
-      newProp = { ...prop, render }
+      newProp = { ...prop }
+      if (typeProp.customConfigRender) {
+        newProp.render = typeProp.customConfigRender(prop)
+      } else {
+        newProp.render = typeProp.render
+      }
       // 删除上面的type属性
       Reflect.deleteProperty(newProp, 'type')
     }
@@ -24,8 +28,9 @@ export function propsListToColumns(
       columns.push(handleExtendProps(prop, extendProps))
     } else {
       const newProp = { ...prop }
-      // 删除上面的type属性
-      Reflect.deleteProperty(newProp, 'type')
+      if (newProp.customConfigRender) {
+        Reflect.deleteProperty(newProp, 'customConfigRender')
+      }
       columns.push(newProp)
     }
   }

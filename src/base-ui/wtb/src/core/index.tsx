@@ -3,7 +3,7 @@ import type { FC, ReactNode } from 'react'
 import { Pagination, Row, Table } from 'antd'
 import type { PaginationProps } from 'antd'
 
-import { ExtendPropType, RequestConfig, ResponseConfig, WColumType, WTbButtonProps } from '../type'
+import { ExtendPropType, RequestConfig, ResponseConfig, WColumType } from '../type'
 import { propsListToColumns } from '../utils/utils'
 
 import { extractProps } from '../utils/extract-props'
@@ -21,7 +21,7 @@ export interface WtbProps {
   data?: any[]
   wcolumns: WColumType[]
   extendProps?: ExtendPropType[]
-  buttons?: WTbButtonProps[]
+
   tableConfig?: typeof Table // ant表格的额外配置信息
   paginationConfig?: typeof Pagination // ant配置的额外信息
   pagination?: boolean // 是否显示分页
