@@ -24,6 +24,7 @@ const NormalForm: FC<IProps> = (props) => {
           </Col>
         )
       })}
+      {props.children && props.children}
     </Row>
   )
 }

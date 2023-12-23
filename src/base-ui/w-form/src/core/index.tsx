@@ -104,7 +104,9 @@ const WForm: FC<WFromProps> = (props) => {
             formItems={handleFormItems()}
             formItemsInfo={formItemsInfo}
             colConfig={props.uiConfig?.colConfig}
-          />
+          >
+            {props.children && props.children}
+          </NormalForm>
         ) : (
           <GroupsForm
             formItems={handleFormItems()}
