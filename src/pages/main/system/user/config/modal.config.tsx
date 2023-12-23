@@ -20,15 +20,26 @@ export const modalConfig: PageModalConfig = {
 
     {
       type: 'input',
-      label: '邮箱',
-      prop: 'email',
-      placeholder: '请输入邮箱'
-    },
-    {
-      type: 'input',
       label: '用户昵称',
       prop: 'nickname',
       placeholder: '请输入用户昵称'
+    },
+    {
+      type: 'password',
+      label: '登录密码',
+      prop: 'password',
+      placeholder: '请输入登录密码',
+      colConfig: {
+        span: 24
+      },
+      labelCol: { span: 3 },
+      wrapperCol: { span: 21 }
+    },
+    {
+      type: 'input',
+      label: '邮箱',
+      prop: 'email',
+      placeholder: '请输入邮箱'
     },
     {
       type: 'input',
@@ -57,17 +68,7 @@ export const modalConfig: PageModalConfig = {
         labelIndex: 'depName'
       })
     },
-    {
-      type: 'password',
-      label: '登录密码',
-      prop: 'password',
-      placeholder: '请输入登录密码',
-      colConfig: {
-        span: 24
-      },
-      labelCol: { span: 3 },
-      wrapperCol: { span: 21 }
-    },
+
     {
       type: 'textarea',
       label: '介绍',
