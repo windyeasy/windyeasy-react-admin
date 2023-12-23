@@ -50,6 +50,8 @@ export function fetchListAndTotal(res: any, dataIndex: string[], totalIndex: str
     for (const key of totalIndex) {
       total = total[key]
     }
+  } else {
+    total = 0
   }
   return {
     list,

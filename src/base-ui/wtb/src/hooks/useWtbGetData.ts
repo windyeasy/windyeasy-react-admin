@@ -11,6 +11,7 @@ export interface FetchPageListParamsType {
   method: string
   dataIndexList: string[]
   totalIndexList: string[]
+  pagination: boolean // 判断是否分页
 }
 export function useWtbGetData() {
   const dispatch = useAppDispatch()

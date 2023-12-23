@@ -22,7 +22,7 @@ export interface RequestConfig {
 }
 export interface ResponseConfig {
   dataIndex: string
-  totalIndex: string
+  totalIndex?: string
 }
 export interface WTbButtonProps extends ButtonProps {
   text: string
