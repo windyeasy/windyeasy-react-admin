@@ -5,7 +5,7 @@ import { WtbProps } from '../core'
  * 提取配置项参数
  */
 export function extractProps(props: WtbProps) {
-  const { api = '', requestConfig = {}, responseConfig } = props
+  const { api = '', requestConfig = {}, responseConfig, pagination = true } = props
 
   if (!requestConfig) {
     new Error('Parameter Error: Wtb组件props的type=api时必须传入requestConfig')
@@ -16,7 +16,7 @@ export function extractProps(props: WtbProps) {
 
   let { method = 'GET' } = requestConfig!
 
-  const { dataIndex, totalIndex } = responseConfig!
+  const { dataIndex, totalIndex = '' } = responseConfig!
   const reg = /^\.|\.$/
   if (reg.test(dataIndex)) {
     handleValueError('dataIndex', dataIndex)
@@ -26,13 +26,14 @@ export function extractProps(props: WtbProps) {
   }
   method = method.toUpperCase()
   const dataIndexList = dataIndex.split('.')
-  const totalIndexList = totalIndex.split('.')
-  console.log(method)
+  const totalIndexList = totalIndex ? totalIndex.split('.') : []
+
   return {
     api,
     method,
     dataIndexList,
-    totalIndexList
+    totalIndexList,
+    pagination
   }
 }
 

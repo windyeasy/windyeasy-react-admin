@@ -11,14 +11,16 @@ export function fetchAsyncOptions(
   dataP: Promise<any>,
   { dataIndex = 'data.list', labelIndex = 'name', valueIndex = 'id' } = {}
 ) {
-  return new Promise<any>((reslove) => {
-    dataP.then((res) => {
-      let data = res
-      const newDataIndex = dataIndex.split('.')
-      for (const index of newDataIndex) {
-        data = data[index]
-      }
-      reslove(mapOptions(data, labelIndex, valueIndex))
+  return () => {
+    return new Promise<any>((reslove) => {
+      dataP.then((res) => {
+        let data = res
+        const newDataIndex = dataIndex.split('.')
+        for (const index of newDataIndex) {
+          data = data[index]
+        }
+        reslove(mapOptions(data, labelIndex, valueIndex))
+      })
     })
-  })
+  }
 }

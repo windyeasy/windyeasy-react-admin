@@ -33,6 +33,10 @@ export interface WFormItem<T = string> {
   visibleIf?: VisibleIfType
   render?: (formItem: WFormItem) => ReactNode
   autoSize?: AutoSizeType | boolean
+  min?: number
+  max?: number
+  defaultValue?: number
+  defaultChecked?: boolean
   [key: string]: any // 添加使用别的类型进行扩展
 }
 

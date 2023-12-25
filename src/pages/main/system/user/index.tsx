@@ -20,7 +20,6 @@ const User: FC<IProps> = () => {
   const { fetchPageList } = useWtbGetData()
   const tableConfig: WBaseTableProps = {
     api: '/user',
-    pPosition: 'right',
     wcolumns: [
       {
         title: '序号',

@@ -35,6 +35,7 @@ const WForm: FC<WFromProps> = (props) => {
           const item = formItems[i]
           initValues[item.prop] = data[item.prop] ?? (item.initValue ? item.initValue : '')
         }
+
         form.setFieldsValue(initValues)
       } else {
         form.resetFields()
