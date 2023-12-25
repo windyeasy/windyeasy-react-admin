@@ -1,5 +1,6 @@
 import { PageModalConfig } from '@/base-ui/page-modal/type'
 import { getEntireDepartments, getEntireRoles } from '@/services/main/system'
+import { checkArrayNotEmpty } from '@/utils/checkValue'
 import { fetchAsyncOptions } from '@/utils/fetch-async-options'
 
 export const modalConfig: PageModalConfig = {
@@ -57,16 +58,38 @@ export const modalConfig: PageModalConfig = {
       asyncOptions: fetchAsyncOptions(getEntireRoles(), { labelIndex: 'roleName' })
     },
     {
-      type: 'select',
+      type: 'tree-select',
       label: '选择部门',
       prop: 'departmentId',
       placeholder: '请选择部门',
       defaultValueUn: true,
-
-      asyncOptions: fetchAsyncOptions(getEntireDepartments(), {
-        dataIndex: 'data',
-        labelIndex: 'depName'
-      })
+      asyncOptions: () => {
+        return new Promise((resolve) => {
+          //  遍历生成递归数组
+          function _mapCascaderOptions(list: any[]) {
+            const options: any[] = []
+            for (const item of list) {
+              if (item.children && checkArrayNotEmpty(item.children)) {
+                options.push({
+                  value: item.id,
+                  title: item.depName,
+                  children: _mapCascaderOptions(item.children)
+                })
+              } else {
+                options.push({
+                  value: item.id,
+                  title: item.depName
+                })
+              }
+            }
+            return options
+          }
+          getEntireDepartments().then((res) => {
+            const data = _mapCascaderOptions(res.data)
+            resolve(data)
+          })
+        })
+      }
     },
 
     {

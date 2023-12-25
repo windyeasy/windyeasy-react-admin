@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Cascader, DatePicker, Form, Input, InputNumber, Select, Switch } from 'antd'
+import { Cascader, DatePicker, Form, Input, InputNumber, Select, Switch, TreeSelect } from 'antd'
 import type { ExtendFormItem } from '../type'
 import type { WBaseFormItem } from '..'
 
@@ -12,6 +12,7 @@ export type WFormItemType =
   | 'cascader'
   | 'input-number'
   | 'switch'
+  | 'tree-select'
   | 'custom'
 type NewExtendFormItem = ExtendFormItem<WBaseFormItem>
 
@@ -37,11 +38,13 @@ export const extendFormItems: NewExtendFormItem[] = [
     type: 'select',
     render: (item) => {
       const [options, setOptions] = useState(item.options || [])
-      if (item.asyncOptions) {
-        item.asyncOptions().then((options: any) => {
-          setOptions(options)
-        })
-      }
+      useEffect(() => {
+        if (item.asyncOptions) {
+          item.asyncOptions().then((options: any) => {
+            setOptions(options)
+          })
+        }
+      }, [item.asyncOptions])
       return (
         <Form.Item
           label={item.label}
@@ -170,6 +173,37 @@ export const extendFormItems: NewExtendFormItem[] = [
           valuePropName="checked"
         >
           <Switch />
+        </Form.Item>
+      )
+    }
+  },
+  // 树选择器
+  {
+    type: 'tree-select',
+    render: (item) => {
+      const [options, setOptions] = useState(item.options || [])
+      useEffect(() => {
+        if (item.asyncOptions) {
+          item.asyncOptions().then((options: any) => {
+            setOptions(options)
+          })
+        }
+      }, [item.asyncOptions])
+      return (
+        <Form.Item
+          label={item.label}
+          name={item.prop}
+          labelCol={item.labelCol}
+          wrapperCol={item.wrapperCol}
+          rules={item.rules}
+        >
+          <TreeSelect
+            showSearch
+            style={{ width: '100%' }}
+            placeholder={item.placeholder}
+            allowClear
+            treeData={options}
+          />
         </Form.Item>
       )
     }
