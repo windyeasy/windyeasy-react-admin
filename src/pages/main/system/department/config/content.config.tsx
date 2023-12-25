@@ -65,17 +65,10 @@ export const contentConfig: ContentConfig = {
     },
     formItems: [
       {
-        type: 'cascader',
+        type: 'tree-select',
         label: '上级部门',
         prop: 'parentId',
-        handleParams(values: any) {
-          const parents = values['parentId']
-          if (parents && parents.length) {
-            const length = parents.length
-            values['parentId'] = values['parentId'][length - 1]
-          }
-          return values
-        },
+        defaultValueUn: true,
         asyncOptions: () => {
           return new Promise((resolve) => {
             //  遍历生成递归数组
@@ -85,13 +78,13 @@ export const contentConfig: ContentConfig = {
                 if (item.children && checkArrayNotEmpty(item.children)) {
                   options.push({
                     value: item.id,
-                    label: item.depName,
+                    title: item.depName,
                     children: _mapCascaderOptions(item.children)
                   })
                 } else {
                   options.push({
                     value: item.id,
-                    label: item.depName
+                    title: item.depName
                   })
                 }
               }

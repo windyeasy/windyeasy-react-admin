@@ -41,6 +41,7 @@ const PageContent: FC<IProps> = (props) => {
       // align: 'center',
       width: 140,
       fixed: 'right',
+
       buttons: [
         {
           size: 'small',
