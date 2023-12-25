@@ -7,7 +7,7 @@ import { SearchForm } from '../w-form'
 import { WBaseTable, useWtbGetData } from '../wtb'
 import { usePageModal } from '../page-modal/hooks/usePageModal'
 import { ContentConfig } from './type'
-import { addPageData, editPageData } from './service'
+import { addPageData, deletePageData, editPageData } from './service'
 import { useMessageApi } from '@/utils/global-ant-proxy'
 
 interface IProps {
@@ -34,8 +34,9 @@ const PageContent: FC<IProps> = (props) => {
     }
     fetchPageList()
   }
+  const newTableConfig = { ...tableConfig }
   useEffect(() => {
-    tableConfig.wcolumns.push({
+    newTableConfig.wcolumns.push({
       title: '操作',
       type: 'button',
       // align: 'center',
@@ -57,11 +58,13 @@ const PageContent: FC<IProps> = (props) => {
           type: 'primary',
           danger: true,
           popConfirmProps: {
-            title: '删除用户',
-            description: '是否确认删除当前用户?'
+            title: '删除数据',
+            description: '是否确认删除当前数据?'
           },
-          click: (record) => {
-            console.log(record)
+          click: async (record) => {
+            await deletePageData(record.id, pageName)
+            fetchPageList()
+            useMessageApi()?.success('删除数据成功！')
           },
           text: '删除'
         }
@@ -83,7 +86,7 @@ const PageContent: FC<IProps> = (props) => {
             </Button>
           </div>
         </Row>
-        <WBaseTable {...tableConfig} />
+        <WBaseTable {...newTableConfig} />
       </Card>
       <PageModal
         width={modalWidth}

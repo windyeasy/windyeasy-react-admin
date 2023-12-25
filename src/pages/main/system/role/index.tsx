@@ -7,12 +7,8 @@ interface IProps {
   children?: ReactNode
 }
 
-const Department: FC<IProps> = () => {
-  return (
-    <>
-      <PageContent contentConfig={contentConfig} />
-    </>
-  )
+const Role: FC<IProps> = () => {
+  return <PageContent contentConfig={contentConfig} />
 }
 
-export default memo(Department)
+export default memo(Role)

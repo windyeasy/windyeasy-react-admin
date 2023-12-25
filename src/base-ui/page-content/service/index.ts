@@ -14,3 +14,9 @@ export function editPageData(id: number, pageName: string, payload: any) {
     data: payload
   })
 }
+// 删除页面数据
+export function deletePageData(id: number, pageName: string) {
+  return request.delete({
+    url: `/${pageName}/${id}`
+  })
+}

@@ -182,6 +182,7 @@ export const extendFormItems: NewExtendFormItem[] = [
     type: 'tree-select',
     render: (item) => {
       const [options, setOptions] = useState(item.options || [])
+      console.log('进入了select')
       useEffect(() => {
         if (item.asyncOptions) {
           item.asyncOptions().then((options: any) => {
@@ -189,6 +190,7 @@ export const extendFormItems: NewExtendFormItem[] = [
           })
         }
       }, [item.asyncOptions])
+
       return (
         <Form.Item
           label={item.label}
