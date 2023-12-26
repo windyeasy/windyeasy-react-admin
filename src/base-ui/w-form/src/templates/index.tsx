@@ -13,6 +13,7 @@ export type WFormItemType =
   | 'input-number'
   | 'switch'
   | 'tree-select'
+  | 'test'
   | 'custom'
 type NewExtendFormItem = ExtendFormItem<WBaseFormItem>
 
@@ -53,7 +54,7 @@ export const extendFormItems: NewExtendFormItem[] = [
           wrapperCol={item.wrapperCol}
           rules={item.rules}
         >
-          <Select placeholder={item.placeholder} options={options} />
+          <Select placeholder={item.placeholder} options={item.options || options} />
         </Form.Item>
       )
     }
@@ -134,7 +135,7 @@ export const extendFormItems: NewExtendFormItem[] = [
           wrapperCol={item.wrapperCol}
           rules={item.rules}
         >
-          <Cascader placeholder={item.placeholder} options={options} />
+          <Cascader placeholder={item.placeholder} options={item.options || options} />
         </Form.Item>
       )
     }
@@ -182,14 +183,13 @@ export const extendFormItems: NewExtendFormItem[] = [
     type: 'tree-select',
     render: (item) => {
       const [options, setOptions] = useState(item.options || [])
-      console.log('进入了select')
       useEffect(() => {
-        if (item.asyncOptions) {
+        if (item.asyncOptions && !item.options) {
           item.asyncOptions().then((options: any) => {
             setOptions(options)
           })
         }
-      }, [item.asyncOptions])
+      }, [])
 
       return (
         <Form.Item
@@ -204,7 +204,7 @@ export const extendFormItems: NewExtendFormItem[] = [
             style={{ width: '100%' }}
             placeholder={item.placeholder}
             allowClear
-            treeData={options}
+            treeData={item.options || options}
           />
         </Form.Item>
       )

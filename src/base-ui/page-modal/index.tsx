@@ -1,11 +1,11 @@
 import { useAppSelector } from '@/store'
 import { Button, Modal, Row } from 'antd'
-import React, { memo, useEffect } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import type { FC, ReactNode } from 'react'
 import { shallowEqual } from 'react-redux'
 import { usePageModal } from './hooks/usePageModal'
 import { PageModalConfig } from './type'
-import { WBaseForm } from '../w-form'
+import { WBaseForm, WFormItem } from '../w-form'
 import { formProxyService } from '../w-form/src/service/proxy-service'
 import { modalConfig } from '@/pages/demo/config'
 import { ModalWrapper } from './style'
@@ -46,6 +46,7 @@ const PageModal: FC<IProps> = (props) => {
     }),
     shallowEqual
   )
+  const [newFormItems, setNewFormItems] = useState<WFormItem[]>([])
   // 回调取消函数
   function handleCancel() {
     changeModalOpen(false)
@@ -72,6 +73,7 @@ const PageModal: FC<IProps> = (props) => {
   // 处理过滤不同模式需要隐藏的表单项，editHidden或addHidden
   function handleHiddenFormItems() {
     let { formItems } = props.modalConfig
+
     const { editHidden, addHidden } = props.modalConfig
     // 是新增的时候过滤新增的
     if (addHidden && addHidden.length && isNew) {
@@ -80,6 +82,18 @@ const PageModal: FC<IProps> = (props) => {
     // 是编辑的时候就是过滤编辑隐藏
     if (editHidden && editHidden.length && !isNew) {
       formItems = formItems.filter((item) => !editHidden!.includes(item.prop))
+    }
+    return formItems
+  }
+  // 处理异步数据
+  function handleAsyncData() {
+    const formItems = handleHiddenFormItems()
+    for (const item of formItems) {
+      if (item.asyncOptions) {
+        item.asyncOptions().then((res: any) => {
+          item.options = res
+        })
+      }
     }
     return formItems
   }
@@ -97,6 +111,8 @@ const PageModal: FC<IProps> = (props) => {
   }
   // 副作用代码
   useEffect(() => {
+    const formItems = [...handleAsyncData()]
+    setNewFormItems(formItems)
     // 如果对象有值就，设置表单初始值
     formProxyService.execFieldsValueByData(formData)
   }, [isOpen])
@@ -118,7 +134,7 @@ const PageModal: FC<IProps> = (props) => {
           <WBaseForm
             proxyService={formProxyService}
             formname={props.formname}
-            formItems={handleHiddenFormItems()}
+            formItems={newFormItems}
             uiConfig={uiConfig}
           />
         </div>
