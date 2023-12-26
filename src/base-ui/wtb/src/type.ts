@@ -1,13 +1,21 @@
 import type { ColumnType } from 'antd/lib/table'
 
 import type { AxiosRequestConfig } from 'axios'
-import type { TbType } from '.'
+
 import type { ButtonProps, PopconfirmProps } from 'antd'
+import { TbType } from './templates'
+import { TagProps } from 'antd/lib'
+export interface NewTagProps extends TagProps {
+  text: string
+}
+interface Tag {
+  [key: string]: NewTagProps
+}
 
 export interface WColumType<T = any, WT = string> extends ColumnType<T> {
   type?: WT
   buttons?: WTbButtonProps[]
-
+  tag?: Tag
   customConfigRender?: (config: WColumType) => ColumnType<T>['render']
 }
 export interface ExtendPropType<T = TbType> {

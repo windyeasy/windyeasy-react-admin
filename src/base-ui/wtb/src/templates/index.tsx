@@ -2,7 +2,8 @@ import React from 'react'
 import type { ExtendPropType } from '../type'
 
 import { utcFormat } from '@/utils/format'
-import { Button, Flex, Popconfirm } from 'antd'
+import { Button, Flex, Popconfirm, Tag } from 'antd'
+export type TbType = 'utcTimer' | 'button' | 'tag'
 // import { Button } from 'antd'
 export const extendProps: ExtendPropType[] = [
   {
@@ -60,6 +61,20 @@ export const extendProps: ExtendPropType[] = [
               })}
           </Flex>
         )
+      }
+    }
+  },
+  {
+    type: 'tag',
+    customConfigRender(config) {
+      return (value: number | string) => {
+        const tag = config?.tag
+        if (tag) {
+          const options = tag[value]
+          return <Tag {...options}>{options?.text}</Tag>
+        } else {
+          return <></>
+        }
       }
     }
   }

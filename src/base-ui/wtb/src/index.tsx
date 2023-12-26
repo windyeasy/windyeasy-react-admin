@@ -3,9 +3,8 @@ import type { FC, ReactNode } from 'react'
 import Wtb from './core'
 import type { WtbProps } from './core'
 import type { WColumType } from './type'
-import { extendProps } from './templates'
+import { TbType, extendProps } from './templates'
 
-export type TbType = 'utcTimer' | 'button'
 export type WBaseType<T = any> = WColumType<T, TbType>[]
 
 export interface WBaseTableProps extends WtbProps {
