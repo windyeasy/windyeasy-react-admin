@@ -6,7 +6,7 @@ import { DataNode } from 'antd/lib/tree'
 // import FormTree from '@/base-ui/w-form/src/components/form-tree'
 // import { Tree } from 'antd'
 import FormTree from '@/base-ui/w-form/src/components/form-tree'
-
+import { Icon } from '@iconify/react'
 interface IProps {
   children?: ReactNode
 }
@@ -44,6 +44,7 @@ const Demo: FC<IProps> = () => {
   return (
     <DemoWrapper>
       <FormTree treeData={treeData} defaultSelectedKeys={['0-1']} defaultExpandAll checkable />
+      <Icon icon="mdi-light:home" />
     </DemoWrapper>
   )
 }
