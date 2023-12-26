@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from 'react'
+import React, { memo } from 'react'
 import type { FC, ReactNode } from 'react'
 import { PageContentWrapper } from './style'
 import PageModal, { OnModalSubmitType } from '../page-modal'
@@ -34,9 +34,10 @@ const PageContent: FC<IProps> = (props) => {
     }
     fetchPageList()
   }
-  const newTableConfig = { ...tableConfig }
-  useEffect(() => {
-    newTableConfig.wcolumns.push({
+  function tableConfigAddButton() {
+    const newTableConfig = { ...tableConfig }
+    const columns = [...tableConfig.wcolumns]
+    columns.push({
       title: '操作',
       type: 'button',
       // align: 'center',
@@ -70,7 +71,9 @@ const PageContent: FC<IProps> = (props) => {
         }
       ]
     })
-  }, [tableConfig])
+    newTableConfig.wcolumns = columns
+    return newTableConfig
+  }
 
   return (
     <PageContentWrapper>
@@ -86,7 +89,7 @@ const PageContent: FC<IProps> = (props) => {
             </Button>
           </div>
         </Row>
-        <WBaseTable {...newTableConfig} />
+        <WBaseTable {...tableConfigAddButton()} />
       </Card>
       <PageModal
         width={modalWidth}
