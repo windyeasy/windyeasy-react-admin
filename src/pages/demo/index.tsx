@@ -1,30 +1,49 @@
-import React, { memo, useEffect } from 'react'
+import React, { memo } from 'react'
 import type { FC, ReactNode } from 'react'
 import { DemoWrapper } from './style'
-import { WBaseForm, formProxyService } from '@/base-ui/w-form'
-import { groupsFormConfig } from './config'
+
+import { DataNode } from 'antd/lib/tree'
+// import FormTree from '@/base-ui/w-form/src/components/form-tree'
+// import { Tree } from 'antd'
+import FormTree from '@/base-ui/w-form/src/components/form-tree'
 
 interface IProps {
   children?: ReactNode
 }
-const infos = {
-  id: 177047588,
-  name: 'james',
-  realname: '詹姆斯',
-  cellphone: 13322223338,
-  enable: 1,
-  departmentId: 1,
-  roleId: 1,
-  createAt: '2023-12-12T06:31:57.000Z',
-  updateAt: '2023-12-12T06:31:57.000Z'
-}
+const treeData: DataNode[] = [
+  {
+    title: 'parent',
+    key: '0',
+    children: [
+      {
+        title: 'child 1',
+        key: '0-0'
+      },
+      {
+        title: 'child 2',
+        key: '0-1'
+      }
+    ]
+  },
+  {
+    title: 'parent2',
+    key: '1',
+    children: [
+      {
+        title: 'child 1',
+        key: '1-0'
+      },
+      {
+        title: 'child 2',
+        key: '1-1'
+      }
+    ]
+  }
+]
 const Demo: FC<IProps> = () => {
-  useEffect(() => {
-    formProxyService.execFieldsValueByData(infos)
-  }, [])
   return (
     <DemoWrapper>
-      <WBaseForm {...groupsFormConfig} proxyService={formProxyService} />
+      <FormTree treeData={treeData} defaultSelectedKeys={['0-1']} defaultExpandAll checkable />
     </DemoWrapper>
   )
 }

@@ -37,7 +37,7 @@ export interface WFormItem<T = string> {
   max?: number
   defaultValue?: number
   defaultChecked?: boolean
-
+  checkable?: boolean
   [key: string]: any // 添加使用别的类型进行扩展
 }
 

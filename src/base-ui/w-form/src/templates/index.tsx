@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { Cascader, DatePicker, Form, Input, InputNumber, Select, Switch, TreeSelect } from 'antd'
 import type { ExtendFormItem } from '../type'
 import type { WBaseFormItem } from '..'
+import FormTree from '../components/form-tree'
+import { checkArrayNotEmpty } from '@/utils/checkValue'
 
 export type WFormItemType =
   | 'input'
@@ -13,7 +15,7 @@ export type WFormItemType =
   | 'input-number'
   | 'switch'
   | 'tree-select'
-  | 'test'
+  | 'tree'
   | 'custom'
 type NewExtendFormItem = ExtendFormItem<WBaseFormItem>
 
@@ -39,10 +41,21 @@ export const extendFormItems: NewExtendFormItem[] = [
     type: 'select',
     render: (item) => {
       const [options, setOptions] = useState(item.options || [])
+
       useEffect(() => {
         if (item.asyncOptions) {
           item.asyncOptions().then((options: any) => {
             setOptions(options)
+          })
+        } else {
+          // 当是page-modal里面处理异步数据时，这里需要监听数据变化
+          Object.defineProperty(item, 'options', {
+            set() {
+              if (item.options && checkArrayNotEmpty(item.options)) {
+                const options = [...item.options]
+                setOptions(options)
+              }
+            }
           })
         }
       }, [item.asyncOptions])
@@ -54,7 +67,7 @@ export const extendFormItems: NewExtendFormItem[] = [
           wrapperCol={item.wrapperCol}
           rules={item.rules}
         >
-          <Select placeholder={item.placeholder} options={item.options || options} />
+          <Select placeholder={item.placeholder} options={options} />
         </Form.Item>
       )
     }
@@ -188,6 +201,16 @@ export const extendFormItems: NewExtendFormItem[] = [
           item.asyncOptions().then((options: any) => {
             setOptions(options)
           })
+        } else {
+          // 当是page-modal里面处理异步数据时，这里需要监听数据变化
+          Object.defineProperty(item, 'options', {
+            set() {
+              if (item.options && checkArrayNotEmpty(item.options)) {
+                const options = [...item.options]
+                setOptions(options)
+              }
+            }
+          })
         }
       }, [])
 
@@ -204,8 +227,44 @@ export const extendFormItems: NewExtendFormItem[] = [
             style={{ width: '100%' }}
             placeholder={item.placeholder}
             allowClear
-            treeData={item.options || options}
+            treeData={options}
           />
+        </Form.Item>
+      )
+    }
+  },
+  // 树形控件
+  {
+    type: 'tree',
+    render: (item) => {
+      const [options, setOptions] = useState(item.options || [])
+      useEffect(() => {
+        if (item.asyncOptions && !item.options) {
+          item.asyncOptions().then((options: any) => {
+            setOptions(options)
+          })
+        } else {
+          // 当是page-modal里面处理异步数据时，这里需要监听数据变化
+          Object.defineProperty(item, 'options', {
+            set() {
+              if (item.options && checkArrayNotEmpty(item.options)) {
+                const options = [...item.options]
+                setOptions(options)
+              }
+            }
+          })
+        }
+      }, [])
+
+      return (
+        <Form.Item
+          label={item.label}
+          name={item.prop}
+          labelCol={item.labelCol}
+          wrapperCol={item.wrapperCol}
+          rules={item.rules}
+        >
+          <FormTree checkable={item.checkable} style={{ width: '100%' }} treeData={options} />
         </Form.Item>
       )
     }

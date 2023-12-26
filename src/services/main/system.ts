@@ -13,3 +13,9 @@ export function getEntireDepartments() {
     url: '/department'
   })
 }
+// 获取菜单列表
+export function getEntireList() {
+  return request.get({
+    url: '/menu'
+  })
+}

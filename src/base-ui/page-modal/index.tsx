@@ -90,6 +90,7 @@ const PageModal: FC<IProps> = (props) => {
     const formItems = handleHiddenFormItems()
     for (const item of formItems) {
       if (item.asyncOptions) {
+        item.options = []
         item.asyncOptions().then((res: any) => {
           item.options = res
         })

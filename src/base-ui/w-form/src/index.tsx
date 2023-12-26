@@ -4,6 +4,7 @@ import type { WFormItem, WFormPublicProps } from './type'
 import WForm from './core/index'
 import { WFormProxyService } from './service/proxy-service'
 import { WFormItemType, extendFormItems } from './templates'
+import type { DataNode } from 'antd/lib/tree'
 
 export interface WBaseFormProps extends WFormPublicProps {
   children?: ReactNode
@@ -16,7 +17,7 @@ interface SelectOption {
 
 // WFormItem扩展类型
 export interface WBaseFormItem extends WFormItem<WFormItemType> {
-  options?: SelectOption[]
+  options?: SelectOption[] | DataNode[] | any
   asyncOptions?: any
   placeholder?: string
 }

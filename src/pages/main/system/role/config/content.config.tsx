@@ -1,4 +1,6 @@
 import { ContentConfig } from '@/base-ui/page-content/type'
+import { getEntireList } from '@/services/main/system'
+import { checkArrayNotEmpty } from '@/utils/checkValue'
 
 export const contentConfig: ContentConfig = {
   pageName: 'role',
@@ -98,6 +100,39 @@ export const contentConfig: ContentConfig = {
         autoSize: {
           minRows: 3,
           maxRows: 5
+        }
+      },
+      {
+        type: 'tree',
+        label: '菜单列表',
+        prop: 'menuList',
+        checkable: true,
+        asyncOptions: () => {
+          return new Promise<any>((reslove) => {
+            function _mapTreeOptions(list: any[]) {
+              const options: any[] = []
+              for (const item of list) {
+                if (item.children && checkArrayNotEmpty(item.children)) {
+                  options.push({
+                    key: item.id,
+                    title: item.menuName,
+                    children: _mapTreeOptions(item.children)
+                  })
+                } else {
+                  options.push({
+                    key: item.id,
+                    title: item.menuName
+                  })
+                }
+              }
+              return options
+            }
+            getEntireList().then((res) => {
+              const data = _mapTreeOptions(res.data)
+
+              reslove(data)
+            })
+          })
         }
       }
     ]
