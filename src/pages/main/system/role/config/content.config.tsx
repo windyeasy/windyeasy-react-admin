@@ -1,5 +1,5 @@
 import { ContentConfig } from '@/base-ui/page-content/type'
-import { getEntireList } from '@/services/main/system'
+import { getEntireMenuList } from '@/services/main/system'
 import { checkArrayNotEmpty } from '@/utils/checkValue'
 
 export const contentConfig: ContentConfig = {
@@ -127,7 +127,7 @@ export const contentConfig: ContentConfig = {
               }
               return options
             }
-            getEntireList().then((res) => {
+            getEntireMenuList().then((res) => {
               const data = _mapTreeOptions(res.data)
 
               reslove(data)

@@ -2,13 +2,20 @@ import React, { memo } from 'react'
 import type { FC, ReactNode } from 'react'
 import { MenuWrapper } from './style'
 import { Button, Card, Row } from 'antd'
-import { WBaseTable, WBaseTableProps } from '@/base-ui/wtb'
+import { WBaseTable, WBaseTableProps, useWtbGetData } from '@/base-ui/wtb'
+import PageModal, { OnModalSubmitType } from '@/base-ui/page-modal'
+import { modalConfig } from './config/modal.config'
+import { usePageModal } from '@/base-ui/page-modal/hooks/usePageModal'
+import { addMenu, editMenu } from './service'
+import { useMessageApi } from '@/utils/global-ant-proxy'
 
 interface IProps {
   children?: ReactNode
 }
 
 const Menu: FC<IProps> = () => {
+  const { setModalContent } = usePageModal()
+  const { fetchPageList } = useWtbGetData()
   const tableConfig: WBaseTableProps = {
     api: '/menu',
     pagination: false,
@@ -74,17 +81,37 @@ const Menu: FC<IProps> = () => {
       }
     ]
   }
+  function addClick() {
+    setModalContent()
+  }
+  const newUserSubmit: OnModalSubmitType = (isNew, values, record) => {
+    if (isNew) {
+      addMenu(values).then(() => {
+        fetchPageList()
+        useMessageApi()?.success('添加菜单成功！')
+      })
+    } else {
+      // 编辑用户
+      editMenu(record.id, values).then(() => {
+        fetchPageList()
+        useMessageApi()?.success('编辑菜单成功！')
+      })
+    }
+  }
   return (
     <MenuWrapper>
       <Card>
         <Row justify="space-between" className="card-header">
           <div className="header-title">菜单列表</div>
           <div className="header-btns">
-            <Button type="primary">新增菜单</Button>
+            <Button type="primary" onClick={addClick}>
+              新增菜单
+            </Button>
           </div>
         </Row>
         <WBaseTable {...tableConfig} />
       </Card>
+      <PageModal modalConfig={modalConfig} onSubmit={newUserSubmit} formname="menuForm" />
     </MenuWrapper>
   )
 }

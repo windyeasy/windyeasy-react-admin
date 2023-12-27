@@ -69,6 +69,7 @@ export const contentConfig: ContentConfig = {
         label: '上级部门',
         prop: 'parentId',
         defaultValueUn: true,
+
         asyncOptions: () => {
           return new Promise((resolve) => {
             //  遍历生成递归数组

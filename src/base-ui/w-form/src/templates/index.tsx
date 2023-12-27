@@ -1,5 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { Cascader, DatePicker, Form, Input, InputNumber, Select, Switch, TreeSelect } from 'antd'
+import {
+  Cascader,
+  DatePicker,
+  Form,
+  Input,
+  InputNumber,
+  Radio,
+  Select,
+  Switch,
+  TreeSelect
+} from 'antd'
 import type { ExtendFormItem } from '../type'
 import type { WBaseFormItem } from '..'
 import FormTree from '../components/form-tree'
@@ -16,6 +26,7 @@ export type WFormItemType =
   | 'switch'
   | 'tree-select'
   | 'tree'
+  | 'radio-group'
   | 'custom'
 type NewExtendFormItem = ExtendFormItem<WBaseFormItem>
 
@@ -265,6 +276,30 @@ export const extendFormItems: NewExtendFormItem[] = [
           rules={item.rules}
         >
           <FormTree checkable={item.checkable} style={{ width: '100%' }} treeData={options} />
+        </Form.Item>
+      )
+    }
+  },
+  {
+    type: 'radio-group',
+    render: (item) => {
+      return (
+        <Form.Item
+          label={item.label}
+          name={item.prop}
+          labelCol={item.labelCol}
+          wrapperCol={item.wrapperCol}
+          rules={item.rules}
+        >
+          <Radio.Group>
+            {item?.options?.map((item: any) => {
+              return (
+                <Radio value={item.value} key={item.value}>
+                  {item.label}
+                </Radio>
+              )
+            })}
+          </Radio.Group>
         </Form.Item>
       )
     }

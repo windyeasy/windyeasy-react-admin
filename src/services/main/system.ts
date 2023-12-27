@@ -14,7 +14,7 @@ export function getEntireDepartments() {
   })
 }
 // 获取菜单列表
-export function getEntireList() {
+export function getEntireMenuList() {
   return request.get({
     url: '/menu'
   })
