@@ -47,19 +47,13 @@ function fetchMenusToRoutes(
       if (!firstMenu) firstMenu = menu
       routes.push(route)
     }
+    // 判断是否有子路由，有就添加重定向地址
     if (checkArrayNotEmpty(menu.children) && menu.children) {
-      // 判断子路由的重定向路由是否已经添加，是否有需要添加从定向的地址
-      if (!routes.find((item) => item.path === menu.url) && menu.url) {
-        //
-        const url = menu.url ?? ''
-        // 得到第一条路由作重定向路由
-        const redirectRoute = localRoutes.find((item) => item.path?.startsWith(url))
-        if (redirectRoute) {
-          const path = redirectRoute.path ?? ''
-          routes.push({ path: menu.url, element: <Navigate to={path} /> })
-        }
+      // 判断是否添加从定向路由
+      if (menu.redirectUrl) {
+        const redirectUrl = menu.redirectUrl as string
+        routes.push({ path: menu.url ?? '', element: <Navigate to={redirectUrl} /> })
       }
-
       // 递归调用得到路由
       fetchMenusToRoutes(menu.children, localRoutes, routes)
     }
