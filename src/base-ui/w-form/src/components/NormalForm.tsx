@@ -9,10 +9,11 @@ interface IProps extends WFormComPublicProps {
 }
 
 const NormalForm: FC<IProps> = (props) => {
-  const { formItems, colConfig = {}, formItemsInfo } = props
+  const { formItems = [], colConfig = {}, formItemsInfo } = props
+
   return (
     <Row>
-      {formItems.map((item) => {
+      {formItems?.map((item) => {
         return (
           <Col
             span={24}

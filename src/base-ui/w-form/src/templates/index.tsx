@@ -212,16 +212,6 @@ export const extendFormItems: NewExtendFormItem[] = [
           item.asyncOptions().then((options: any) => {
             setOptions(options)
           })
-        } else {
-          // 当是page-modal里面处理异步数据时，这里需要监听数据变化
-          Object.defineProperty(item, 'options', {
-            set() {
-              if (item.options && checkArrayNotEmpty(item.options)) {
-                const options = [...item.options]
-                setOptions(options)
-              }
-            }
-          })
         }
       }, [])
 

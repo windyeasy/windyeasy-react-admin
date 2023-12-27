@@ -2,7 +2,7 @@ import React, { memo } from 'react'
 import type { FC, ReactNode } from 'react'
 import { WBaseFormProps } from '..'
 import WBaseForm from '../index'
-import { formProxyService } from '../service/proxy-service'
+import { WFormProxyService } from '../service/proxy-service'
 import { Button, Col, Row } from 'antd'
 import { ReloadOutlined, SearchOutlined } from '@ant-design/icons'
 interface IProps extends WBaseFormProps {
@@ -10,7 +10,7 @@ interface IProps extends WBaseFormProps {
   onSubmit?: (values: any) => void
   onReset?: () => void
 }
-
+const formProxyService = new WFormProxyService()
 const SearchForm: FC<IProps> = (props) => {
   function onSubmit() {
     let values = formProxyService.form?.getFieldsValue()

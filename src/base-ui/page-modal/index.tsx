@@ -1,12 +1,12 @@
 import { useAppSelector } from '@/store'
 import { Button, Modal, Row } from 'antd'
-import React, { memo, useEffect, useState } from 'react'
+import React, { memo, useEffect } from 'react'
 import type { FC, ReactNode } from 'react'
 import { shallowEqual } from 'react-redux'
 import { usePageModal } from './hooks/usePageModal'
 import { PageModalConfig } from './type'
-import { WBaseForm, WFormItem } from '../w-form'
-import { formProxyService } from '../w-form/src/service/proxy-service'
+import { WBaseForm } from '../w-form'
+import { WFormProxyService } from '../w-form/src/service/proxy-service'
 import { modalConfig } from '@/pages/demo/config'
 import { ModalWrapper } from './style'
 export type OnModalSubmitType = (isNew: boolean, values: any, record: any) => void
@@ -18,7 +18,7 @@ interface IProps {
   onSubmit?: OnModalSubmitType
   onCancel?: () => void
 }
-
+const formProxyService = new WFormProxyService()
 /**
  * 生成展示数据，添加或者编辑，添加由上层添加，
  * 通过不同的模式确定是请求还是获取数据，通过store管理数据，可以通过hook改变数据
@@ -46,7 +46,7 @@ const PageModal: FC<IProps> = (props) => {
     }),
     shallowEqual
   )
-  const [newFormItems, setNewFormItems] = useState<WFormItem[]>([])
+
   // 回调取消函数
   function handleCancel() {
     changeModalOpen(false)
@@ -85,19 +85,7 @@ const PageModal: FC<IProps> = (props) => {
     }
     return formItems
   }
-  // 处理异步数据
-  function handleAsyncData() {
-    const formItems = handleHiddenFormItems()
-    for (const item of formItems) {
-      if (item.asyncOptions) {
-        item.options = []
-        item.asyncOptions().then((res: any) => {
-          item.options = res
-        })
-      }
-    }
-    return formItems
-  }
+
   function fetchFooterPosition() {
     const { footerPosition = 'right' } = modalConfig
     if (footerPosition === 'left') {
@@ -112,11 +100,10 @@ const PageModal: FC<IProps> = (props) => {
   }
   // 副作用代码
   useEffect(() => {
-    const formItems = [...handleAsyncData()]
-    setNewFormItems(formItems)
     // 如果对象有值就，设置表单初始值
     formProxyService.execFieldsValueByData(formData)
   }, [isOpen])
+
   return (
     <Modal
       title={
@@ -128,6 +115,7 @@ const PageModal: FC<IProps> = (props) => {
       open={isOpen}
       onCancel={handleCancel}
       footer={null}
+      destroyOnClose
       centered
     >
       <ModalWrapper>
@@ -135,7 +123,7 @@ const PageModal: FC<IProps> = (props) => {
           <WBaseForm
             proxyService={formProxyService}
             formname={props.formname}
-            formItems={newFormItems}
+            formItems={handleHiddenFormItems()}
             uiConfig={uiConfig}
           />
         </div>

@@ -1,4 +1,4 @@
-import React, { memo, useRef, useState } from 'react'
+import React, { memo, useEffect, useRef, useState } from 'react'
 import type { FC, ReactNode } from 'react'
 import { ExtendFormItem, VisibleIfInfoType, WFormItem, WFormPublicProps } from '../type'
 import { Form } from 'antd'
@@ -82,6 +82,12 @@ const WForm: FC<WFromProps> = (props) => {
     }
     return renderArray
   }
+  useEffect(() => {
+    return () => {
+      // 卸载时清除注入方法
+      props.proxyService && props.proxyService.clearInject()
+    }
+  })
   /**
    *
    * 使用items： 创建模板，实现搜索功能
