@@ -1,11 +1,5 @@
 import React from 'react'
-
-import {
-  AppstoreOutlined,
-  DesktopOutlined,
-  MessageOutlined,
-  SettingOutlined
-} from '@ant-design/icons'
+import { Icon } from '@iconify/react'
 
 import { MenuItemRes } from '@/pages/login/service/type'
 import { checkArrayNotEmpty } from './checkValue'
@@ -29,22 +23,6 @@ export function getItem(
   } as MenuItem
 }
 
-// 获取菜单图标
-function getMenuIcon(iconName?: string | null) {
-  switch (iconName) {
-    case 'el-icon-monitor':
-      return <DesktopOutlined />
-    case 'el-icon-setting':
-      return <SettingOutlined />
-    case 'el-icon-goods':
-      return <AppstoreOutlined />
-    case 'el-icon-chat-line-round':
-      return <MessageOutlined />
-    default:
-      return ''
-  }
-}
-
 // 处理菜单列表
 export function handleMenuList(menuList: MenuItemRes[]) {
   const menuItems: MenuProps['items'] = []
@@ -58,14 +36,14 @@ export function handleMenuList(menuList: MenuItemRes[]) {
       // 当数组为空时不加入菜单
       if (checkArrayNotEmpty(childrenArray)) {
         menuItems.push(
-          getItem(item.menuName, String(item.id), getMenuIcon(item.icon), childrenArray)
+          getItem(item.menuName, String(item.id), <Icon icon={item.icon ?? ''} />, childrenArray)
         )
       } else {
         menuItems.push(
           getItem(
             <MenuItemLabel url={item.url} title={item.menuName} />,
             String(item.id),
-            getMenuIcon(item.icon)
+            <Icon icon={item.icon ?? ''} />
           )
         )
       }
@@ -74,7 +52,7 @@ export function handleMenuList(menuList: MenuItemRes[]) {
         getItem(
           <MenuItemLabel url={item.url} title={item.menuName} />,
           String(item.id),
-          getMenuIcon(item.icon)
+          <Icon icon={item.icon ?? ''} />
         )
       )
     }

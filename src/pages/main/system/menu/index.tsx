@@ -59,9 +59,8 @@ const Menu: FC<IProps> = () => {
           {
             type: 'primary',
             click: (record) => {
-              // 编辑用户
-              // setModalContent(false, record)
-              console.log(record)
+              // 编辑菜单
+              setModalContent(false, record)
             },
             text: '编辑'
           },
