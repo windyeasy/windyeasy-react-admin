@@ -33,7 +33,7 @@ const WForm: FC<WFromProps> = (props) => {
         const initValues: any = {}
         for (let i = 0; i < length; i++) {
           const item = formItems[i]
-          initValues[item.prop] = data[item.prop] ?? (item.initValue ? item.initValue : '')
+          initValues[item.prop] = data[item.prop] ?? item.initValue ?? ''
         }
 
         form.setFieldsValue(initValues)
