@@ -9,11 +9,12 @@ interface IProps {
   title: string
   isLink?: boolean
   isIframe?: boolean
+  link?: string
 }
 
 const MenuItemLabel: FC<IProps> = (props) => {
-  const { url, isLink = false, isIframe = false } = props
-  const link = url ?? ''
+  const { url, isLink = false, isIframe = false, link = '' } = props
+  const routePath = url ?? ''
   function showLink() {
     if (isLink && !isIframe) {
       return (
@@ -22,7 +23,7 @@ const MenuItemLabel: FC<IProps> = (props) => {
         </Link>
       )
     } else {
-      return <Link to={link}>{props.title}</Link>
+      return <Link to={routePath}>{props.title}</Link>
     }
   }
   return <ItemLabelWrapper>{showLink()}</ItemLabelWrapper>

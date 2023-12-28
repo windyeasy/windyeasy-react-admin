@@ -46,6 +46,7 @@ export function handleMenuList(menuList: MenuItemRes[]) {
               isLink={!!item.isLink}
               isIframe={!!item.isIframe}
               title={item.menuName}
+              link={item.link}
             />,
             String(item.id),
             <Icon icon={item.icon ?? ''} />
@@ -60,6 +61,7 @@ export function handleMenuList(menuList: MenuItemRes[]) {
             isLink={!!item.isLink}
             isIframe={!!item.isIframe}
             title={item.menuName}
+            link={item.link}
           />,
           String(item.id),
           <Icon icon={item.icon ?? ''} />

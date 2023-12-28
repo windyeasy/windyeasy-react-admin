@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { lazy } from 'react'
 import { MenuItemRes } from '@/pages/login/service/type'
 import { Navigate, type RouteObject } from 'react-router-dom'
 import { checkArrayNotEmpty } from './checkValue'
@@ -6,7 +6,7 @@ import routes from '@/router'
 import { localCache } from './cache'
 import { FLAT_MENU_LIST } from '@/pages/login/service/constants'
 import { ItemType } from 'antd/es/breadcrumb/Breadcrumb'
-
+const DisplayIframe = lazy(() => import('@/layout/router-view/display-iframe'))
 // 加载子路由
 export function loadChildrenRoutes() {
   const req = require.context('@/router', true, /.+(\.ts|\.tsx)$/)
@@ -41,8 +41,16 @@ function fetchMenusToRoutes(
   routes: RouteObject[] = []
 ) {
   for (const menu of menus) {
+    let route = localRoutes.find((item) => menu.url === item.path)
+    // 判断菜单，是否内嵌link
+    if (menu.isIframe && !route && menu.url) {
+      console.log(menu.link)
+      route = {
+        path: menu.url,
+        element: <DisplayIframe url={menu.link} />
+      }
+    }
     // 找到匹配的路由就加入，路由列表
-    const route = localRoutes.find((item) => menu.url === item.path)
     if (route) {
       if (!firstMenu) firstMenu = menu
       routes.push(route)

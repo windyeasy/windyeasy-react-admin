@@ -85,9 +85,9 @@ export const modalConfig: PageModalConfig = {
     },
     {
       type: 'input',
-      label: '地址',
+      label: '路由地址',
       prop: 'url',
-      placeholder: '请输入地址',
+      placeholder: '请输入路由地址',
       visibleIf: {
         hidden: { menuType: 2 }
       }
@@ -106,6 +106,15 @@ export const modalConfig: PageModalConfig = {
       label: '图标',
       prop: 'icon',
       placeholder: '请输入图标',
+      visibleIf: {
+        hidden: { menuType: 2 }
+      }
+    },
+    {
+      type: 'input',
+      label: '链接地址',
+      prop: 'link',
+      placeholder: '请输入链接地址',
       visibleIf: {
         hidden: { menuType: 2 }
       }

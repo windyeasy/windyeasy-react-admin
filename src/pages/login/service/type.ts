@@ -15,6 +15,7 @@ export interface MenuItemRes {
   sort?: number
   menuType?: number
   isLink?: 0 | 1
+  link?: string
   isIframe?: 0 | 1
   createAt?: string
   updateAt?: string
