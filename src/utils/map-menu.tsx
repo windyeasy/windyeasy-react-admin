@@ -41,13 +41,13 @@ function fetchMenusToRoutes(
   routes: RouteObject[] = []
 ) {
   for (const menu of menus) {
-    let route = localRoutes.find((item) => menu.url === item.path)
+    let route: RouteObject | undefined = localRoutes.find((item) => menu.url === item.path)
     // 判断菜单，是否内嵌link
     if (menu.isIframe && !route && menu.url) {
       console.log(menu.link)
       route = {
         path: menu.url,
-        element: <DisplayIframe url={menu.link} />
+        element: <DisplayIframe url={menu.link} key={menu.url} />
       }
     }
     // 找到匹配的路由就加入，路由列表

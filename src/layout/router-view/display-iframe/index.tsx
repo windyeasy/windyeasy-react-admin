@@ -12,6 +12,7 @@ const DisplayIframe: FC<IProps> = (props) => {
   const { url = '' } = props
   const [spinning, setSpinning] = useState(true)
   const iframeEl = useRef<HTMLIFrameElement>(null)
+
   useEffect(() => {
     try {
       iframeEl.current!.onload = () => {
@@ -21,6 +22,9 @@ const DisplayIframe: FC<IProps> = (props) => {
     } catch (error) {
       setSpinning(false)
       console.error('iframe加载出错', error)
+    }
+    return () => {
+      console.log('组件被销毁')
     }
   }, [])
   return (
