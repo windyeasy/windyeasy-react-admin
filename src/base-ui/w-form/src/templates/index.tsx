@@ -292,10 +292,10 @@ export const extendFormItems: NewExtendFormItem[] = [
           rules={item.rules}
         >
           <Radio.Group>
-            {item?.options?.map((item: any) => {
+            {item?.options?.map((radioItem: any) => {
               return (
-                <Radio value={item.value} key={item.value}>
-                  {item.label}
+                <Radio value={radioItem.value} key={radioItem.value} disabled={item.disabled}>
+                  {radioItem.label}
                 </Radio>
               )
             })}

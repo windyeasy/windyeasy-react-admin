@@ -118,8 +118,7 @@ export const modalConfig: PageModalConfig = {
       visibleIf: {
         hidden: { menuType: 2 },
         disabled: {
-          isLink: 0,
-          isIframe: 0
+          isLink: 0
         }
       }
     },
@@ -137,7 +136,8 @@ export const modalConfig: PageModalConfig = {
       label: '是否外链',
       prop: 'isLink',
       visibleIf: {
-        hidden: { menuType: 2 }
+        hidden: { menuType: 2 },
+        disabled: { isIframe: 1 }
       },
       initValue: 0,
       options: [
