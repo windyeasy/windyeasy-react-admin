@@ -25,22 +25,6 @@ const WForm: FC<WFromProps> = (props) => {
    * 处理初始化值
    */
   const initialValues = fetchInitialValues(formItems)
-  // 设置默认值处理，当表单的时候需要处理默认值
-  props.proxyService &&
-    props.proxyService.injectSetFieldsValueByData((data: any = {}) => {
-      if (Object.keys(data).length) {
-        const length = formItems.length
-        const initValues: any = {}
-        for (let i = 0; i < length; i++) {
-          const item = formItems[i]
-          initValues[item.prop] = data[item.prop] ?? item.initValue ?? ''
-        }
-
-        form.setFieldsValue(initValues)
-      } else {
-        form.resetFields()
-      }
-    })
 
   /**
    * 通过映射处理，扩展内容
@@ -81,6 +65,24 @@ const WForm: FC<WFromProps> = (props) => {
       renderArray.push(item)
     }
     return renderArray
+  }
+  // 设置默认值处理，当表单的时候需要处理默认值
+  props.proxyService && props.proxyService.injectSetFieldsValueByData(setFieldsValueByData)
+
+  function setFieldsValueByData(data: any = {}) {
+    if (Object.keys(data).length) {
+      const length = formItems.length
+      const initValues: any = {}
+      for (let i = 0; i < length; i++) {
+        const item = formItems[i]
+        initValues[item.prop] = data[item.prop] ?? item.initValue ?? ''
+      }
+      form.setFieldsValue(initValues)
+      setFormData(initValues)
+    } else {
+      setFormData(initialValues)
+      form.resetFields()
+    }
   }
   useEffect(() => {
     return () => {
