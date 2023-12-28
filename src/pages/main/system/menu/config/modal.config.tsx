@@ -122,7 +122,7 @@ export const modalConfig: PageModalConfig = {
     {
       type: 'radio-group',
       label: '是否外链',
-      prop: 'inLink',
+      prop: 'isLink',
       visibleIf: {
         hidden: { menuType: 2 }
       },

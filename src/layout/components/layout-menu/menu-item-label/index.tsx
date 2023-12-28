@@ -7,16 +7,25 @@ interface IProps {
   children?: ReactNode
   url?: string | null
   title: string
+  isLink?: boolean
+  isIframe?: boolean
 }
 
 const MenuItemLabel: FC<IProps> = (props) => {
-  let { url } = props
-  url = url ?? ''
-  return (
-    <ItemLabelWrapper>
-      <Link to={url}>{props.title}</Link>
-    </ItemLabelWrapper>
-  )
+  const { url, isLink = false, isIframe = false } = props
+  const link = url ?? ''
+  function showLink() {
+    if (isLink && !isIframe) {
+      return (
+        <Link to={link} target="_blank">
+          {props.title}
+        </Link>
+      )
+    } else {
+      return <Link to={link}>{props.title}</Link>
+    }
+  }
+  return <ItemLabelWrapper>{showLink()}</ItemLabelWrapper>
 }
 
 export default memo(MenuItemLabel)

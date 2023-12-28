@@ -41,7 +41,12 @@ export function handleMenuList(menuList: MenuItemRes[]) {
       } else {
         menuItems.push(
           getItem(
-            <MenuItemLabel url={item.url} title={item.menuName} />,
+            <MenuItemLabel
+              url={item.url}
+              isLink={!!item.isLink}
+              isIframe={!!item.isIframe}
+              title={item.menuName}
+            />,
             String(item.id),
             <Icon icon={item.icon ?? ''} />
           )
@@ -50,7 +55,12 @@ export function handleMenuList(menuList: MenuItemRes[]) {
     } else {
       menuItems.push(
         getItem(
-          <MenuItemLabel url={item.url} title={item.menuName} />,
+          <MenuItemLabel
+            url={item.url}
+            isLink={!!item.isLink}
+            isIframe={!!item.isIframe}
+            title={item.menuName}
+          />,
           String(item.id),
           <Icon icon={item.icon ?? ''} />
         )
