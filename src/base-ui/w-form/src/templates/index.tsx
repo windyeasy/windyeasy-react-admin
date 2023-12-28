@@ -43,7 +43,7 @@ export const extendFormItems: NewExtendFormItem[] = [
           wrapperCol={item.wrapperCol}
           rules={item.rules}
         >
-          <Input placeholder={item.placeholder} />
+          <Input placeholder={item.placeholder} disabled={item.disabled} />
         </Form.Item>
       )
     }
@@ -78,7 +78,7 @@ export const extendFormItems: NewExtendFormItem[] = [
           wrapperCol={item.wrapperCol}
           rules={item.rules}
         >
-          <Select placeholder={item.placeholder} options={options} />
+          <Select placeholder={item.placeholder} options={options} disabled={item.disabled} />
         </Form.Item>
       )
     }
@@ -109,7 +109,7 @@ export const extendFormItems: NewExtendFormItem[] = [
           wrapperCol={item.wrapperCol}
           name={item.prop}
         >
-          <Input.Password placeholder={item.placeholder} />
+          <Input.Password placeholder={item.placeholder} disabled={item.disabled} />
         </Form.Item>
       )
     }
@@ -134,7 +134,11 @@ export const extendFormItems: NewExtendFormItem[] = [
           wrapperCol={item.wrapperCol}
           name={item.prop}
         >
-          <Input.TextArea placeholder={item.placeholder} autoSize={item.autoSize} />
+          <Input.TextArea
+            placeholder={item.placeholder}
+            autoSize={item.autoSize}
+            disabled={item.disabled}
+          />
         </Form.Item>
       )
     }
@@ -159,7 +163,11 @@ export const extendFormItems: NewExtendFormItem[] = [
           wrapperCol={item.wrapperCol}
           rules={item.rules}
         >
-          <Cascader placeholder={item.placeholder} options={item.options || options} />
+          <Cascader
+            placeholder={item.placeholder}
+            options={item.options || options}
+            disabled={item.disabled}
+          />
         </Form.Item>
       )
     }
@@ -180,6 +188,7 @@ export const extendFormItems: NewExtendFormItem[] = [
             min={item.min}
             max={item.max}
             defaultValue={item.defaultValue}
+            disabled={item.disabled}
           />
         </Form.Item>
       )
@@ -197,7 +206,7 @@ export const extendFormItems: NewExtendFormItem[] = [
           rules={item.rules}
           valuePropName="checked"
         >
-          <Switch />
+          <Switch disabled={item.disabled} />
         </Form.Item>
       )
     }
@@ -229,6 +238,7 @@ export const extendFormItems: NewExtendFormItem[] = [
             placeholder={item.placeholder}
             allowClear
             treeData={options}
+            disabled={item.disabled}
           />
         </Form.Item>
       )

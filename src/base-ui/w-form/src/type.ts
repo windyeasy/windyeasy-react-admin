@@ -9,6 +9,7 @@ type AnyObject = {
 export interface VisibleIfType {
   hidden?: AnyObject
   show?: AnyObject
+  disabled?: AnyObject
 }
 export interface VisibleIfInfoType {
   [index: string]: VisibleIfType
@@ -35,6 +36,7 @@ export interface WFormItem<T = string> {
   autoSize?: AutoSizeType | boolean
   min?: number
   max?: number
+  disabled?: boolean
   defaultValue?: number
   defaultChecked?: boolean
   checkable?: boolean

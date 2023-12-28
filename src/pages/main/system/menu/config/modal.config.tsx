@@ -116,7 +116,11 @@ export const modalConfig: PageModalConfig = {
       prop: 'link',
       placeholder: '请输入链接地址',
       visibleIf: {
-        hidden: { menuType: 2 }
+        hidden: { menuType: 2 },
+        disabled: {
+          isLink: 0,
+          isIframe: 0
+        }
       }
     },
     {

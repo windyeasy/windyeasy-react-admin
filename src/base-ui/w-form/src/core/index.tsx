@@ -58,8 +58,13 @@ const WForm: FC<WFromProps> = (props) => {
         if (!visibleIfInfo.current[item.prop]) {
           visibleIfInfo.current[item.prop] = item.visibleIf
         }
-        if (!visibleIfDiff(item.visibleIf, formData)) {
+        const vifType = visibleIfDiff(item.visibleIf, formData)
+        if (vifType === 'hidden') {
           continue
+        } else if (vifType === 'disabled') {
+          item.disabled = true
+        } else if (item?.visibleIf?.disabled) {
+          item.disabled = false
         }
       }
       renderArray.push(item)
