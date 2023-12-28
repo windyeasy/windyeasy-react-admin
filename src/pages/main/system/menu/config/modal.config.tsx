@@ -142,7 +142,7 @@ export const modalConfig: PageModalConfig = {
       type: 'radio-group',
       label: '是否内嵌',
       prop: 'isIframe',
-      initValue: 1,
+      initValue: 0,
       visibleIf: {
         hidden: { menuType: 2 }
       },
