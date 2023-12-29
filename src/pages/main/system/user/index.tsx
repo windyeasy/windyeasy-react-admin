@@ -11,6 +11,7 @@ import { usePageModal } from '@/base-ui/page-modal/hooks/usePageModal'
 import { deleteUser, editUserInfo, newUser } from './service'
 import { WBaseTableProps } from '@/base-ui/wtb/src'
 import { useMessageApi } from '@/utils/global-ant-proxy'
+import { usePermission } from '@/hooks/usePermission'
 interface IProps {
   children?: ReactNode
 }
@@ -18,6 +19,7 @@ interface IProps {
 const User: FC<IProps> = () => {
   const { setModalContent } = usePageModal()
   const { fetchPageList } = useWtbGetData()
+  const { isPermission } = usePermission()
   const tableConfig: WBaseTableProps = {
     api: '/user',
     wcolumns: [
@@ -113,16 +115,23 @@ const User: FC<IProps> = () => {
 
   return (
     <UserWrapper>
-      <Card>
-        <SearchForm formname="userSearchForm" formItems={searchConfig} />
-      </Card>
+      {isPermission(
+        'sys:user:query',
+        <Card>
+          <SearchForm formname="userSearchForm" formItems={searchConfig} />
+        </Card>
+      )}
+
       <Card>
         <Row justify="space-between" className="card-header">
           <div className="header-title">用户列表</div>
           <div className="header-btns">
-            <Button type="primary" onClick={addUserClick}>
-              新增用户
-            </Button>
+            {isPermission(
+              'sys:user:create',
+              <Button type="primary" onClick={addUserClick}>
+                新增用户
+              </Button>
+            )}
           </div>
         </Row>
         <WBaseTable {...tableConfig} />
