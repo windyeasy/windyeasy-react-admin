@@ -33,7 +33,7 @@ const Menu: FC<IProps> = () => {
         type: 'tag',
         tag: {
           1: { color: '#1177c1', text: '菜单' },
-          2: { color: '#f4f4f5', text: '按钮' }
+          2: { color: 'gray', text: '按钮' }
         }
       },
       {

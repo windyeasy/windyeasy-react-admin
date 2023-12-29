@@ -20,7 +20,7 @@ export interface WFromProps extends WFormPublicProps {
 const WForm: FC<WFromProps> = (props) => {
   const { formItems = [], formname, extendFormItems, mode = 'normal', groups = [] } = props
   const [form] = Form.useForm()
-  props.proxyService && props.proxyService.injectForm(form)
+
   /**
    * 处理初始化值
    */
@@ -71,8 +71,6 @@ const WForm: FC<WFromProps> = (props) => {
     }
     return renderArray
   }
-  // 设置默认值处理，当表单的时候需要处理默认值
-  props.proxyService && props.proxyService.injectSetFieldsValueByData(setFieldsValueByData)
 
   function setFieldsValueByData(data: any = {}) {
     if (Object.keys(data).length) {
@@ -90,6 +88,10 @@ const WForm: FC<WFromProps> = (props) => {
     }
   }
   useEffect(() => {
+    if (props.proxyService) {
+      props.proxyService.injectForm(form)
+      props.proxyService.injectSetFieldsValueByData(setFieldsValueByData)
+    }
     return () => {
       // 卸载时清除注入方法
       props.proxyService && props.proxyService.clearInject()

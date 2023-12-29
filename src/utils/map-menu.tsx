@@ -41,10 +41,10 @@ function fetchMenusToRoutes(
   routes: RouteObject[] = []
 ) {
   for (const menu of menus) {
+    // 查询路由是否存在
     let route: RouteObject | undefined = localRoutes.find((item) => menu.url === item.path)
     // 判断菜单，是否内嵌link
     if (menu.isIframe && !route && menu.url) {
-      console.log(menu.link)
       route = {
         path: menu.url,
         element: <DisplayIframe url={menu.link} key={menu.url} />
@@ -57,8 +57,8 @@ function fetchMenusToRoutes(
     }
     // 判断是否有子路由，有就添加重定向地址
     if (checkArrayNotEmpty(menu.children) && menu.children) {
-      // 判断是否添加从定向路由
-      if (menu.redirectUrl) {
+      // 判断是否添加从定向路由，是否菜单类型
+      if (menu.redirectUrl && menu.menuType != 2) {
         const redirectUrl = menu.redirectUrl as string
         routes.push({ path: menu.url ?? '', element: <Navigate to={redirectUrl} /> })
       }

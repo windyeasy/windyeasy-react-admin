@@ -63,6 +63,7 @@ const PageModal: FC<IProps> = (props) => {
          * 执行提交隐式处理功能，对函数参数进行处理
          */
         values = formProxyService.execFns(values)
+
         props.onSubmit && props.onSubmit(isNew, values, formData)
       })
       .catch((err) => {

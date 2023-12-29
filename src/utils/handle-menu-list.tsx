@@ -28,7 +28,7 @@ export function handleMenuList(menuList: MenuItemRes[]) {
   const menuItems: MenuProps['items'] = []
   for (const item of menuList) {
     // 判断是权限，内容列表时返回空数组
-    if (item.permission) {
+    if (item.permission || item.menuType === 2) {
       return []
     }
     if (checkArrayNotEmpty(item.children) && item.children) {
