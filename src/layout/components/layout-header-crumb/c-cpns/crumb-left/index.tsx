@@ -9,6 +9,7 @@ import { localCache } from '@/utils/cache'
 import { COLLAPSED } from '@/store/main/constants'
 import { Breadcrumb } from 'antd'
 import { useCrumbItems } from '@/hooks/useCrumbItems'
+import { Link } from 'react-router-dom'
 
 interface IProps {
   children?: ReactNode
@@ -36,7 +37,16 @@ const CrumbLeft: FC<IProps> = () => {
         {isCollapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
       </div>
       <div className="breadcrumbs">
-        <Breadcrumb items={crumbItems} />
+        <Breadcrumb
+          itemRender={(route) => {
+            if (route.href) {
+              return <Link to={route.href}>{route.title}</Link>
+            } else {
+              return <>{route.title}</>
+            }
+          }}
+          items={crumbItems}
+        />
       </div>
     </CrumbLeftWrapper>
   )

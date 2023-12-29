@@ -161,13 +161,13 @@ export function fetchCrumbItemsByPath(menuList: MenuItemRes[], path: string) {
       if (menu.parentId) {
         parents = getParentsMenuByParentId(menu.parentId).map((item) => ({
           title: item.menuName,
-          href: '#' + item.url
+          href: item.url
         })) as ItemType[]
         items.push(...parents)
       }
       items.push({
         title: menu.menuName,
-        href: '#' + menu.url
+        href: menu.url
       })
       return items
     } else if (checkArrayNotEmpty(menu.children) && menu.children) {
