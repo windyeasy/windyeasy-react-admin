@@ -31,6 +31,7 @@ const Menu: FC<IProps> = () => {
       {
         title: '类型',
         dataIndex: 'menuType',
+        width: 80,
         type: 'tag',
         tag: {
           1: { color: '#1177c1', text: '菜单' },
@@ -46,10 +47,14 @@ const Menu: FC<IProps> = () => {
         dataIndex: 'redirectUrl'
       },
       {
-        title: '权限标识',
-        dataIndex: 'permission'
+        title: '链接地址',
+        dataIndex: 'link'
       },
-
+      {
+        title: '权限标识',
+        dataIndex: 'permission',
+        width: 160
+      },
       {
         title: '操作',
         type: 'button',
