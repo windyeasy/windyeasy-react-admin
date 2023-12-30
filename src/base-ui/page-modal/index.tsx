@@ -57,13 +57,12 @@ const PageModal: FC<IProps> = (props) => {
     formProxyService.form
       ?.validateFields()
       .then((values) => {
-        changeModalOpen(false)
+        values = formProxyService.execFns(values)
         /*
          * 执行提交隐式处理功能，对函数参数进行处理
          */
-        values = formProxyService.execFns(values)
-
         props.onSubmit && props.onSubmit(isNew, values, formData)
+        changeModalOpen(false)
       })
       .catch((err) => {
         console.error('验证失败', err)

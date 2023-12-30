@@ -107,6 +107,16 @@ export const contentConfig: ContentConfig = {
         label: '菜单列表',
         prop: 'menuList',
         checkable: true,
+        handleParams(values: any) {
+          console.log('进入了，s')
+          if (!Array.isArray(values['menuList']) && values['menuList']) {
+            const info = values['menuList']
+            console.log('进入了')
+            values['menuList'] = [...info.checked, ...info.halfChecked]
+          }
+          return values
+        },
+
         asyncOptions: () => {
           return new Promise<any>((reslove) => {
             function _mapTreeOptions(list: any[]) {

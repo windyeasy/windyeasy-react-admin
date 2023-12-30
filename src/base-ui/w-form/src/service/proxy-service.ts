@@ -46,6 +46,8 @@ export class WFormProxyService {
       for (const fn of this.handleParamsFns) {
         values = fn(values)
       }
+      // 执行完成后重置
+      this.handleParamsFns = []
     }
     return values
   }

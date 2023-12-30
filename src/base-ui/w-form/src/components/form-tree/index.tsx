@@ -6,7 +6,7 @@ type TreeValue = string[] | number[]
 export interface FormTreeProps extends TreeProps {
   children?: ReactNode
   value?: TreeValue
-  onChange?: (checkedKeys: Key[], halfCheckedKeys: Key[]) => void
+  onChange?: (value: { checked: Key[]; halfChecked: Key[] }) => void
 }
 
 const FormTree: FC<FormTreeProps> = (props) => {
@@ -15,7 +15,7 @@ const FormTree: FC<FormTreeProps> = (props) => {
   Reflect.deleteProperty(treeProps, 'value')
   Reflect.deleteProperty(treeProps, ' onChange')
   const handleCheck: TreeProps['onCheck'] = (checkedKeys, info) => {
-    onChange && onChange(checkedKeys as Key[], info.halfCheckedKeys ?? [])
+    onChange && onChange({ checked: checkedKeys as Key[], halfChecked: info.halfCheckedKeys ?? [] })
   }
   return <Tree {...treeProps} onCheck={handleCheck} checkedKeys={value} />
 }
