@@ -23,7 +23,7 @@ export const contentConfig: ContentConfig = {
     responseConfig: {
       dataIndex: 'data'
     },
-
+    tableConfig: { scroll: { y: 420 } },
     wcolumns: [
       {
         title: '部门名称',

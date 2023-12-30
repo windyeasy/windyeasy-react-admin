@@ -1,7 +1,7 @@
 import React, { memo, useEffect } from 'react'
 import type { FC, ReactNode } from 'react'
 import { Pagination, Row, Table } from 'antd'
-import type { PaginationProps } from 'antd'
+import type { PaginationProps, TableProps } from 'antd'
 
 import { ExtendPropType, RequestConfig, ResponseConfig, WColumType } from '../type'
 import { propsListToColumns } from '../utils/utils'
@@ -22,8 +22,8 @@ export interface WtbProps {
   wcolumns: WColumType[]
   extendProps?: ExtendPropType[]
 
-  tableConfig?: typeof Table // ant表格的额外配置信息
-  paginationConfig?: typeof Pagination // ant配置的额外信息
+  tableConfig?: TableProps<any> // ant表格的额外配置信息
+  paginationConfig?: PaginationProps // ant配置的额外信息
   pagination?: boolean // 是否显示分页
   pPosition?: 'left' | 'center' | 'right' // 分页器布局位置
 }

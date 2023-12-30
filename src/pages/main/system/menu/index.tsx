@@ -22,6 +22,7 @@ const Menu: FC<IProps> = () => {
     responseConfig: {
       dataIndex: 'data'
     },
+    tableConfig: { scroll: { y: 520 } },
     wcolumns: [
       {
         title: '菜单名称',
