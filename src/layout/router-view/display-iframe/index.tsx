@@ -17,14 +17,10 @@ const DisplayIframe: FC<IProps> = (props) => {
     try {
       iframeEl.current!.onload = () => {
         setSpinning(false)
-        console.log('加载成功')
       }
     } catch (error) {
       setSpinning(false)
       console.error('iframe加载出错', error)
-    }
-    return () => {
-      console.log('组件被销毁')
     }
   }, [])
   return (
