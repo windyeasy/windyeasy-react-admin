@@ -5,8 +5,7 @@ import type { FC, ReactNode } from 'react'
 import { shallowEqual } from 'react-redux'
 import { usePageModal } from './hooks/usePageModal'
 import { PageModalConfig } from './type'
-import { WBaseForm } from '../w-form'
-import { WFormProxyService } from '../w-form/src/service/proxy-service'
+import { WBaseForm, useWForm } from '../w-form'
 import { modalConfig } from '@/pages/demo/config'
 import { ModalWrapper } from './style'
 export type OnModalSubmitType = (isNew: boolean, values: any, record: any) => void
@@ -18,7 +17,6 @@ interface IProps {
   onSubmit?: OnModalSubmitType
   onCancel?: () => void
 }
-const formProxyService = new WFormProxyService()
 /**
  * 生成展示数据，添加或者编辑，添加由上层添加，
  * 通过不同的模式确定是请求还是获取数据，通过store管理数据，可以通过hook改变数据
@@ -26,6 +24,7 @@ const formProxyService = new WFormProxyService()
  * 并进行展示
  */
 const PageModal: FC<IProps> = (props) => {
+  const { formProxyService } = useWForm()
   const {
     width = '769px',
     modalConfig: {
