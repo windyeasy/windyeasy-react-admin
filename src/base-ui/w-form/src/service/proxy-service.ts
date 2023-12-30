@@ -13,7 +13,6 @@ export class WFormProxyService {
   formData?: any
   injectForm(form: FormInstance<any>) {
     this.form = form
-    this.handleParamsFns = []
   }
   injectSetFieldsValueByData(fn: FnType) {
     this.setFieldsValueByData = fn
@@ -38,6 +37,11 @@ export class WFormProxyService {
     this.setFieldsValueByData = undefined
   }
   addFn(fn: any) {
+    if (this.handleParamsFns && this.handleParamsFns.length) {
+      if (this.handleParamsFns.find((item) => item === fn)) {
+        return
+      }
+    }
     this.handleParamsFns.push(fn)
   }
 
@@ -46,8 +50,6 @@ export class WFormProxyService {
       for (const fn of this.handleParamsFns) {
         values = fn(values)
       }
-      // 执行完成后重置
-      this.handleParamsFns = []
     }
     return values
   }

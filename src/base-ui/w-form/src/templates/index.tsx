@@ -268,15 +268,19 @@ export const extendFormItems: NewExtendFormItem[] = [
       }, [])
 
       return (
-        <Form.Item
-          label={item.label}
-          name={item.prop}
-          labelCol={item.labelCol}
-          wrapperCol={item.wrapperCol}
-          rules={item.rules}
-        >
-          <FormTree checkable={item.checkable} style={{ width: '100%' }} treeData={options} />
-        </Form.Item>
+        <>
+          {options.length && (
+            <Form.Item
+              label={item.label}
+              name={item.prop}
+              labelCol={item.labelCol}
+              wrapperCol={item.wrapperCol}
+              rules={item.rules}
+            >
+              <FormTree checkable={item.checkable} style={{ width: '100%' }} treeData={options} />
+            </Form.Item>
+          )}
+        </>
       )
     }
   },
