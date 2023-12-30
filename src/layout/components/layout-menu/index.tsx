@@ -49,7 +49,7 @@ const LayoutMenu: FC<IProps> = () => {
       <Menu
         mode="inline"
         openKeys={openKeys}
-        defaultSelectedKeys={selectedKeys}
+        selectedKeys={selectedKeys}
         onOpenChange={handleOpenChange}
         style={{ height: '100%' }}
         items={menuItems}
