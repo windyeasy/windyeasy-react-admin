@@ -122,9 +122,9 @@ export function fetchFlatMenuList(menuList: MenuItemRes[]) {
   for (const menu of menuList) {
     const menuInfo = { ...menu }
     Reflect.deleteProperty(menuInfo, 'children')
-    list.push(menu)
+    list.push(menuInfo)
     if (checkArrayNotEmpty(menu.children) && menu.children) {
-      fetchFlatMenuList(menu.children)
+      list.push(...fetchFlatMenuList(menu.children))
     }
   }
   return list

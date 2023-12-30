@@ -21,8 +21,9 @@ export function useRouteChangeActiveMenu() {
   )
   const dispatch = useAppDispatch()
   useEffect(() => {
-    // 通过路由匹配菜单设置，openKeys, 和selectdKeys
+    // 通过路由匹配菜单设置，openKeys, 和selectedKeys
     if (menuList.length) {
+      // console.log()
       const { openKeys, selectedKeys } = matchActiveMenuInfo(menuList, location.pathname)
       dispatch(changeOpenKeysAction(openKeys))
       dispatch(changeSelectedKeysAction(selectedKeys))
