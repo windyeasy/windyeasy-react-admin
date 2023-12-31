@@ -1,18 +1,20 @@
 import React, { memo } from 'react'
 import type { FC, ReactNode } from 'react'
 import { DemoWrapper } from './style'
-import { Link } from 'react-router-dom'
-
+import screenfull from 'screenfull'
 interface IProps {
   children?: ReactNode
 }
 
 const Demo: FC<IProps> = () => {
+  function btnClick() {
+    screenfull.toggle()
+    // if (screenfull.isEnabled) {
+    // }
+  }
   return (
     <DemoWrapper>
-      <Link to="http://www.baidu.com" target="_blank">
-        百度
-      </Link>
+      <button onClick={btnClick}>全屏</button>
     </DemoWrapper>
   )
 }

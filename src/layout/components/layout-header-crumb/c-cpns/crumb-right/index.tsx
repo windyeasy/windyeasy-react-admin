@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import type { FC, ReactNode } from 'react'
 import { CrumbRightWrapper } from './style'
 import { Dropdown, MenuProps } from 'antd'
@@ -7,7 +7,8 @@ import { useAntToken } from '@/hooks/useAntToken'
 import { shallowEqual } from 'react-redux'
 import { logOff } from '@/utils/log-off'
 import { useMessageApi } from '@/utils/global-ant-proxy'
-
+import { FullscreenExitOutlined, FullscreenOutlined } from '@ant-design/icons'
+import screenfull from 'screenfull'
 interface IProps {
   children?: ReactNode
 }
@@ -19,6 +20,7 @@ const CrumbRight: FC<IProps> = () => {
     }),
     shallowEqual
   )
+  const [isScreenFull, setIsScreenFull] = useState(false)
   function loginOut() {
     logOff()
     useMessageApi()?.success('退出登录成功！')
@@ -30,8 +32,18 @@ const CrumbRight: FC<IProps> = () => {
       label: <a onClick={loginOut}>退出登录</a>
     }
   ]
+  function toggleScreenFull() {
+    screenfull.toggle()
+    setIsScreenFull(screenfull.isFullscreen)
+  }
+  useEffect(() => {
+    setIsScreenFull(screenfull.isFullscreen)
+  }, [])
   return (
     <CrumbRightWrapper>
+      <div className="screen-full" onClick={toggleScreenFull}>
+        {isScreenFull ? <FullscreenOutlined /> : <FullscreenExitOutlined />}
+      </div>
       <Dropdown menu={{ items }}>
         <a className="user-operate" style={{ color: token.colorTextDescription }}>
           <img

@@ -1,18 +1,28 @@
 import styled from 'styled-components'
 
 export const CrumbRightWrapper = styled.div`
+  display: flex;
+  align-items: center;
+
+  .screen-full {
+    font-size: 18px;
+  }
   .user-operate {
     height: 50px;
     display: flex;
     align-items: center;
+    margin-left: 14px;
     .avatar {
-      width: 25px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       margin-right: 4px;
-      height: 25px;
+      border: 1px solid #ccc;
     }
     .user-name {
+      font-size: 14px;
       font-weight: normal;
+      line-height: 1.4;
     }
     &:hover {
       color: none;
