@@ -8,7 +8,7 @@ export const contentConfig: ContentConfig = {
     {
       type: 'input',
       label: '角色名称',
-      prop: 'depName',
+      prop: 'roleName',
       placeholder: '请输入角色名称'
     }
   ],

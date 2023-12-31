@@ -18,7 +18,7 @@ interface IProps {
 
 const User: FC<IProps> = () => {
   const { setModalContent } = usePageModal()
-  const { fetchPageList } = useWtbGetData()
+  const { fetchPageList, changeSearchInfo } = useWtbGetData()
   const { isPermission } = usePermission()
   const tableConfig: WBaseTableProps = {
     api: '/user',
@@ -112,13 +112,15 @@ const User: FC<IProps> = () => {
       })
     }
   }
-
+  const searchSubmit = (values: any) => {
+    changeSearchInfo(values)
+  }
   return (
     <UserWrapper>
       {isPermission(
         'sys:user:query',
         <Card>
-          <SearchForm formname="userSearchForm" formItems={searchConfig} />
+          <SearchForm formname="userSearchForm" formItems={searchConfig} onSubmit={searchSubmit} />
         </Card>
       )}
 

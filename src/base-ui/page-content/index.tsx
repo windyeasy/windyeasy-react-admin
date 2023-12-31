@@ -19,7 +19,7 @@ const PageContent: FC<IProps> = (props) => {
   const { searchConfig, headerInfo, tableConfig, modalConfig, pageName, modalWidth } =
     props.contentConfig
   const { setModalContent } = usePageModal()
-  const { fetchPageList } = useWtbGetData()
+  const { fetchPageList, changeSearchInfo } = useWtbGetData()
   // 添加用户
   function addUserClick() {
     setModalContent()
@@ -74,11 +74,13 @@ const PageContent: FC<IProps> = (props) => {
     newTableConfig.wcolumns = columns
     return newTableConfig
   }
-
+  function onSearchSubmit(values: any) {
+    changeSearchInfo(values)
+  }
   return (
     <PageContentWrapper>
       <Card>
-        <SearchForm formname="userSearchForm" formItems={searchConfig} />
+        <SearchForm formname="userSearchForm" onSubmit={onSearchSubmit} formItems={searchConfig} />
       </Card>
       <Card>
         <Row justify="space-between" className="card-header">

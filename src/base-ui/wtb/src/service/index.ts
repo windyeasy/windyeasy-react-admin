@@ -6,9 +6,17 @@ export function getPageList(
   method: AxiosRequestConfig['method'],
   searchInfo: any = {}
 ) {
-  return request.request({
-    url,
-    method,
-    data: searchInfo
-  })
+  if (method === 'GET') {
+    return request.request({
+      url,
+      method,
+      params: searchInfo
+    })
+  } else {
+    return request.request({
+      url,
+      method,
+      data: searchInfo
+    })
+  }
 }
