@@ -61,7 +61,7 @@ class Request {
     return this.request<T>({ ...config, method: 'GET' })
   }
   post<T = any>(config: RequestConfig<T>) {
-    return this.request<T>({ ...config, method: 'POSt' })
+    return this.request<T>({ ...config, method: 'POST' })
   }
   delete<T = any>(config: RequestConfig<T>) {
     return this.request<T>({ ...config, method: 'DELETE' })
