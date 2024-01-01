@@ -9,6 +9,7 @@ import { logOff } from '@/utils/log-off'
 import { useMessageApi } from '@/utils/global-ant-proxy'
 import { FullscreenExitOutlined, FullscreenOutlined } from '@ant-design/icons'
 import screenfull from 'screenfull'
+import avatarSvg from '@/assets/img/user-avatar-fill.svg'
 interface IProps {
   children?: ReactNode
 }
@@ -46,10 +47,7 @@ const CrumbRight: FC<IProps> = () => {
       </div>
       <Dropdown menu={{ items }}>
         <a className="user-operate" style={{ color: token.colorTextDescription }}>
-          <img
-            className="avatar"
-            src="https://img2.baidu.com/it/u=1978192862,2048448374&fm=253&fmt=auto&app=138&f=JPEG?w=504&h=500"
-          />
+          <img className="avatar" src={userInfo.avatar || avatarSvg} />
           <span className="user-name">{userInfo.username}</span>
         </a>
       </Dropdown>
