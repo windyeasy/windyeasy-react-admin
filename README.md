@@ -8,9 +8,11 @@ windy-react-admin是一个基于ant design 和 使用react+ts 的后台系统模
 这个项目有很多不完善和处理不是很好的地方，后面陆续完善。
 此项目现阶段系统管理功能是与koa写的后台接口集成，后台项目地址：https://github.com/windyeasy/koa-admin-template
 
-使用pnpm作为包管理工具，菜单图标使用`iconify`: https://github.com/iconify/iconify
+使用pnpm作为包管理工具，菜单图标使用`iconify`: https://github.com/iconify/iconify，这个库支持很多开源图标
 
 ## 提交方法
+
+由于使用了commitizen对提交进行验证，需要使用如下几种方法提交
 
 - 方法一：
 
@@ -24,9 +26,25 @@ pnpm run commit
 git commit -m "feat: 添加一个新特性"
 ```
 
-## 运行
+## 运行使用
+
+- 克隆项目
+  ```shell
+  git clone https://github.com/windyeasy/windyeasy-react-admin.git
+  ```
+- 安装依赖
 
 ```shell
+cd windyeasy-react-admin
 pnpm install
 pnpm start
 ```
+
+## 如何使用菜单图标
+
+菜单用途使用了iconify(https://github.com/iconify/iconify)库，这里简单介绍如何展示菜单图标
+
+1. 打开iconify图标搜索网站搜索图标：https://icon-sets.iconify.design/
+   ![](./docs/imgs/iconify-use0.png)
+   ![](./docs/imgs/iconify-use1.png)
+2. 复制图标名称到菜单的图标字段，就可以使用图标为角色绑定菜单后就可以使用图标，重新登录后加载菜单就能看见图标了
