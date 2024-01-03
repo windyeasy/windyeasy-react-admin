@@ -1,6 +1,12 @@
 import React, { memo, useEffect, useRef, useState } from 'react'
 import type { FC, ReactNode } from 'react'
-import { ExtendFormItem, VisibleIfInfoType, WFormItem, WFormPublicProps } from '../type'
+import {
+  ExtendFormItem,
+  FollowFieldsChangeModifyValueType,
+  VisibleIfInfoType,
+  WFormItem,
+  WFormPublicProps
+} from '../type'
 import { Form } from 'antd'
 import {
   handleConfig,
@@ -16,7 +22,9 @@ export interface WFromProps extends WFormPublicProps {
   children?: ReactNode
   extendFormItems: ExtendFormItem<any>[]
 }
-
+export interface FollowFieldsChangeModifyValueInfoType {
+  [key: string]: FollowFieldsChangeModifyValueType[]
+}
 const WForm: FC<WFromProps> = (props) => {
   const { formItems = [], formname, extendFormItems, mode = 'normal', groups = [] } = props
   const [form] = Form.useForm()
@@ -30,16 +38,37 @@ const WForm: FC<WFromProps> = (props) => {
    * 通过映射处理，扩展内容
    */
   const formItemsInfo = mapTypeIndexToRender(extendFormItems)
-
+  /**
+   * 实现 followFieldsChangeModifyValue功能
+   *
+   */
+  const followFieldsChangeModifyValueInfo = useRef<FollowFieldsChangeModifyValueInfoType>({})
   /**
    * 实现visibleIf 功能
    */
   const visibleIfInfo = useRef<VisibleIfInfoType>({})
   const [formData, setFormData] = useState<any>({})
-  const handleValuesChange = (modifyValue: any, allValues: any) => {
+  const handleValuesChange = (modifyValue: any) => {
+    // 判断是否修改值,获取key，实现followFieldsChangeModifyValue功能
+    const key = Object.keys(modifyValue)[0]
+    const keys = Object.keys(followFieldsChangeModifyValueInfo.current)
+    if (keys && keys.length) {
+      for (const modifyKey of keys) {
+        const infos = followFieldsChangeModifyValueInfo.current[modifyKey]
+        for (const info of infos) {
+          if (
+            info.followKey === key &&
+            form.getFieldValue(info.followKey) === info.followKeyValue
+          ) {
+            form.setFieldValue(modifyKey, info.modifyValue)
+          }
+        }
+      }
+    }
+
     // 通过判断减少更新次数
     if (visibleIfInfoDiffByKey(modifyValue, visibleIfInfo.current)) {
-      setFormData(allValues)
+      setFormData(form.getFieldsValue())
     }
   }
   // 对handleFormItems处理，实现visibleIf功能
@@ -54,7 +83,7 @@ const WForm: FC<WFromProps> = (props) => {
       }
 
       if (item.visibleIf && Object.keys(item.visibleIf).length) {
-        // 判断visibleIf是否存，添加比对，当已经存储就不再存储,减少更新次数
+        // 判断visibleIf是否存存储，添加比对，当已经存储就不再存储,减少更新次数
         if (!visibleIfInfo.current[item.prop]) {
           visibleIfInfo.current[item.prop] = item.visibleIf
         }
@@ -65,6 +94,13 @@ const WForm: FC<WFromProps> = (props) => {
           item.disabled = true
         } else if (item?.visibleIf?.disabled) {
           item.disabled = false
+        }
+      }
+      // 存储修改值功能
+      if (item.followFieldsChangeModifyValue && item.followFieldsChangeModifyValue.length) {
+        // 判断是followFieldsChangeModifyValueInfo否存存储，添加比对，当已经存储就不再存储,减少更新次数
+        if (!followFieldsChangeModifyValueInfo.current[item.prop]) {
+          followFieldsChangeModifyValueInfo.current[item.prop] = item.followFieldsChangeModifyValue
         }
       }
       renderArray.push(item)

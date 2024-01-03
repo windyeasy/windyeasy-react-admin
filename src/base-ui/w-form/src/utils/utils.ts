@@ -19,6 +19,7 @@ export function mapTypeIndexToRender(extendFormItems: ExtendFormItem[]) {
 type VisibleIfDiffType = 'hidden' | 'show' | 'disabled'
 // visibleIf diff
 export function visibleIfDiff(visibleIf: VisibleIfType, formData: any): VisibleIfDiffType {
+  // console.log(formData, '进入了formData')
   if (Object.keys(visibleIf).length) {
     const { hidden, show, disabled } = visibleIf
     /**

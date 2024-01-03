@@ -18,6 +18,11 @@ interface AutoSizeType {
   minRows: number
   maxRows: number
 }
+export interface FollowFieldsChangeModifyValueType {
+  followKey: string // 跟踪字段索引
+  followKeyValue: any // 跟踪字段索引的值
+  modifyValue: any // 修改当前字段值
+}
 export interface WFormItem<T = string> {
   type: T
   prop: string
@@ -40,6 +45,8 @@ export interface WFormItem<T = string> {
   defaultValue?: number
   defaultChecked?: boolean
   checkable?: boolean
+  // 跟踪字段变化修改值
+  followFieldsChangeModifyValue?: FollowFieldsChangeModifyValueType[]
   [key: string]: any // 添加使用别的类型进行扩展
 }
 

@@ -139,6 +139,14 @@ export const modalConfig: PageModalConfig = {
         hidden: { menuType: 2 },
         disabled: { isIframe: 1 }
       },
+      // 追踪其它字段变化修改当前字段值
+      followFieldsChangeModifyValue: [
+        {
+          followKey: 'isIframe', // 跟踪字段索引
+          followKeyValue: 1, // 跟踪的字段值
+          modifyValue: 1 // 修改当前字段的值
+        }
+      ],
       initValue: 0,
       options: [
         {
