@@ -55,7 +55,10 @@ export const modalConfig: PageModalConfig = {
       prop: 'roleId',
       placeholder: '请选择角色',
       defaultValueUn: true,
-      asyncOptions: fetchAsyncOptions(getEntireRoles(), { labelIndex: 'roleName' })
+      asyncOptions: fetchAsyncOptions(getEntireRoles(), {
+        dataIndex: 'data',
+        labelIndex: 'roleName'
+      })
     },
     {
       type: 'tree-select',

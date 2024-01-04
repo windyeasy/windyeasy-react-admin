@@ -9,7 +9,7 @@ export function mapOptions(list: any[], labelIndex: string, valueIndex: string) 
 
 export function fetchAsyncOptions(
   dataP: Promise<any>,
-  { dataIndex = 'data.list', labelIndex = 'name', valueIndex = 'id' } = {}
+  { dataIndex = 'data', labelIndex = 'name', valueIndex = 'id' } = {}
 ) {
   return () => {
     return new Promise<any>((reslove) => {
