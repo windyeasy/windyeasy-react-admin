@@ -27,15 +27,24 @@ export const contentConfig: ContentConfig = {
     wcolumns: [
       {
         title: '部门名称',
-        dataIndex: 'depName'
+        dataIndex: 'depName',
+        width: 300
       },
       {
         title: '排序',
-        dataIndex: 'sort'
+        dataIndex: 'sort',
+        width: 100
       },
       {
-        title: '状态',
-        dataIndex: 'state'
+        title: '部门状态',
+        dataIndex: 'state',
+        width: 120,
+        type: 'tag',
+        align: 'center',
+        tag: {
+          1: { color: 'success', text: '启用' },
+          0: { color: 'error', text: '禁用' }
+        }
       },
       {
         title: '部门描述',
@@ -45,7 +54,8 @@ export const contentConfig: ContentConfig = {
       {
         type: 'utcTimer',
         title: '创建时间',
-        dataIndex: 'createAt'
+        dataIndex: 'createAt',
+        width: 180
       }
     ]
   },

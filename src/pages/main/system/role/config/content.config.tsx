@@ -22,19 +22,29 @@ export const contentConfig: ContentConfig = {
     wcolumns: [
       {
         title: '角色名称',
-        dataIndex: 'roleName'
+        dataIndex: 'roleName',
+        width: 240
       },
       {
         title: '角色索引',
-        dataIndex: 'roleIndex'
+        dataIndex: 'roleIndex',
+        width: 180
       },
       {
         title: '排序',
-        dataIndex: 'sort'
+        dataIndex: 'sort',
+        width: 100
       },
       {
-        title: '状态',
-        dataIndex: 'state'
+        title: '角色状态',
+        dataIndex: 'state',
+        width: 120,
+        type: 'tag',
+        align: 'center',
+        tag: {
+          1: { color: 'success', text: '启用' },
+          0: { color: 'error', text: '禁用' }
+        }
       },
       {
         title: '描述',
@@ -44,7 +54,8 @@ export const contentConfig: ContentConfig = {
       {
         type: 'utcTimer',
         title: '创建时间',
-        dataIndex: 'createAt'
+        dataIndex: 'createAt',
+        width: 180
       }
     ]
   },
