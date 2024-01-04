@@ -26,6 +26,12 @@ export const modalConfig: PageModalConfig = {
       placeholder: '请输入用户昵称'
     },
     {
+      type: 'switch',
+      label: '状态',
+      prop: 'state',
+      initValue: true
+    },
+    {
       type: 'password',
       label: '登录密码',
       prop: 'password',

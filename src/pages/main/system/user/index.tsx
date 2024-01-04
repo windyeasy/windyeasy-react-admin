@@ -22,17 +22,32 @@ const User: FC<IProps> = () => {
   const { isPermission } = usePermission()
   const tableConfig: WBaseTableProps = {
     api: '/user',
+    tableConfig: {
+      scroll: { x: 1600 }
+    },
     wcolumns: [
       {
         title: '序号',
         dataIndex: 'id',
         render: (_, _2, index: number) => {
           return <>{index + 1}</>
-        }
+        },
+        width: 80
       },
       {
         title: '用户名',
         dataIndex: 'username'
+      },
+      {
+        title: '用户状态',
+        dataIndex: 'state',
+        width: 120,
+        type: 'tag',
+        align: 'center',
+        tag: {
+          1: { color: 'success', text: '启用' },
+          0: { color: 'error', text: '禁用' }
+        }
       },
       {
         title: '昵称',
@@ -48,8 +63,10 @@ const User: FC<IProps> = () => {
       },
       {
         title: '备注',
-        dataIndex: 'intro'
+        dataIndex: 'intro',
+        width: 240
       },
+
       {
         type: 'utcTimer',
         title: '创建时间',
