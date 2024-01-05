@@ -17,7 +17,7 @@ export const ColorCardWrapper = styled.div`
     bottom: 0;
     left: 0;
     right: 0;
-    color: #fff;
+    color: rgba(192, 192, 192, 1);
     font-size: 13px;
     display: flex;
     align-items: center;

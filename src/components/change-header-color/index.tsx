@@ -21,9 +21,9 @@ const ChangeHeaderColor: FC<IProps> = () => {
   )
 
   function changeHeaderColor(value: string) {
-    const newThemeconfig = { ...themeConfig }
-    newThemeconfig.headerBg = value
-    changeThemeConfig(newThemeconfig)
+    const newThemeConfig = { ...themeConfig }
+    newThemeConfig.headerBg = value
+    changeThemeConfig(newThemeConfig)
   }
   useEffect(() => {
     // 查询索引
