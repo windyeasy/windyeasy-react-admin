@@ -1,9 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit'
+const logo = require('@/assets/img/logo.png')
 interface IMainState {
   isCollapsed: boolean
+  logoInfo: {
+    logoTitle: string
+    logoSrc: any
+  }
 }
+
 const initialState: IMainState = {
-  isCollapsed: false
+  isCollapsed: false,
+  // logo信息
+  logoInfo: {
+    logoTitle: 'windyeasy-admin',
+    logoSrc: logo
+  }
 }
 
 const mainSlice = createSlice({

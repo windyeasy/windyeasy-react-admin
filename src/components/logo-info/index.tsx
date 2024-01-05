@@ -9,12 +9,13 @@ import classNames from 'classnames'
 interface IProps {
   children?: ReactNode
 }
-const logo = require('@/assets/img/logo.png')
+
 const LogoInfo: FC<IProps> = () => {
-  const { themeConfig, isCollapsed } = useAppSelector(
+  const { themeConfig, isCollapsed, logoInfo } = useAppSelector(
     (state) => ({
       themeConfig: state.theme.themeConfig,
-      isCollapsed: state.main.isCollapsed
+      isCollapsed: state.main.isCollapsed,
+      logoInfo: state.main.logoInfo
     }),
     shallowEqual
   )
@@ -29,10 +30,10 @@ const LogoInfo: FC<IProps> = () => {
   return (
     <LoginInfoWrapper>
       <Link to="/main" className="logo-content">
-        <img className="login-img" src={logo} alt="windyeasy-admin" />
+        <img className="login-img" src={logoInfo.logoSrc} alt="windyeasy-admin" />
         {showLoginTitle() && (
           <h1 className={classNames('logo-title', { 'white-logo-title': themeConfig.isMenuDark })}>
-            windyeasy-admin
+            {logoInfo.logoTitle}
           </h1>
         )}
       </Link>
