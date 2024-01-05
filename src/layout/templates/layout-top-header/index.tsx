@@ -6,7 +6,7 @@ import Sider from 'antd/es/layout/Sider'
 import { Content, Header } from 'antd/es/layout/layout'
 import { useAppSelector } from '@/store'
 import { LayoutHeaderCrumb, LayoutMenu } from '@/layout'
-import LoginInfo from '@/components/login-info'
+import LogoInfo from '@/components/logo-info'
 import { shallowEqual } from 'react-redux'
 import { TopHeaderWrapper } from './style'
 import ChangeThemeDrawer from '@/components/change-theme-drawer'
@@ -26,7 +26,7 @@ const LayoutTopHeader: FC<IProps> = () => {
       <Layout>
         <Header>
           <div className="header-left">
-            <LoginInfo />
+            <LogoInfo />
           </div>
           <LayoutHeaderCrumb />
         </Header>

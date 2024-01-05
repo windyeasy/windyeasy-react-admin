@@ -10,7 +10,7 @@ interface IProps {
   children?: ReactNode
 }
 const logo = require('@/assets/img/logo.png')
-const LoginInfo: FC<IProps> = () => {
+const LogoInfo: FC<IProps> = () => {
   const { themeConfig, isCollapsed } = useAppSelector(
     (state) => ({
       themeConfig: state.theme.themeConfig,
@@ -31,9 +31,7 @@ const LoginInfo: FC<IProps> = () => {
       <Link to="/main" className="logo-content">
         <img className="login-img" src={logo} alt="windyeasy-admin" />
         {showLoginTitle() && (
-          <h1
-            className={classNames('login-title', { 'white-login-title': themeConfig.isMenuDark })}
-          >
+          <h1 className={classNames('logo-title', { 'white-logo-title': themeConfig.isMenuDark })}>
             windyeasy-admin
           </h1>
         )}
@@ -42,4 +40,4 @@ const LoginInfo: FC<IProps> = () => {
   )
 }
 
-export default memo(LoginInfo)
+export default memo(LogoInfo)

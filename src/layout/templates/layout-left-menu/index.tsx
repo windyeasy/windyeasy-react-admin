@@ -6,7 +6,7 @@ import Sider from 'antd/es/layout/Sider'
 import { Content, Header } from 'antd/es/layout/layout'
 import { useAppSelector } from '@/store'
 import { LayoutHeaderCrumb, LayoutMenu } from '@/layout'
-import LoginInfo from '@/components/login-info'
+import LogoInfo from '@/components/logo-info'
 import { shallowEqual } from 'react-redux'
 import ChangeThemeDrawer from '@/components/change-theme-drawer'
 import Loading from '@/components/loading'
@@ -25,7 +25,7 @@ const LayoutLeftMenu: FC<IProps> = () => {
     <div>
       <Layout>
         <Sider width={220} collapsed={isCollapsed} collapsedWidth={60}>
-          <LoginInfo />
+          <LogoInfo />
           <LayoutMenu />
         </Sider>
         <Layout>

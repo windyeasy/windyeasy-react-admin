@@ -11,11 +11,12 @@ export const LoginInfoWrapper = styled.div`
       width: 32px;
       height: 32px;
     }
-    .login-title {
+    .logo-title {
       margin-left: 13px;
       font-size: 16px;
+      color: #333;
     }
-    .white-login-title {
+    .white-logo-title {
       color: #fff;
     }
   }
