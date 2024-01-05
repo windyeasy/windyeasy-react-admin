@@ -37,8 +37,13 @@ git commit -m "feat: 添加一个新特性"
 ```shell
 cd windyeasy-react-admin
 pnpm install
-pnpm start
 ```
+
+- 启动
+  - 现阶段使用koa写后台接口，请先去搭建和启动后台服务（API接口项目：https://github.com/windyeasy/koa-admin-template）后在启动项目
+  ```shell
+  pnpm start # 启动项目
+  ```
 
 ## 如何使用菜单图标
 
