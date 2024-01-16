@@ -10,6 +10,10 @@ windy-react-admin是一个基于ant design 和 使用react+ts 的后台系统模
 
 使用pnpm作为包管理工具，菜单图标使用`iconify`: https://github.com/iconify/iconify，这个库支持很多开源图标
 
+## demo
+
+[http://139.180.145.61:8060/](http://139.180.145.61:8060/)
+
 ## 提交方法
 
 由于使用了commitizen对提交进行验证，需要使用如下几种方法提交
