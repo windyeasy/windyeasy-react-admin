@@ -11,6 +11,7 @@
     "coderwhy",
     "commitizen",
     "commitlint",
+    "echarts",
     "formname",
     "iconify",
     "jridgewell",
@@ -26,5 +27,5 @@
     "wcolumns",
     "windyeasy"
   ],
-  "cSpell.ignoreWords": ["Appstore"]
+  "cSpell.ignoreWords": ["Appstore", "echars"]
 }

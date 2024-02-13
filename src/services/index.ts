@@ -37,3 +37,13 @@ const request = new Request({
   }
 })
 export default request
+
+export const mockRequest = new Request({
+  baseURL: '',
+  timeout: 10000,
+  interceptors: {
+    responseSuccessFn(res) {
+      return res.data
+    }
+  }
+})
