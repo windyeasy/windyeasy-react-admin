@@ -4,9 +4,10 @@ import { DashboardWrapper } from './style'
 import CountCard from './c-cpns/count-card'
 import { Col, Row } from 'antd'
 import ChartCard from './c-cpns/chart-card'
-import { ICardCountList, fetchCardCountList, fetchPageView } from './service'
+import { ICardCountList, areaMapCount, fetchCardCountList, fetchPageView } from './service'
 import HistogramEchart from './c-cpns/histogram-echart'
 import RoseEchart from './c-cpns/rose-echart'
+import MapEchart from '@/base-ui/page-echars/src/map-echart'
 
 interface IProps {
   children?: ReactNode
@@ -64,7 +65,9 @@ const Dashboard: FC<IProps> = () => {
             </ChartCard>
           </Col>
           <Col span={8}>
-            <ChartCard title="不同城市访问统计">测试</ChartCard>
+            <ChartCard title="不同城市访问统计">
+              <MapEchart mapData={areaMapCount} />
+            </ChartCard>
           </Col>
           <Col span={6}>
             <ChartCard title="占比统计（玫瑰图）">

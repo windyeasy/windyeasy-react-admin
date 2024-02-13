@@ -3,12 +3,15 @@ import type { FC, ReactNode } from 'react'
 import * as echarts from 'echarts'
 import type { EChartsOption } from 'echarts'
 import { transformSize } from '@/utils/transform-size'
+import { ChinaJSON } from '../../utils/convert-data'
 interface IProps {
   children?: ReactNode
   width?: number | string
   height?: number | string
   option?: EChartsOption
 }
+// 注册地图
+echarts.registerMap('china', ChinaJSON as any)
 
 const BaseEachart: FC<IProps> = (props) => {
   const { width = '100%', height = 300, option = {} } = props
@@ -18,7 +21,9 @@ const BaseEachart: FC<IProps> = (props) => {
   const chartRef = useRef<echarts.ECharts | null>(null)
   // 初始实例化
   useEffect(() => {
-    const chart = echarts.init(el.current)
+    const chart = echarts.init(el.current, 'light', {
+      renderer: 'canvas'
+    })
     chartRef.current = chart
     chart.setOption(option)
     // 窗口尺寸发生变化，更新chart的大小
