@@ -8,6 +8,8 @@ import { ICardCountList, areaMapCount, fetchCardCountList, fetchPageView } from 
 import HistogramEchart from './c-cpns/histogram-echart'
 import RoseEchart from './c-cpns/rose-echart'
 import MapEchart from '@/base-ui/page-echars/src/map-echart'
+import AreaEchart from './c-cpns/area-echart'
+import LineEchart from './c-cpns/line-echart'
 
 interface IProps {
   children?: ReactNode
@@ -77,10 +79,14 @@ const Dashboard: FC<IProps> = () => {
         </Row>
         <Row gutter={10} style={{ marginTop: '10px' }}>
           <Col span={12}>
-            <ChartCard title="分类商品的销量">测试</ChartCard>
+            <ChartCard title="堆叠统计图">
+              <AreaEchart />
+            </ChartCard>
           </Col>
           <Col span={12}>
-            <ChartCard title="分类商品的收藏">测试</ChartCard>
+            <ChartCard title="折线图">
+              <LineEchart />
+            </ChartCard>
           </Col>
         </Row>
       </div>

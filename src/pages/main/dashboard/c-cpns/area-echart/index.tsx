@@ -10,9 +10,7 @@ interface IProps {
 const AreaChart: FC<IProps> = () => {
   const option: EChartsOption = {
     color: ['#80FFA5', '#00DDFF', '#37A2FF', '#FF0087', '#FFBF00'],
-    title: {
-      text: 'Gradient Stacked Area Chart'
-    },
+
     tooltip: {
       trigger: 'axis',
       axisPointer: {
@@ -24,11 +22,6 @@ const AreaChart: FC<IProps> = () => {
     },
     legend: {
       data: ['Line 1', 'Line 2', 'Line 3', 'Line 4', 'Line 5']
-    },
-    toolbox: {
-      feature: {
-        saveAsImage: {}
-      }
     },
     grid: {
       left: '3%',
