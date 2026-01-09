@@ -31,7 +31,7 @@ function App() {
       return <Navigate to="/main" />
     }
     if (path === '/main' && isLogin) {
-      const path = firstMenu ? firstMenu.url ?? '' : ''
+      const path = firstMenu ? (firstMenu.url ?? '') : ''
       return <Navigate to={path} />
     }
   }
