@@ -30,6 +30,7 @@ module.exports = {
   rules: {
     '@typescript-eslint/no-var-requires': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
-    'no-debugger': 'off'
+    'no-debugger': 'off',
+    'prettier/prettier': ['error', { endOfLine: 'auto' }]
   }
 }
